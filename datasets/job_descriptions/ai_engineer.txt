@@ -1,0 +1,6 @@
+Job Title: AI / ML Engineer
+Location: Hyderabad / Chennai
+Experience: 0-2 Years
+Required Skills: Python, PyTorch, TensorFlow, Scikit-learn, NLP, LLM, Computer Vision, Transformers, FastApi, REST API
+Role Overview:
+Build and deploy machine learning models, fine-tune open-source LLMs, develop Retrieval-Augmented Generation (RAG) pipelines, and integrate AI APIs into production web systems.

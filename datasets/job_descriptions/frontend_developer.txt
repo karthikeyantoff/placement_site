@@ -1,0 +1,6 @@
+Job Title: Frontend UI/UX Developer
+Location: Chennai
+Experience: 0-1 Year
+Required Skills: HTML5, Tailwind CSS, JavaScript ES6+, React, Responsive Design, Web Accessibility, Figma to Code
+Role Overview:
+Craft visually stunning, fast, and accessible user interfaces. Implement smooth micro-interactions, dark/light themes, and seamless API integrations.

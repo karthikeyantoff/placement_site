@@ -1,0 +1,6 @@
+Job Title: Cloud & DevOps Engineer
+Location: Chennai / Bengaluru
+Experience: 0-2 Years
+Required Skills: AWS, Docker, Kubernetes, Linux, Python, CI/CD, Terraform, GitHub Actions, Nginx
+Role Overview:
+Manage cloud infrastructure, containerize applications, configure serverless architectures on Vercel/AWS, and automate deployments.

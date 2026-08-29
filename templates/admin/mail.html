@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}PMS Admin - Verification Mail Inbox{% endblock %}
+{% block header_title %}Lead Submission Verification Inbox{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div>
+        <h3 class="text-sm font-bold text-slate-100 uppercase tracking-widest">Verification Mailbox</h3>
+        <p class="text-xs text-slate-500">Conduct corporate verification, download official dossiers, and approve placement drives.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left: Mail list -->
+        <div class="lg:col-span-1 glass-panel rounded-2xl p-4 shadow-xl space-y-4 max-h-[70vh] overflow-y-auto">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-2">Submissions Box</h4>
+            <div id="mail-list" class="space-y-2">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Right: Mail Detail View -->
+        <div class="lg:col-span-2 glass-panel rounded-2xl p-6 shadow-xl min-h-[50vh] flex flex-col justify-between" id="mail-detail-container">
+            <div class="text-center py-20 text-slate-500" id="mail-empty-state">
+                <svg class="w-12 h-12 mx-auto mb-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <p class="text-xs font-bold uppercase tracking-wider">Select a lead verification mail to review.</p>
+            </div>
+            
+            <div class="hidden flex-1 flex flex-col justify-between" id="mail-content-area">
+                <!-- Filled dynamically by JS -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentNotifications = [];
+    let selectedCompanyId = null;
+    let selectedNotificationId = null;
+
+    async function loadMailInbox() {
+        try {
+            const res = await fetch('/api/notifications');
+            if (res.ok) {
+                currentNotifications = await res.json();
+                renderMailList(currentNotifications);
+            }
+        } catch (e) {
+            showToast("Failed to load inbox.", "error");
+        }
+    }
+
+    function renderMailList(notifications) {
+        const list = document.getElementById('mail-list');
+        const submissions = notifications.filter(n => n.type === 'COMPANY_SUBMISSION');
+
+        if (submissions.length === 0) {
+            list.innerHTML = `<p class="text-slate-500 text-center py-8 text-xs font-bold">No sourced leads forwarded.</p>`;
+            return;
+        }
+
+        list.innerHTML = submissions.map(n => `
+            <div onclick="selectMail('${n._id}', '${n.company_id}')" class="p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${n.status === 'UNREAD' ? 'bg-indigo-600/5 border-indigo-500/20 text-slate-100 hover:bg-indigo-600/10' : 'border-slate-800/60 hover:bg-slate-800/30 text-slate-400'}">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold text-xs truncate max-w-[120px]">${n.company_name}</span>
+                    <span class="text-[9px] text-slate-500 font-mono">${n.created_at.split(' ')[0] || ''}</span>
+                </div>
+                <p class="text-[10px] text-slate-500 truncate">From: ${n.sender}</p>
+            </div>
+        `).join('');
+    }
+
+    async function selectMail(notifId, companyId) {
+        selectedCompanyId = companyId;
+        selectedNotificationId = notifId;
+
+        // Mark notification as read immediately
+        try {
+            await fetch(`/api/notifications/${notifId}/read`, { method: 'PUT' });
+            loadMailInbox(); // reload list state
+        } catch (e) {}
+
+        // Fetch company details to verify
+        try {
+            const res = await fetch(`/api/companies/${companyId}`);
+            if (res.ok) {
+                const c = await res.json();
+                renderMailDetail(c);
+            }
+        } catch (err) {
+            showToast("Failed to load company dossier.", "error");
+        }
+    }
+
+    function renderMailDetail(c) {
+        document.getElementById('mail-empty-state').classList.add('hidden');
+        const content = document.getElementById('mail-content-area');
+        content.classList.remove('hidden');
+
+        content.innerHTML = `
+            <div class="space-y-6 text-xs">
+                <!-- Card Header -->
+                <div class="flex items-center justify-between border-b border-slate-850 pb-4">
+                    <div>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-indigo-400">Dossier for Verification</span>
+                        <h4 class="text-lg font-black text-white mt-0.5">${c.company_name}</h4>
+                    </div>
+                    <a href="/api/companies/${c._id}/pdf" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-750 px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition active:scale-95">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
+                        Download PDF Dossier
+                    </a>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Headquarters Location</span>
+                        <p class="text-slate-200 font-semibold text-sm">${c.location}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Corporate Website</span>
+                        <a href="${c.website}" target="_blank" class="text-indigo-400 font-semibold hover:underline block text-sm">${c.website}</a>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">HR Email Channel</span>
+                        <p class="text-slate-200 font-semibold text-sm">${c.hr_email}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">HR Phone Number</span>
+                        <p class="text-slate-200 font-semibold text-sm">${c.hr_phone}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Job Profiles & Overview</span>
+                    <p class="text-slate-300 bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/80 leading-relaxed font-semibold">${c.content}</p>
+                </div>
+
+                <div class="space-y-1">
+                    <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Corporate Address</span>
+                    <p class="text-slate-300 leading-relaxed font-semibold">${c.company_address}</p>
+                </div>
+
+                <div class="space-y-1 border-t border-slate-850 pt-4 flex justify-between text-[11px] text-slate-500">
+                    <span>Sourcing Agent: <strong class="text-slate-400">${c.submitted_by}</strong></span>
+                    <span>Submission Status: <strong class="text-amber-500 uppercase">${c.approval_status}</strong></span>
+                </div>
+            </div>
+
+            <!-- Actions block -->
+            <div class="flex justify-end gap-3 pt-6 border-t border-slate-850 mt-6">
+                <button onclick="verifyReject()" class="bg-red-500/10 hover:bg-red-650 text-red-400 hover:text-white px-5 py-2.5 rounded-xl font-bold border border-red-500/20 transition active:scale-95">
+                    Reject Sourcing
+                </button>
+                <button onclick="verifyApprove()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-emerald-500/15 active:scale-95">
+                    Approve Corporate Partner
+                </button>
+            </div>
+        `;
+    }
+
+    async function verifyApprove() {
+        if (!selectedCompanyId) return;
+        try {
+            const res = await fetch(`/api/companies/${selectedCompanyId}/approve`, { method: 'POST' });
+            if (res.ok) {
+                showToast("Company verified & approved successfully.", "success");
+                
+                // Clear detail view
+                document.getElementById('mail-content-area').classList.add('hidden');
+                document.getElementById('mail-empty-state').classList.remove('hidden');
+                
+                loadMailInbox();
+            }
+        } catch (e) {
+            showToast("Server communication error.", "error");
+        }
+    }
+
+    async function verifyReject() {
+        if (!selectedCompanyId) return;
+        try {
+            const res = await fetch(`/api/companies/${selectedCompanyId}/reject`, { method: 'POST' });
+            if (res.ok) {
+                showToast("Verification rejected. Lead notified.", "warning");
+                
+                document.getElementById('mail-content-area').classList.add('hidden');
+                document.getElementById('mail-empty-state').classList.remove('hidden');
+                
+                loadMailInbox();
+            }
+        } catch (e) {
+            showToast("Server error.", "error");
+        }
+    }
+
+    loadMailInbox();
+</script>
+{% endblock %}

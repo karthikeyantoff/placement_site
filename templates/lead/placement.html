@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block title %}PMS Lead - Sourcing Pipeline{% endblock %}
+{% block header_title %}Corporate Outreach Pipeline{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Action Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h3 class="text-sm font-bold text-slate-100 uppercase tracking-widest">Sourced Lead Inventory</h3>
+            <p class="text-xs text-slate-500">Record cold/warm calls, save details, and forward dossiers for Admin verification.</p>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <button onclick="openAddCompanyModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/10 transition active:scale-95">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Source Company
+            </button>
+        </div>
+    </div>
+
+    <!-- Company Pipeline Grid/Table -->
+    <div class="glass-panel rounded-2xl shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="bg-slate-900/50 border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                        <th class="p-4">Company Name</th>
+                        <th class="p-4">Location</th>
+                        <th class="p-4">HR Contact Info</th>
+                        <th class="p-4">Approval Status</th>
+                        <th class="p-4">Placement Path</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="company-table-body" class="divide-y divide-slate-800/50">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================= ADD / EDIT COMPANY MODAL ================= -->
+<div id="company-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+        <!-- Modal Header -->
+        <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+            <h4 id="modal-title" class="text-sm font-bold uppercase tracking-wider text-slate-200">Source New Corporate Lead</h4>
+            <button onclick="closeCompanyModal()" class="text-slate-500 hover:text-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Modal Body (Form) -->
+        <form id="company-form" onsubmit="handleFormSubmit(event)" class="overflow-y-auto p-6 space-y-6 text-xs flex-1">
+            <input type="hidden" id="form-company-id">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5 sm:col-span-2">
+                    <label class="font-semibold text-slate-300">Company Name *</label>
+                    <input type="text" id="form-name" required placeholder="e.g. Zoho Corporation" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Office Location / City *</label>
+                    <input type="text" id="form-location" required placeholder="e.g. Chennai" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Company Website URL *</label>
+                    <input type="url" id="form-website" required placeholder="e.g. https://zoho.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">HR Contact Phone *</label>
+                    <input type="text" id="form-hr-phone" required placeholder="Enter phone" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">HR Contact Email *</label>
+                    <input type="email" id="form-hr-email" required placeholder="Enter corporate email" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5 sm:col-span-2">
+                    <label class="font-semibold text-slate-300">Overview / Job Profiles offered *</label>
+                    <textarea id="form-content" required rows="3" placeholder="Describe profiles offered or drive details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                <div class="space-y-1.5 sm:col-span-2">
+                    <label class="font-semibold text-slate-300">Full Office Address *</label>
+                    <textarea id="form-address" required rows="2" placeholder="Enter physical location details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="flex justify-end gap-3 border-t border-slate-800 pt-6">
+                <button type="button" onclick="closeCompanyModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-semibold px-4 py-2.5 rounded-xl transition">Cancel</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/10">Save Sourced Lead</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let sourcedDataset = [];
+
+    async function loadSourcedCompanies() {
+        try {
+            const res = await fetch('/api/companies');
+            if (res.ok) {
+                sourcedDataset = await res.json();
+                renderTable(sourcedDataset);
+            }
+        } catch (e) {
+            showToast("Failed to connect to backend api.", "error");
+        }
+    }
+
+    function renderTable(companies) {
+        const body = document.getElementById('company-table-body');
+        if (companies.length === 0) {
+            body.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-8">No sourced companies. Click "Source Company" to log a lead.</td></tr>`;
+            return;
+        }
+
+        body.innerHTML = companies.map(c => {
+            const isApproved = c.approval_status === 'APPROVED';
+            const isPending = c.approval_status === 'PENDING';
+            const isForwarded = c.is_forwarded;
+
+            let approvalBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+            if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+            if (c.approval_status === 'REJECTED') approvalBadge = "bg-red-500/10 text-red-400 border-red-500/20";
+
+            let pathBadge = "bg-slate-850 text-slate-400 border-slate-700/60";
+            if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+            if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
+            if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+
+            return `
+                <tr class="hover:bg-slate-850/20 transition">
+                    <td class="p-4 font-bold text-slate-200">
+                        <div>
+                            <span class="text-sm">${c.company_name}</span>
+                            <a href="${c.website}" target="_blank" class="block text-[10px] text-slate-500 hover:text-indigo-400 hover:underline mt-0.5">${c.website}</a>
+                        </div>
+                    </td>
+                    <td class="p-4 text-slate-400">${c.location}</td>
+                    <td class="p-4 text-slate-400">
+                        <div>${c.hr_email}</div>
+                        <div class="text-[10px] text-slate-500">${c.hr_phone}</div>
+                    </td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase border ${approvalBadge}">
+                            ${c.approval_status}
+                        </span>
+                    </td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase border ${pathBadge}">
+                            ${c.placement_status}
+                        </span>
+                    </td>
+                    <td class="p-4 text-right space-x-1.5 whitespace-nowrap">
+                        ${!isApproved && !isForwarded ? `
+                            <button onclick="editCompany('${c._id}')" class="bg-slate-850 hover:bg-slate-800 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-750 font-bold transition">Edit</button>
+                            <button onclick="forwardCompany('${c._id}', '${c.company_name}')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-bold transition">Forward</button>
+                        ` : isForwarded && !isApproved ? `
+                            <span class="inline-block text-[10px] text-amber-500 font-bold bg-amber-500/5 border border-amber-500/10 px-2.5 py-1.5 rounded-lg">Verification Pending</span>
+                        ` : `
+                            <span class="inline-block text-[10px] text-emerald-400 font-bold bg-emerald-500/5 border border-emerald-500/10 px-2.5 py-1.5 rounded-lg">Verified Partner</span>
+                        `}
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function openAddCompanyModal() {
+        document.getElementById('modal-title').innerText = "Source New Corporate Lead";
+        document.getElementById('form-company-id').value = "";
+        document.getElementById('company-form').reset();
+        document.getElementById('company-modal').classList.remove('hidden');
+    }
+
+    function closeCompanyModal() {
+        document.getElementById('company-modal').classList.add('hidden');
+    }
+
+    async function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const companyId = document.getElementById('form-company-id').value;
+        const payload = {
+            company_name: document.getElementById('form-name').value,
+            location: document.getElementById('form-location').value,
+            website: document.getElementById('form-website').value,
+            hr_phone: document.getElementById('form-hr-phone').value,
+            hr_email: document.getElementById('form-hr-email').value,
+            content: document.getElementById('form-content').value,
+            company_address: document.getElementById('form-address').value
+        };
+        
+        let url = '/api/companies';
+        let method = 'POST';
+        
+        if (companyId) {
+            url = `/api/companies/${companyId}`;
+            method = 'PUT';
+        }
+        
+        try {
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            const data = await res.json();
+            if (res.ok) {
+                showToast(companyId ? "Lead updated successfully." : "Lead saved as COLD draft.", "success");
+                closeCompanyModal();
+                loadSourcedCompanies();
+            } else {
+                showToast(data.error || "Failed to save company details.", "error");
+            }
+        } catch (err) {
+            showToast("Server communication error.", "error");
+        }
+    }
+
+    async function editCompany(id) {
+        try {
+            const res = await fetch(`/api/companies/${id}`);
+            if (res.ok) {
+                const c = await res.json();
+                
+                document.getElementById('modal-title').innerText = `Edit Sourced Lead: ${c.company_name}`;
+                document.getElementById('form-company-id').value = c._id;
+                document.getElementById('form-name').value = c.company_name;
+                document.getElementById('form-location').value = c.location;
+                document.getElementById('form-website').value = c.website;
+                document.getElementById('form-hr-phone').value = c.hr_phone;
+                document.getElementById('form-hr-email').value = c.hr_email;
+                document.getElementById('form-content').value = c.content;
+                document.getElementById('form-address').value = c.company_address;
+                
+                document.getElementById('company-modal').classList.remove('hidden');
+            }
+        } catch (err) {
+            showToast("Failed to fetch lead records.", "error");
+        }
+    }
+
+    async function forwardCompany(id, name) {
+        if (confirm(`Forward "${name}" dossier to Admin super-verify panel?\nThis freezes lead editing until background verification finishes.`)) {
+            try {
+                const res = await fetch(`/api/companies/${id}/forward`, { method: 'POST' });
+                const data = await res.json();
+                
+                if (res.ok && data.success) {
+                    showToast("Lead forwarded for verification.", "success");
+                    loadSourcedCompanies();
+                } else {
+                    showToast(data.error || "Failed to forward.", "error");
+                }
+            } catch (err) {
+                showToast("Server error.", "error");
+            }
+        }
+    }
+
+    loadSourcedCompanies();
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+Job Title: Backend API Engineer
+Location: Bengaluru / Remote
+Experience: 0-2 Years
+Required Skills: Python, Node.js, Flask, PostgreSQL, MongoDB, Redis, Microservices, REST API, JWT Authentication
+Role Overview:
+Build high throughput backend services, implement caching, optimize database queries, and secure backend endpoints with RBAC.

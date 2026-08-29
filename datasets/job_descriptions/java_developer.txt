@@ -1,0 +1,6 @@
+Job Title: Java Full Stack Developer
+Location: Coimbatore / Chennai
+Experience: 0-2 Years
+Required Skills: Java, Spring Boot, Hibernate, MySQL, HTML5, JavaScript, REST APIs, Microservices, Maven
+Role Overview:
+Develop enterprise Java Spring Boot backend microservices and maintain secure, transactional business applications.

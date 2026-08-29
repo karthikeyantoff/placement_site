@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}PMS Admin - Corporate Pipeline{% endblock %}
+{% block header_title %}Institutional Sourcing Directory & Pipeline{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h3 class="text-sm font-bold text-slate-100 uppercase tracking-widest">Master Sourcing Pipeline</h3>
+            <p class="text-xs text-slate-500">Track company engagement stages, schedule drive dates, and log final selections.</p>
+        </div>
+        <div class="relative w-64">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </span>
+            <input type="text" id="company-search-input" onkeyup="filterCompanies()" placeholder="Search Company or City..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 pl-9 pr-4 text-xs placeholder-slate-500 text-slate-200 focus:outline-none focus:border-indigo-500">
+        </div>
+    </div>
+
+    <!-- Company Pipeline Table -->
+    <div class="glass-panel rounded-2xl shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="bg-slate-900/50 border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                        <th class="p-4">Company Name</th>
+                        <th class="p-4">Location</th>
+                        <th class="p-4">Verification</th>
+                        <th class="p-4">Pipeline Status</th>
+                        <th class="p-4">Drive Date</th>
+                        <th class="p-4">Offers Issued</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="company-table-body" class="divide-y divide-slate-800/50">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================= EDIT COMPANY STATUS MODAL ================= -->
+<div id="status-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Progress Corporate Pipeline</h4>
+            <button onclick="closeStatusModal()" class="text-slate-500 hover:text-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <form onsubmit="saveStatusChanges(event)" class="space-y-4 text-xs">
+            <input type="hidden" id="status-company-id">
+            
+            <div class="space-y-1.5">
+                <label class="font-semibold text-slate-300">Company Name</label>
+                <input type="text" id="status-name" readonly class="w-full bg-slate-950/80 border border-slate-850 rounded-lg p-2.5 text-slate-400 focus:outline-none">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Approval Status</label>
+                    <select id="status-approval" class="w-full bg-slate-950 border border-slate-850 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                        <option value="PENDING">PENDING</option>
+                        <option value="APPROVED">APPROVED</option>
+                        <option value="REJECTED">REJECTED</option>
+                    </select>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Placement Path Stage</label>
+                    <select id="status-placement" class="w-full bg-slate-950 border border-slate-850 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                        <option value="COLD">COLD (Sourced / Draft)</option>
+                        <option value="WARM">WARM (JD Received)</option>
+                        <option value="HOT">HOT (Schedule Confirmed)</option>
+                        <option value="DRIVE_COMPLETED">DRIVE COMPLETED</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Schedule Drive Date</label>
+                    <input type="date" id="status-drive-date" class="w-full bg-slate-950 border border-slate-850 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-semibold text-slate-300">Offers Selections Count</label>
+                    <input type="number" id="status-offers" class="w-full bg-slate-950 border border-slate-850 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                </div>
+            </div>
+            
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
+                <button type="button" onclick="closeStatusModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-semibold px-4 py-2 transition">Cancel</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 transition rounded-xl">Save Pipeline Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let masterCompanies = [];
+
+    async function loadCompanies() {
+        try {
+            const res = await fetch('/api/companies');
+            if (res.ok) {
+                masterCompanies = await res.json();
+                renderTable(masterCompanies);
+            }
+        } catch (e) {
+            showToast("Failed to fetch corporate directory.", "error");
+        }
+    }
+
+    function renderTable(companies) {
+        const body = document.getElementById('company-table-body');
+        if (companies.length === 0) {
+            body.innerHTML = `<tr><td colspan="7" class="text-center text-slate-500 py-8">No companies logged in database.</td></tr>`;
+            return;
+        }
+
+        body.innerHTML = companies.map(c => {
+            let approvalBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+            if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+            if (c.approval_status === 'REJECTED') approvalBadge = "bg-red-500/10 text-red-400 border-red-500/20";
+
+            let pathBadge = "bg-slate-850 text-slate-400 border-slate-700/60";
+            if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+            if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
+            if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+
+            return `
+                <tr class="hover:bg-slate-850/20 transition">
+                    <td class="p-4 font-bold text-slate-200">
+                        <div>
+                            <span class="text-sm">${c.company_name}</span>
+                            <a href="${c.website}" target="_blank" class="block text-[10px] text-slate-500 hover:text-indigo-400 hover:underline mt-0.5">${c.website}</a>
+                        </div>
+                    </td>
+                    <td class="p-4 text-slate-400">${c.location}</td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase border border-slate-700 ${approvalBadge}">
+                            ${c.approval_status}
+                        </span>
+                    </td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase border ${pathBadge}">
+                            ${c.placement_status}
+                        </span>
+                    </td>
+                    <td class="p-4 font-semibold text-slate-300">${c.drive_date || 'TBD'}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded font-bold ${c.offers_count > 0 ? 'bg-indigo-500/10 text-indigo-400' : 'bg-slate-800 text-slate-500'}">
+                            ${c.offers_count || 0} Offers
+                        </span>
+                    </td>
+                    <td class="p-4 text-right space-x-1 whitespace-nowrap">
+                        <button onclick="openStatusModal('${c._id}')" class="bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg font-bold transition">Manage Stage</button>
+                        <button onclick="deleteCompany('${c._id}', '${c.company_name}')" class="bg-red-500/10 hover:bg-red-650 text-red-400 hover:text-white px-2.5 py-1.5 rounded-lg font-bold transition">Delete</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function filterCompanies() {
+        const val = document.getElementById('company-search-input').value.toLowerCase();
+        const filtered = masterCompanies.filter(c => 
+            c.company_name.toLowerCase().includes(val) || 
+            c.location.toLowerCase().includes(val)
+        );
+        renderTable(filtered);
+    }
+
+    async function openStatusModal(id) {
+        try {
+            const res = await fetch(`/api/companies/${id}`);
+            if (res.ok) {
+                const c = await res.json();
+                
+                document.getElementById('status-company-id').value = c._id;
+                document.getElementById('status-name').value = c.company_name;
+                document.getElementById('status-approval').value = c.approval_status;
+                document.getElementById('status-placement').value = c.placement_status;
+                document.getElementById('status-drive-date').value = c.drive_date || "";
+                document.getElementById('status-offers').value = c.offers_count || 0;
+                
+                document.getElementById('status-modal').classList.remove('hidden');
+            }
+        } catch (e) {
+            showToast("Failed to fetch company details.", "error");
+        }
+    }
+
+    function closeStatusModal() {
+        document.getElementById('status-modal').classList.add('hidden');
+    }
+
+    async function saveStatusChanges(e) {
+        e.preventDefault();
+        
+        const id = document.getElementById('status-company-id').value;
+        const payload = {
+            approval_status: document.getElementById('status-approval').value,
+            placement_status: document.getElementById('status-placement').value,
+            drive_date: document.getElementById('status-drive-date').value,
+            offers_count: document.getElementById('status-offers').value
+        };
+        
+        try {
+            const res = await fetch(`/api/companies/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (res.ok) {
+                showToast("Company status updated.", "success");
+                closeStatusModal();
+                loadCompanies();
+            } else {
+                showToast("Failed to update pipeline stage.", "error");
+            }
+        } catch (err) {
+            showToast("Server connection error.", "error");
+        }
+    }
+
+    async function deleteCompany(id, name) {
+        if (confirm(`Delete company "${name}"?`)) {
+            try {
+                const res = await fetch(`/api/companies/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast("Company deleted successfully.", "success");
+                    loadCompanies();
+                }
+            } catch (e) {}
+        }
+    }
+
+    loadCompanies();
+</script>
+{% endblock %}

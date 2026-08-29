@@ -1,0 +1,6 @@
+Job Title: Full Stack Web Developer (Python + React / Tailwind)
+Location: Chennai / Coimbatore
+Experience: 0-2 Years
+Required Skills: HTML5, CSS3, Tailwind CSS, JavaScript, React, Python, Flask, MongoDB, RESTful APIs, Git
+Role Overview:
+Design end-to-end responsive web applications with interactive UI components, secure role-based authentication, and robust REST APIs.

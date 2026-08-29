@@ -1,0 +1,7 @@
+sender,receiver,type,company_name,title,message,status,created_at
+lead-2,sivasubramaniyan,COMPANY_SUBMISSION,Tiger Analytics,New Company Sourced: Tiger Analytics,Lead-2 has submitted Tiger Analytics for Admin background verification.,UNREAD,2026-08-29 10:15:00
+lead-7,sivasubramaniyan,COMPANY_SUBMISSION,Chargebee Technologies,New Company Sourced: Chargebee Technologies,Lead-7 has submitted Chargebee Technologies for Admin background verification.,UNREAD,2026-08-29 11:30:00
+lead-8,sivasubramaniyan,COMPANY_SUBMISSION,Kissflow Software,New Company Sourced: Kissflow Software,Lead-8 has submitted Kissflow Software for Admin background verification.,UNREAD,2026-08-29 12:00:00
+sivasubramaniyan,lead-1,COMPANY_APPROVED,Zoho Corporation,Company Approved: Zoho Corporation,Company Zoho Corporation has been approved. Nice job! Keep going and connect with the next company.,READ,2026-08-10 14:20:00
+sivasubramaniyan,lead-2,COMPANY_APPROVED,Amazon Development Centre,Company Approved: Amazon Development Centre,Company Amazon Development Centre has been approved. Nice job! Keep going and connect with the next company.,READ,2026-08-12 16:00:00
+sivasubramaniyan,lead-3,COMPANY_REJECTED,Apex Info Fake Corp,Company Rejected: Apex Info Fake Corp,Company Apex Info Fake Corp was rejected during verification due to unverified registration and fake contact numbers.,READ,2026-08-25 09:30:00

@@ -1,0 +1,6 @@
+Job Title: Python Backend Developer
+Location: Chennai / Remote
+Experience: 0-2 Years / Freshers
+Required Skills: Python, Flask, Django, REST API, MongoDB, SQL, Git, Linux, Docker, Unit Testing
+Role Overview:
+We are looking for a passionate Python Developer to design and develop scalable backend APIs, database models, and web applications. You will collaborate with frontend teams and integrate third-party services like Cloudinary, Payment Gateways, and AI models.

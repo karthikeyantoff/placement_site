@@ -1,0 +1,6 @@
+Job Title: Data Scientist & Predictive Modeling Specialist
+Location: Chennai
+Experience: 0-2 Years
+Required Skills: Python, R, Machine Learning, Deep Learning, Statistics, Scipy, Matplotlib, Seaborn, SQL
+Role Overview:
+Derive statistical hypotheses, build predictive scoring algorithms, conduct exploratory data analysis, and present findings to leadership.

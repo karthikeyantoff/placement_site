@@ -1,0 +1,26 @@
+company_name,location,website,content,hr_phone,hr_email,company_address,approval_status,placement_status,submitted_by,approved_by,drive_date,offers_count
+Zoho Corporation,Chennai,https://zohocorp.com,SaaS Enterprise Software & Cloud Suite,9876500001,hr.campus@zohocorp.com,"Estancia IT Park, Guduvanchery, Chennai",APPROVED,DRIVE_COMPLETED,lead-1,sivasubramaniyan,2026-08-10,6
+Amazon Development Centre,Chennai,https://amazon.jobs,"E-Commerce, Cloud AWS & AI Solutions",9876500002,in-campus@amazon.com,"SP Infocity, Perungudi, Chennai",APPROVED,DRIVE_COMPLETED,lead-2,sivasubramaniyan,2026-08-12,2
+Freshworks,Chennai,https://freshworks.com,Customer Engagement & Helpdesk SaaS Solutions,9876500003,university-hiring@freshworks.com,"Global Infocity, Perungudi, Chennai",APPROVED,DRIVE_COMPLETED,lead-1,sivasubramaniyan,2026-08-15,3
+Cognizant,Coimbatore,https://cognizant.com,"Global IT Consulting, Digital Engineering & AI",9876500004,campus.south@cognizant.com,"CHIL SEZ, Saravanampatti, Coimbatore",APPROVED,DRIVE_COMPLETED,lead-3,sivasubramaniyan,2026-08-18,4
+TCS Digital & Ninja,Chennai,https://tcs.com,Enterprise IT Services and Digital Solutions,9876500005,campus.tcs@tcs.com,"SIPCOT IT Park, Siruseri, Chennai",APPROVED,DRIVE_COMPLETED,lead-4,sivasubramaniyan,2026-08-20,3
+Infosys Ltd,Mysore,https://infosys.com,Next-Gen Digital Services and IT Consulting,9876500006,talent_acquisition@infosys.com,"Hebbal Industrial Area, Mysore",APPROVED,HOT,lead-2,sivasubramaniyan,2026-09-05,0
+Kaar Technologies,Chennai,https://kaartech.com,Global SAP Digital Transformation Consulting,9876500007,hr@kaartech.com,"Sholinganallur, OMR, Chennai",APPROVED,HOT,lead-5,sivasubramaniyan,2026-09-08,0
+Solartis Technology Services,Madurai,https://solartis.com,Insurance Automation Platform & SaaS,9876500008,madurai_recruitment@solartis.com,"ELCOT IT Park, Ilandhaikulam, Madurai",APPROVED,HOT,lead-6,sivasubramaniyan,2026-09-12,0
+Hexaware Technologies,Chennai,https://hexaware.com,Automation-led Digital IT Solutions,9876500009,campus@hexaware.com,"SIPCOT IT Park, Navalur, Chennai",APPROVED,HOT,lead-3,sivasubramaniyan,2026-09-15,0
+Accenture India,Bengaluru,https://accenture.com,"Strategy, Consulting, Cloud & Technology",9876500010,accenture.campus@accenture.com,"Prestige Tech Park, Bengaluru",APPROVED,HOT,lead-7,sivasubramaniyan,2026-09-20,0
+Wipro Technologies,Bengaluru,https://wipro.com,Cognitive Computing and Cloud Services,9876500011,wipro.earlycareers@wipro.com,"Sarjapur Road, Bengaluru",APPROVED,WARM,lead-8,sivasubramaniyan,,0
+HCL Technologies,Chennai,https://hcltech.com,Supercharging Progress with Digital Solutions,9876500012,freshers@hcl.com,"Elcot SEZ, Sholinganallur, Chennai",APPROVED,WARM,lead-1,sivasubramaniyan,,0
+Renault Nissan Technology,Chennai,https://rntbci.in,Automotive Embedded Systems & Software,9876500013,careers@rntbci.in,"Ascendas Mahindra World City, Chengalpattu",APPROVED,WARM,lead-9,sivasubramaniyan,,0
+L&T Technology Services,Mysore,https://ltts.com,Engineering Research & Product Development,9876500014,talent@ltts.com,"KIADB Industrial Area, Hebbal, Mysore",APPROVED,WARM,lead-10,sivasubramaniyan,,0
+BOSCH Global Software,Coimbatore,https://bosch.in,Mobility Solutions & Embedded Software,9876500015,campus.bosch@in.bosch.com,"TIDEL Park, Peelamedu, Coimbatore",APPROVED,WARM,lead-4,sivasubramaniyan,,0
+Cognitive Scale AI,Hyderabad,https://cognitivescale.com,Applied Generative AI & Decision Intelligence,9876500016,hr@cognitivescale.com,"HITEC City, Madhapur, Hyderabad",APPROVED,COLD,lead-5,sivasubramaniyan,,0
+Trimble Information,Chennai,https://trimble.com,"Geospatial Hardware, Software & Digital Twin",9876500017,india_recruitment@trimble.com,"TIDEL Park, Taramani, Chennai",APPROVED,COLD,lead-6,sivasubramaniyan,,0
+Tiger Analytics,Chennai,https://tigeranalytics.com,AI & Advanced Data Science Consulting,9876500018,careers@tigeranalytics.com,"Ascendas Tech Park, Taramani, Chennai",PENDING,COLD,lead-2,,,0
+Chargebee Technologies,Chennai,https://chargebee.com,Subscription Billing and Revenue Management,9876500019,talent@chargebee.com,"DLF IT Park, Ramapuram, Chennai",PENDING,COLD,lead-7,,,0
+Kissflow Software,Chennai,https://kissflow.com,Low-code Workflow & Digital Workplace Suite,9876500020,careers@kissflow.com,"World Trade Center, Perungudi, Chennai",PENDING,COLD,lead-8,,,0
+Vuram Automation,Trichy,https://vuram.com,Hyperautomation & Enterprise BPM Solutions,9876500021,bpm.hr@vuram.com,"ELCOT SEZ, Navalpattu, Trichy",PENDING,COLD,lead-9,,,0
+LatentView Analytics,Chennai,https://latentview.com,Decision Sciences and Business Analytics,9876500022,talent@latentview.com,"Ramanujan IT City, Taramani, Chennai",PENDING,COLD,lead-10,,,0
+Apex Info Fake Corp,Salem,https://apexinvalidlink.org,Unverified Third Party Contractor Agency,9876500023,fakehr@apexinvalidlink.org,"Near Old Bus Stand, Salem",REJECTED,COLD,lead-3,sivasubramaniyan,,0
+Global Tech Solutions Pvt,Erode,https://nonexistentglob.co,Third Party Consultancy with Registration Issue,9876500024,info@nonexistentglob.co,"Bhavani Road, Erode",REJECTED,COLD,lead-4,sivasubramaniyan,,0
+Rapid Hiring Solutions,Tirunelveli,https://rapidhiringfake.net,Unregistered Training & Placement Vendor,9876500025,contact@rapidhiringfake.net,"South Bypass Road, Tirunelveli",REJECTED,COLD,lead-5,sivasubramaniyan,,0

@@ -1,0 +1,13 @@
+username,name,role,email,password_raw,active
+sivasubramaniyan,Dr. Sivasubramaniyan,admin,placement.head@college.edu,sivu@12345,true
+jeyakannan,Prof. Jeyakannan,manager,placement.mgr@college.edu,jk@12345,true
+lead-1,Student Placement Lead 1,lead,lead1@college.edu,lead1@12345,true
+lead-2,Student Placement Lead 2,lead,lead2@college.edu,lead2@12345,true
+lead-3,Student Placement Lead 3,lead,lead3@college.edu,lead3@12345,true
+lead-4,Student Placement Lead 4,lead,lead4@college.edu,lead4@12345,true
+lead-5,Student Placement Lead 5,lead,lead5@college.edu,lead5@12345,true
+lead-6,Student Placement Lead 6,lead,lead6@college.edu,lead6@12345,true
+lead-7,Student Placement Lead 7,lead,lead7@college.edu,lead7@12345,true
+lead-8,Student Placement Lead 8,lead,lead8@college.edu,lead8@12345,true
+lead-9,Student Placement Lead 9,lead,lead9@college.edu,lead9@12345,true
+lead-10,Student Placement Lead 10,lead,lead10@college.edu,lead10@12345,true

@@ -1,0 +1,6 @@
+Job Title: Machine Learning Ops & Data Scientist
+Location: Bengaluru
+Experience: 0-2 Years
+Required Skills: Python, Scikit-learn, MLflow, Docker, Pandas, Deep Learning, SQL, Kubernetes, Cloud Deployment
+Role Overview:
+Train and evaluate predictive models, build feature engineering pipelines, monitor model drift, and maintain production ML workflows.

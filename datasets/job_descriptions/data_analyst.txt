@@ -1,0 +1,6 @@
+Job Title: Data Analyst & Business Intelligence Specialist
+Location: Bengaluru / Chennai
+Experience: Freshers / 0-1 Year
+Required Skills: Python, Pandas, NumPy, SQL, Tableau, Power BI, Excel, Data Visualization, Statistical Analysis
+Role Overview:
+Analyze large scale business datasets, generate insightful executive dashboards, run SQL queries, and deliver actionable placement and market insights.

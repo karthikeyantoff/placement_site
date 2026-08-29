@@ -1,0 +1,10 @@
+Flask>=3.0.0
+pymongo>=4.0.0
+cloudinary>=1.40.0
+reportlab>=4.0.0
+mongomock>=4.3.0
+python-dotenv>=1.0.0
+werkzeug>=3.0.0
+gunicorn>=21.0.0
+pypdf>=4.0.0
+

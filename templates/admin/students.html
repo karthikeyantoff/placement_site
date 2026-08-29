@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block title %}PMS Admin - Students Directory{% endblock %}
+{% block header_title %}Student Roster & Profiles{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Action Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h3 class="text-lg font-bold text-slate-100 uppercase tracking-wider">Candidate Registry</h3>
+            <p class="text-xs text-slate-500">Search profiles, edit academic details, and register placements.</p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3">
+            <!-- Search bar -->
+            <div class="relative w-64">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" id="student-search-input" onkeyup="filterStudents()" placeholder="Search Reg No or Name..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 pl-9 pr-4 text-xs placeholder-slate-500 text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+            </div>
+            
+            <button onclick="openAddStudentModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/10 transition active:scale-95">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Add Student
+            </button>
+        </div>
+    </div>
+
+    <!-- Student Table Card -->
+    <div class="glass-panel rounded-2xl shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="bg-slate-900/50 border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                        <th class="p-4">Reg Number</th>
+                        <th class="p-4">Student</th>
+                        <th class="p-4">Department</th>
+                        <th class="p-4">Contact Info</th>
+                        <th class="p-4">Graduation</th>
+                        <th class="p-4">Placement Status</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="student-table-body" class="divide-y divide-slate-800/50">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================= ADD / EDIT STUDENT MODAL ================= -->
+<div id="student-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-850 rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+        <!-- Modal Header -->
+        <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+            <h4 id="modal-title" class="text-sm font-bold uppercase tracking-wider text-slate-200">Register New Student</h4>
+            <button onclick="closeStudentModal()" class="text-slate-500 hover:text-slate-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Modal Body (Scrollable form) -->
+        <form id="student-form" onsubmit="handleFormSubmit(event)" class="overflow-y-auto p-6 space-y-6 text-xs flex-1">
+            <input type="hidden" id="form-student-id">
+            
+            <!-- Section 1: Personal Info -->
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Personal Details</h5>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Full Name *</label>
+                        <input type="text" id="form-name" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Registration Number *</label>
+                        <input type="text" id="form-reg-number" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Department *</label>
+                        <select id="form-department" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                            <option value="CSE">Computer Science (CSE)</option>
+                            <option value="IT">Information Technology (IT)</option>
+                            <option value="AI&DS">Artificial Intelligence (AI&DS)</option>
+                            <option value="ECE">Electronics & Communication (ECE)</option>
+                            <option value="EEE">Electrical & Electronics (EEE)</option>
+                            <option value="MECH">Mechanical Eng (MECH)</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Gender *</label>
+                        <select id="form-gender" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Student Type *</label>
+                        <select id="form-student-type" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                            <option value="Day Scholar">Day Scholar</option>
+                            <option value="Hosteller">Hosteller</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Year of Graduation *</label>
+                        <input type="number" id="form-year" required value="2025" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Contact Details -->
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Contact Info</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Phone Number *</label>
+                        <input type="text" id="form-phone" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Email Address *</label>
+                        <input type="email" id="form-email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Academics -->
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Academic Percentages (%)</h5>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">SSLC % *</label>
+                        <input type="number" step="0.01" id="form-sslc" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">HSC % *</label>
+                        <input type="number" step="0.01" id="form-hsc" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">UG CGPA/ % *</label>
+                        <input type="number" step="0.01" id="form-ug" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">PG % (Optional)</label>
+                        <input type="number" step="0.01" id="form-pg" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Portfolios & Professional Uploads (Cloudinary integration) -->
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Professional Portfolio & Media Links</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">GitHub Link</label>
+                        <input type="url" id="form-github" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">LinkedIn Profile Link</label>
+                        <input type="url" id="form-linkedin" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Portfolio Website Link</label>
+                        <input type="url" id="form-portfolio" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Self Introduction Link / Video</label>
+                        <input type="url" id="form-self-intro-link" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    
+                    <!-- File Uploads (Photo, Resume) -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Upload Profile Photo *</label>
+                        <input type="file" id="form-photo-file" accept="image/*" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-400 focus:outline-none focus:border-indigo-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-700">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Upload Resume (PDF) *</label>
+                        <input type="file" id="form-resume-file" accept=".pdf" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-400 focus:outline-none focus:border-indigo-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-700">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Placement status details -->
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Placement Status</h5>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="font-semibold text-slate-300">Status *</label>
+                        <select id="form-placement-status" onchange="togglePlacementFields()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                            <option value="YTPP">YTPP (Yet To Be Placed)</option>
+                            <option value="PLACED">Placed</option>
+                            <option value="UNENROLLED">Unenrolled</option>
+                        </select>
+                    </div>
+                    <div id="placement-company-field" class="hidden space-y-1.5">
+                        <label class="font-semibold text-slate-300">Placed Company Name *</label>
+                        <input type="text" id="form-placed-company" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div id="placement-ctc-field" class="hidden space-y-1.5">
+                        <label class="font-semibold text-slate-300">Package (CTC in LPA) *</label>
+                        <input type="number" step="0.1" id="form-ctc-lpa" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="flex justify-end gap-3 border-t border-slate-800 pt-6">
+                <button type="button" onclick="closeStudentModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-semibold px-4 py-2.5 rounded-xl transition">Cancel</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/10">Save Student Details</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= VIEW PROFILE MODAL ================= -->
+<div id="view-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto flex flex-col shadow-2xl relative">
+        <!-- Close Button -->
+        <button onclick="closeViewModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 z-10 bg-slate-950/45 p-1.5 rounded-lg border border-slate-800/80">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div id="view-profile-card">
+            <!-- Rendered dynamically -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let studentDataset = [];
+
+    async function loadStudents() {
+        try {
+            const res = await fetch('/api/students');
+            if (res.ok) {
+                studentDataset = await res.json();
+                renderStudentTable(studentDataset);
+            } else {
+                showToast("Could not load student registry.", "error");
+            }
+        } catch (e) {
+            showToast("Server error during loading.", "error");
+        }
+    }
+
+    function renderStudentTable(students) {
+        const body = document.getElementById('student-table-body');
+        if (students.length === 0) {
+            body.innerHTML = `<tr><td colspan="7" class="text-center text-slate-500 py-8">No students found.</td></tr>`;
+            return;
+        }
+
+        body.innerHTML = students.map(s => {
+            let badgeColor = "bg-slate-800 text-slate-400 border-slate-700/60";
+            if (s.placement_status === 'PLACED') badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+            if (s.placement_status === 'YTPP') badgeColor = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+
+            return `
+                <tr class="hover:bg-slate-850/20 transition">
+                    <td class="p-4 font-mono font-bold text-slate-300 select-all">${s.reg_number}</td>
+                    <td class="p-4 font-semibold text-slate-200">
+                        <div class="flex items-center gap-3">
+                            <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" class="w-8 h-8 rounded-full border border-slate-700/60 object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
+                            <span>${s.name}</span>
+                        </div>
+                    </td>
+                    <td class="p-4 text-slate-400">${s.department}</td>
+                    <td class="p-4 text-slate-400">
+                        <div>${s.email}</div>
+                        <div class="text-[10px] text-slate-500">${s.phone}</div>
+                    </td>
+                    <td class="p-4 font-semibold text-slate-300">${s.year_of_graduation}</td>
+                    <td class="p-4">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase border ${badgeColor}">
+                            ${s.placement_status}
+                        </span>
+                    </td>
+                    <td class="p-4 text-right space-x-1 whitespace-nowrap">
+                        <button onclick="viewStudent('${s.reg_number}')" class="bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white px-2.5 py-1.5 rounded-lg font-bold transition">View</button>
+                        <button onclick="editStudent('${s.reg_number}')" class="bg-slate-800 hover:bg-slate-750 text-slate-300 px-2.5 py-1.5 rounded-lg font-bold border border-slate-750 transition">Edit</button>
+                        <button onclick="deleteStudent('${s._id}', '${s.name}')" class="bg-red-500/10 hover:bg-red-650 text-red-400 hover:text-white px-2.5 py-1.5 rounded-lg font-bold transition">Delete</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function filterStudents() {
+        const val = document.getElementById('student-search-input').value.toLowerCase();
+        const filtered = studentDataset.filter(s => 
+            s.reg_number.toLowerCase().includes(val) || 
+            s.name.toLowerCase().includes(val)
+        );
+        renderStudentTable(filtered);
+    }
+
+    // Modal Control functions
+    function openAddStudentModal() {
+        document.getElementById('modal-title').innerText = "Register New Student";
+        document.getElementById('form-student-id').value = "";
+        document.getElementById('student-form').reset();
+        
+        // Ensure unique fields like registration numbers are editable on creation
+        document.getElementById('form-reg-number').removeAttribute('readonly');
+        
+        togglePlacementFields();
+        document.getElementById('student-modal').classList.remove('hidden');
+    }
+
+    function closeStudentModal() {
+        document.getElementById('student-modal').classList.add('hidden');
+    }
+
+    function togglePlacementFields() {
+        const status = document.getElementById('form-placement-status').value;
+        const companyField = document.getElementById('placement-company-field');
+        const ctcField = document.getElementById('placement-ctc-field');
+        
+        if (status === 'PLACED') {
+            companyField.classList.remove('hidden');
+            ctcField.classList.remove('hidden');
+            document.getElementById('form-placed-company').setAttribute('required', 'true');
+            document.getElementById('form-ctc-lpa').setAttribute('required', 'true');
+        } else {
+            companyField.classList.add('hidden');
+            ctcField.classList.add('hidden');
+            document.getElementById('form-placed-company').removeAttribute('required');
+            document.getElementById('form-ctc-lpa').removeAttribute('removeAttribute');
+        }
+    }
+
+    // Handle Forms Creation & Modifications
+    async function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const studentId = document.getElementById('form-student-id').value;
+        const formData = new FormData();
+        
+        // Append text fields
+        formData.append("name", document.getElementById('form-name').value);
+        formData.append("reg_number", document.getElementById('form-reg-number').value);
+        formData.append("department", document.getElementById('form-department').value);
+        formData.append("gender", document.getElementById('form-gender').value);
+        formData.append("student_type", document.getElementById('form-student-type').value);
+        formData.append("year_of_graduation", document.getElementById('form-year').value);
+        formData.append("phone", document.getElementById('form-phone').value);
+        formData.append("email", document.getElementById('form-email').value);
+        
+        formData.append("sslc_percentage", document.getElementById('form-sslc').value);
+        formData.append("hsc_percentage", document.getElementById('form-hsc').value);
+        formData.append("ug_percentage", document.getElementById('form-ug').value);
+        formData.append("pg_percentage", document.getElementById('form-pg').value);
+        
+        formData.append("github_link", document.getElementById('form-github').value);
+        formData.append("linkedin_link", document.getElementById('form-linkedin').value);
+        formData.append("portfolio_link", document.getElementById('form-portfolio').value);
+        formData.append("self_intro_link", document.getElementById('form-self-intro-link').value);
+        
+        formData.append("placement_status", document.getElementById('form-placement-status').value);
+        formData.append("placed_company", document.getElementById('form-placed-company').value);
+        formData.append("ctc_lpa", document.getElementById('form-ctc-lpa').value);
+        
+        // Append files
+        const photoFile = document.getElementById('form-photo-file').files[0];
+        const resumeFile = document.getElementById('form-resume-file').files[0];
+        if (photoFile) formData.append("photo", photoFile);
+        if (resumeFile) formData.append("resume", resumeFile);
+        
+        let url = '/api/students';
+        let method = 'POST';
+        
+        if (studentId) {
+            url = `/api/students/${studentId}`;
+            method = 'PUT';
+        }
+        
+        try {
+            const res = await fetch(url, {
+                method: method,
+                body: formData // Sends multipart form data containing files
+            });
+            
+            const data = await res.json();
+            
+            if (res.ok) {
+                showToast(studentId ? "Student records updated successfully." : "Student registered successfully.", "success");
+                closeStudentModal();
+                loadStudents();
+            } else {
+                showToast(data.error || "Failed to save student details.", "error");
+            }
+        } catch (err) {
+            showToast("Server connection error.", "error");
+        }
+    }
+
+    // View Profile Dynamic Rendering (Actual Photo rendered)
+    async function viewStudent(regNumber) {
+        try {
+            const res = await fetch(`/api/students/${regNumber}`);
+            if (res.ok) {
+                const s = await res.json();
+                
+                const profileCard = document.getElementById('view-profile-card');
+                profileCard.innerHTML = `
+                    <!-- Cover Header -->
+                    <div class="h-28 bg-gradient-to-r from-indigo-800 to-indigo-950 relative"></div>
+                    
+                    <!-- Profile Header Details -->
+                    <div class="px-8 pb-8 space-y-6">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
+                            <div class="relative w-28 h-28 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-950 shadow-2xl shrink-0 -mt-14">
+                                <img src="${s.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'}" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
+                            </div>
+                            <div class="text-center sm:text-left flex-1 min-w-0">
+                                <h3 class="text-xl font-black text-white truncate">${s.name}</h3>
+                                <p class="text-xs text-slate-400 mt-1">Registration Number: <span class="font-mono text-slate-300 font-bold">${s.reg_number}</span></p>
+                            </div>
+                            <span class="inline-block px-3.5 py-1.5 text-xs font-extrabold uppercase rounded-full border ${s.placement_status === 'PLACED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}">
+                                ${s.placement_status} ${s.placement_status === 'PLACED' ? `@ ${s.placed_company} (${s.ctc_lpa} LPA)` : ''}
+                            </span>
+                        </div>
+                        
+                        <!-- Info Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 text-xs">
+                            <!-- Section: Academic Details -->
+                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">Academics</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">Department</span><span class="font-semibold text-slate-200">${s.department}</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">Graduation Year</span><span class="font-semibold text-slate-200">${s.year_of_graduation}</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">SSLC (%)</span><span class="font-semibold text-slate-200">${s.sslc_percentage}%</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">HSC (%)</span><span class="font-semibold text-slate-200">${s.hsc_percentage}%</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">UG Score</span><span class="font-semibold text-slate-200">${s.ug_percentage <= 10 ? s.ug_percentage + ' CGPA' : s.ug_percentage + '%'}</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span class="text-slate-400">PG Percentage</span><span class="font-semibold text-slate-200">${s.pg_percentage ? s.pg_percentage + '%' : 'N/A'}</span>
+                                </div>
+                            </div>
+
+                            <!-- Section: General Details -->
+                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">General & Contact</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">Gender</span><span class="font-semibold text-slate-200">${s.gender}</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">Residence</span><span class="font-semibold text-slate-200">${s.student_type}</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-slate-800/50">
+                                    <span class="text-slate-400">Mobile</span><span class="font-semibold text-slate-200">${s.phone}</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span class="text-slate-400">Email</span><span class="font-semibold text-slate-200 truncate max-w-[150px]">${s.email}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section: Professional Assets Links -->
+                        <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 text-xs">
+                            <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-4">Credentials & Media Links</h5>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="flex items-center gap-2 p-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 rounded-lg font-bold border border-indigo-500/10 transition">
+                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
+                                    <span>Resume PDF</span>
+                                </a>` : ''}
+                                ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                    <span>GitHub</span>
+                                </a>` : ''}
+                                ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                    <span>LinkedIn</span>
+                                </a>` : ''}
+                                ${s.portfolio_link ? `<a href="${s.portfolio_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                    <span>Portfolio</span>
+                                </a>` : ''}
+                                ${s.self_intro_link ? `<a href="${s.self_intro_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                    <span>Intro Video</span>
+                                </a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('view-modal').classList.remove('hidden');
+            } else {
+                showToast("Failed to fetch student details.", "error");
+            }
+        } catch (e) {
+            showToast("Server communication error.", "error");
+        }
+    }
+
+    function closeViewModal() {
+        document.getElementById('view-modal').classList.add('hidden');
+    }
+
+    // Populate Edit fields
+    async function editStudent(regNumber) {
+        try {
+            const res = await fetch(`/api/students/${regNumber}`);
+            if (res.ok) {
+                const s = await res.json();
+                
+                document.getElementById('modal-title').innerText = `Edit Profile: ${s.name}`;
+                document.getElementById('form-student-id').value = s._id;
+                
+                document.getElementById('form-name').value = s.name;
+                document.getElementById('form-reg-number').value = s.reg_number;
+                // Make Reg Number read-only during edits to keep uniqueness integral
+                document.getElementById('form-reg-number').setAttribute('readonly', 'true');
+                
+                document.getElementById('form-department').value = s.department;
+                document.getElementById('form-gender').value = s.gender;
+                document.getElementById('form-student-type').value = s.student_type;
+                document.getElementById('form-year').value = s.year_of_graduation;
+                
+                document.getElementById('form-phone').value = s.phone;
+                document.getElementById('form-email').value = s.email;
+                document.getElementById('form-sslc').value = s.sslc_percentage;
+                document.getElementById('form-hsc').value = s.hsc_percentage;
+                document.getElementById('form-ug').value = s.ug_percentage;
+                document.getElementById('form-pg').value = s.pg_percentage || "";
+                
+                document.getElementById('form-github').value = s.github_link;
+                document.getElementById('form-linkedin').value = s.linkedin_link;
+                document.getElementById('form-portfolio').value = s.portfolio_link;
+                document.getElementById('form-self-intro-link').value = s.self_intro_link;
+                
+                document.getElementById('form-placement-status').value = s.placement_status;
+                document.getElementById('form-placed-company').value = s.placed_company || "";
+                document.getElementById('form-ctc-lpa').value = s.ctc_lpa || "";
+                
+                togglePlacementFields();
+                document.getElementById('student-modal').classList.remove('hidden');
+            } else {
+                showToast("Failed to fetch student record for editing.", "error");
+            }
+        } catch (e) {
+            showToast("Server error.", "error");
+        }
+    }
+
+    async function deleteStudent(id, name) {
+        if (confirm(`Are you absolutely sure you want to delete all records for student: "${name}"?\nThis operation is irreversible.`)) {
+            try {
+                const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast(`Deleted student: ${name}`, "success");
+                    loadStudents();
+                } else {
+                    showToast("Failed to delete student.", "error");
+                }
+            } catch (err) {
+                showToast("Server connection error.", "error");
+            }
+        }
+    }
+
+    // Load directory on mount
+    loadStudents();
+</script>
+{% endblock %}
