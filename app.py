@@ -47,8 +47,17 @@ def create_app():
     @app.errorhandler(500)
     def internal_server_error(e):
         from flask import request, jsonify
+        import traceback
+        original = getattr(e, "original_exception", None)
+        err_msg = str(original) if original else str(e)
+        tb = traceback.format_exc()
         if request.path.startswith("/api/"):
-            return jsonify({"error": "Internal server error occurred", "details": str(e), "code": 500}), 500
+            return jsonify({
+                "error": "Internal server error occurred",
+                "details": err_msg,
+                "traceback": tb,
+                "code": 500
+            }), 500
         return render_template("login.html"), 500
         
     return app
