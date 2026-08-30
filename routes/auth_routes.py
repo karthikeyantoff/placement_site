@@ -37,8 +37,14 @@ def dashboard_page():
         session.clear()
         return redirect(url_for("auth_views.login_page"))
 
-@auth_bp.route("/login", methods=["POST"])
+@auth_bp.route("/login", methods=["POST", "GET", "OPTIONS"], strict_slashes=False)
 def api_login():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+        
+    if request.method == "GET":
+        return redirect(url_for("auth_views.login_page"))
+
     data = request.get_json() or {}
     username = data.get("username", "").strip()
     password = data.get("password", "")
@@ -91,8 +97,11 @@ def api_login():
         "redirect_url": url_for("auth_views.dashboard_page")
     })
 
-@auth_bp.route("/logout", methods=["POST"])
+@auth_bp.route("/logout", methods=["POST", "GET", "OPTIONS"], strict_slashes=False)
 def api_logout():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     username = session.get("username")
     role = session.get("role")
     
@@ -111,14 +120,20 @@ def api_logout():
             pass
             
     session.clear()
+    
+    if request.method == "GET":
+        return redirect(url_for("auth_views.login_page"))
+
     return jsonify({
         "success": True,
         "message": "Logged out successfully.",
         "redirect_url": url_for("auth_views.login_page")
     })
 
-@auth_bp.route("/me", methods=["GET"])
+@auth_bp.route("/me", methods=["GET", "OPTIONS"], strict_slashes=False)
 def api_me():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
     user = get_current_user()
     if not user:
         return jsonify({"authenticated": False}), 401
