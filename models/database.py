@@ -48,6 +48,6 @@ def auto_seed_if_empty(db):
         print("Database is empty. Running auto-seeding...")
         try:
             from seed_data import seed_database
-            seed_database()
+            seed_database(db)
         except Exception as e:
             print(f"Auto-seeding error: {e}")

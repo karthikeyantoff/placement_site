@@ -39,10 +39,16 @@ def create_app():
     # Global error handlers
     @app.errorhandler(404)
     def page_not_found(e):
+        from flask import request, jsonify
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Endpoint not found", "code": 404}), 404
         return render_template("login.html"), 404
         
     @app.errorhandler(500)
     def internal_server_error(e):
+        from flask import request, jsonify
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Internal server error occurred", "details": str(e), "code": 500}), 500
         return render_template("login.html"), 500
         
     return app

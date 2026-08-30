@@ -1,13 +1,15 @@
 import os
 import csv
-from models.database import get_db, init_indexes
 from services.auth_service import hash_password
 
-def seed_database():
-    db = get_db()
-    init_indexes(db)
-    
-    datasets_dir = "datasets"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def seed_database(db=None):
+    if db is None:
+        from models.database import get_db
+        db = get_db()
+        
+    datasets_dir = os.path.join(BASE_DIR, "datasets")
     
     # 1. Seed Users
     user_file = os.path.join(datasets_dir, "users.csv")
