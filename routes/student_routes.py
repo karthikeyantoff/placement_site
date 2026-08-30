@@ -154,7 +154,12 @@ def create_student():
 def update_student(student_id):
     db = get_db()
     
-    student = db.students.find_one({"_id": ObjectId(student_id)})
+    try:
+        query = {"_id": ObjectId(student_id)}
+    except Exception:
+        query = {"reg_number": student_id}
+        
+    student = db.students.find_one(query)
     if not student:
         return jsonify({"error": "Student not found."}), 404
         
@@ -210,7 +215,7 @@ def update_student(student_id):
     if self_intro_url:
         updates["self_intro_url"] = self_intro_url
         
-    db.students.update_one({"_id": ObjectId(student_id)}, {"$set": updates})
+    db.students.update_one({"_id": student["_id"]}, {"$set": updates})
     
     # Audit log
     db.activity_logs.insert_one({
@@ -218,12 +223,12 @@ def update_student(student_id):
         "role": session.get("role"),
         "action": "Student Edited",
         "target_type": "Student",
-        "target_id": student_id,
+        "target_id": str(student["_id"]),
         "timestamp": "ISODate"
     })
     
     # Update Placements if status or company changes
-    updated_student = db.students.find_one({"_id": ObjectId(student_id)})
+    updated_student = db.students.find_one({"_id": student["_id"]})
     if updated_student.get("placement_status") == "PLACED":
         # Upsert placement
         db.placements.update_one(
@@ -249,7 +254,12 @@ def update_student(student_id):
 def delete_student(student_id):
     db = get_db()
     
-    student = db.students.find_one({"_id": ObjectId(student_id)})
+    try:
+        query = {"_id": ObjectId(student_id)}
+    except Exception:
+        query = {"reg_number": student_id}
+        
+    student = db.students.find_one(query)
     if not student:
         return jsonify({"error": "Student not found."}), 404
         
