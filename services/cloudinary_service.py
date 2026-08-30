@@ -40,8 +40,9 @@ def upload_file(file_storage, folder="placement_system"):
     if get_cloudinary_configured():
         try:
             file_storage.seek(0)
+            upload_target = getattr(file_storage, "stream", file_storage)
             result = cloudinary.uploader.upload(
-                file_storage,
+                upload_target,
                 folder=folder,
                 resource_type="auto"
             )
