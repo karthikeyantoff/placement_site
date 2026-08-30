@@ -11,14 +11,9 @@ student_views_bp = Blueprint("student_views", __name__)
 def test_cloudinary_endpoint():
     import io, base64
     import cloudinary, cloudinary.uploader
-    from config import Config
+    from services.cloudinary_service import get_cloudinary_configured
     try:
-        cloudinary.config(
-            cloud_name=Config.CLOUDINARY_CLOUD_NAME,
-            api_key=Config.CLOUDINARY_API_KEY,
-            api_secret=Config.CLOUDINARY_API_SECRET,
-            secure=True
-        )
+        get_cloudinary_configured()
         png_bytes = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
         bio = io.BytesIO(png_bytes)
         bio.name = 'test.png'

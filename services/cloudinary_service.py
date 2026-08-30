@@ -14,11 +14,15 @@ except ImportError:
     CLOUDINARY_AVAILABLE = False
 
 def get_cloudinary_configured():
-    if CLOUDINARY_AVAILABLE and Config.CLOUDINARY_CLOUD_NAME and Config.CLOUDINARY_API_KEY and Config.CLOUDINARY_API_SECRET:
+    cloud_name = Config.CLOUDINARY_CLOUD_NAME or "cblqllb4"
+    api_key = Config.CLOUDINARY_API_KEY or "622793567484623"
+    api_secret = Config.CLOUDINARY_API_SECRET or "7PhnWLaCyqhoh0WbG29_zgEjhvw"
+    
+    if CLOUDINARY_AVAILABLE and cloud_name and api_key and api_secret:
         cloudinary.config(
-            cloud_name=Config.CLOUDINARY_CLOUD_NAME,
-            api_key=Config.CLOUDINARY_API_KEY,
-            api_secret=Config.CLOUDINARY_API_SECRET,
+            cloud_name=cloud_name,
+            api_key=api_key,
+            api_secret=api_secret,
             secure=True
         )
         return True
