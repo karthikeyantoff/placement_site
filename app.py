@@ -15,6 +15,8 @@ def create_app():
     app = Flask(__name__)
     app.url_map.strict_slashes = False
     app.config.from_object(Config)
+    app.secret_key = Config.SECRET_KEY
+    app.config["SECRET_KEY"] = Config.SECRET_KEY
     
     # Initialize database & seed data if needed
     with app.app_context():
