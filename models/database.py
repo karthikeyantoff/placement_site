@@ -4,6 +4,8 @@ from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 import mongomock
 from config import Config
 
+import certifi
+
 _db = None
 _client = None
 
@@ -17,7 +19,8 @@ def get_db():
     
     # Try connecting to live MongoDB
     try:
-        _client = MongoClient(mongo_uri, serverSelectionTimeoutMS=2000)
+        ca = certifi.where()
+        _client = MongoClient(mongo_uri, tlsCAFile=ca, serverSelectionTimeoutMS=4000)
         # Verify connection
         _client.admin.command('ping')
         _db = _client[db_name]
