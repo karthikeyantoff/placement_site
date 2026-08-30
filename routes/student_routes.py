@@ -7,6 +7,27 @@ from services.cloudinary_service import upload_file
 student_bp = Blueprint("student_api", __name__)
 student_views_bp = Blueprint("student_views", __name__)
 
+@student_bp.route("/test_cloudinary", methods=["GET"])
+def test_cloudinary_endpoint():
+    import io, base64
+    import cloudinary, cloudinary.uploader
+    from config import Config
+    try:
+        cloudinary.config(
+            cloud_name=Config.CLOUDINARY_CLOUD_NAME,
+            api_key=Config.CLOUDINARY_API_KEY,
+            api_secret=Config.CLOUDINARY_API_SECRET,
+            secure=True
+        )
+        png_bytes = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
+        bio = io.BytesIO(png_bytes)
+        bio.name = 'test.png'
+        res = cloudinary.uploader.upload(bio, folder='student_photos', resource_type='auto')
+        return jsonify({"success": True, "url": res.get("secure_url")})
+    except Exception as e:
+        import traceback
+        return jsonify({"success": False, "error": str(e), "traceback": traceback.format_exc()})
+
 # Views
 @student_views_bp.route("/admin/students", methods=["GET"])
 @login_required
