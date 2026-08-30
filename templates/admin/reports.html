@@ -1,42 +1,50 @@
 {% extends "base.html" %}
 
-{% block title %}PMS Admin - Reports & Matcher{% endblock %}
-{% block header_title %}Analytics & Resume Match Engine{% endblock %}
+{% block title %}Reports & Analytics — Rathinam Global Placement Site{% endblock %}
 
 {% block content %}
 <div class="space-y-6">
-    <!-- Navigation Tabs -->
-    <div class="flex border-b border-slate-800 space-x-6 text-xs font-bold uppercase tracking-wider">
-        <button onclick="switchTab('student')" id="tab-student" class="pb-3 border-b-2 border-indigo-600 text-slate-100 transition duration-150">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+        <div>
+            <h1 class="text-2xl font-extrabold tracking-tight text-white uppercase">Reports & Analytical Insights</h1>
+            <p class="text-xs text-slate-400 mt-1">Multi-view data compilation, corporate directory rosters, and resume matching engine.</p>
+        </div>
+    </div>
+
+    <!-- Sub-Navigation Tabs -->
+    <div class="flex items-center gap-2 border-b border-slate-800/60 pb-3 overflow-x-auto">
+        <button onclick="switchTab('student')" id="tab-student" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition active-tab">
             Student Reports
         </button>
-        <button onclick="switchTab('company')" id="tab-company" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition duration-150">
+        <button onclick="switchTab('company')" id="tab-company" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
             Company Reports
         </button>
-        <button onclick="switchTab('drilldown')" id="tab-drilldown" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition duration-150">
+        <button onclick="switchTab('drilldown')" id="tab-drilldown" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
             Stages & Levels
         </button>
-        <button onclick="switchTab('resume')" id="tab-resume" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition duration-150">
+        <button onclick="switchTab('resume')" id="tab-resume" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
             Resume Matcher
         </button>
     </div>
 
     <!-- ================= TAB 1: STUDENT REPORTS ================= -->
     <div id="panel-student" class="space-y-6">
-        <!-- R1: Company wise roster -->
+        <!-- R1: Company-wise Registered -->
         <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company-wise Registered Candidates</h4>
+                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company-wise Registered / Placed Candidate Roster</h4>
                 <div class="flex gap-2">
                     <button onclick="downloadGenericPDF('student_company')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
                     <button onclick="openGenericMailModal('student_company')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <select id="r1-company-select" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500 w-64">
-                    <!-- Loaded dynamically -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <select id="r1-company-select" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500 sm:col-span-2">
+                    <option value="">-- Select Drive Company --</option>
                 </select>
-                <button onclick="generateReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition active:scale-95">Generate</button>
+                <button onclick="generateReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl text-xs transition active:scale-95">Generate Report</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
@@ -46,10 +54,11 @@
                             <th class="pb-3">Student Name</th>
                             <th class="pb-3">Department</th>
                             <th class="pb-3">Email Address</th>
+                            <th class="pb-3 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="r1-table" class="divide-y divide-slate-800/50">
-                        <tr><td colspan="4" class="text-center text-slate-500 py-6">Select a company and click Generate.</td></tr>
+                        <tr><td colspan="5" class="text-center text-slate-500 py-6">Select a company and click Generate.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -74,6 +83,7 @@
                                 <th class="pb-3">Reg Number</th>
                                 <th class="pb-3">Company</th>
                                 <th class="pb-3">CTC (LPA)</th>
+                                <th class="pb-3 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="r2-table" class="divide-y divide-slate-800/50">
@@ -100,6 +110,7 @@
                                 <th class="pb-3">Reg Number</th>
                                 <th class="pb-3">Dept</th>
                                 <th class="pb-3">Placement Status</th>
+                                <th class="pb-3 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="r3-table" class="divide-y divide-slate-800/50">
@@ -111,19 +122,30 @@
         </div>
     </div>
 
-    <!-- ================= TAB 2: COMPANY REPORTS ================= -->
+    <!-- ================= TAB 2: UNIFIED COMPANY & CANDIDATE REPORTS ================= -->
     <div id="panel-company" class="hidden space-y-6">
-        <!-- CR1: Sourced details search -->
+        <!-- Unified Corporate & Candidate Placement Directory -->
         <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company Pipeline Directory Search</h4>
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company Pipeline Directory & Candidate Roster</h4>
+                    <p class="text-[11px] text-slate-400">Search corporate recruitment drives, view placed candidate rosters, and access complete dossiers.</p>
+                </div>
                 <div class="flex gap-2">
-                    <button onclick="downloadGenericPDF('company_pipeline')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                    <button onclick="openGenericMailModal('company_pipeline')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                    <button onclick="downloadGenericPDF('company_pipeline')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2.5 py-1 rounded text-[9px] uppercase transition flex items-center gap-1">
+                        <svg class="w-3 h-3 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
+                        <span>PDF Report</span>
+                    </button>
+                    <button onclick="openGenericMailModal('company_pipeline')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2.5 py-1 rounded text-[9px] uppercase transition flex items-center gap-1">
+                        <svg class="w-3 h-3 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span>Mail Proposal</span>
+                    </button>
                 </div>
             </div>
+
+            <!-- Search Inputs -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <input type="text" id="cr1-search" placeholder="Search company by name..." class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                <input type="text" id="cr1-search" placeholder="Search company by name or role..." class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
                 <select id="cr1-status" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500">
                     <option value="">All Pipeline Stages</option>
                     <option value="COLD">COLD</option>
@@ -131,30 +153,33 @@
                     <option value="HOT">HOT</option>
                     <option value="DRIVE_COMPLETED">DRIVE COMPLETED</option>
                 </select>
-                <button onclick="generateCompanyReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl text-xs transition active:scale-95">Generate Report</button>
+                <button onclick="generateCompanyReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl text-xs transition active:scale-95">Generate Directory Report</button>
             </div>
+
+            <!-- Merged Company & Placed Candidates Roster Table -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
                         <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
-                            <th class="pb-3">Company</th>
+                            <th class="pb-3">Company & Role</th>
                             <th class="pb-3">Location</th>
-                            <th class="pb-3">Verification</th>
                             <th class="pb-3">Status</th>
+                            <th class="pb-3">Placed Candidates (Students)</th>
                             <th class="pb-3">HR Email</th>
+                            <th class="pb-3 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="cr1-table" class="divide-y divide-slate-800/50">
-                        <tr><td colspan="5" class="text-center text-slate-500 py-6">Enter search parameters and click Generate.</td></tr>
+                        <tr><td colspan="6" class="text-center text-slate-500 py-6">Enter search parameters and click Generate.</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- CR2: Drive completed list with selections -->
+        <!-- Interactive Candidate Selections Browser by Drive Company -->
         <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Campus Drives Selection Summary</h4>
+                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Interactive Campus Drive Selection Roster</h4>
                 <div class="flex gap-2">
                     <button onclick="downloadGenericPDF('company_drive')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
                     <button onclick="openGenericMailModal('company_drive')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
@@ -167,7 +192,7 @@
                 </div>
                 <!-- Student list in selected company -->
                 <div class="lg:col-span-2 space-y-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Selected Candidate Selections</h5>
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Placed Student Selections Roster</h5>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead>
@@ -176,10 +201,11 @@
                                     <th class="pb-3">Reg Number</th>
                                     <th class="pb-3">Department</th>
                                     <th class="pb-3">Contact Phone</th>
+                                    <th class="pb-3 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="cr2-students-table" class="divide-y divide-slate-800/50">
-                                <tr><td colspan="4" class="text-center text-slate-500 py-6">Select a completed drive on the left to review selections.</td></tr>
+                                <tr><td colspan="5" class="text-center text-slate-500 py-6">Select a completed drive on the left to review selections.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -188,25 +214,23 @@
         </div>
     </div>
 
-    <!-- ================= TAB 3: STAGES & LEVELS (DRILLDOWN) ================= -->
+    <!-- ================= TAB 3: STAGES & CANDIDATE LOOKUP ================= -->
     <div id="panel-drilldown" class="hidden space-y-6">
-        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-6 max-w-xl mx-auto">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200 text-center">360° Candidate Profile Audit</h4>
-            <div class="flex gap-3">
-                <input type="text" id="drilldown-search" placeholder="Enter Registration Number (e.g. 23CS001)..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 uppercase">
-                <button onclick="runDrilldownSearch()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs transition active:scale-95">Search</button>
+        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Candidate Stage Lookup</h4>
+            <div class="flex items-center gap-3">
+                <input type="text" id="drilldown-search" placeholder="Enter Registration Number (e.g. RCAS2024BCY046)..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 uppercase focus:outline-none focus:border-indigo-500">
+                <button onclick="runDrilldownSearch()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs transition active:scale-95">Inspect Stage</button>
             </div>
-            
             <div id="drilldown-result-area" class="border-t border-slate-800/50 pt-4 hidden">
                 <!-- Renders the full view profile card dynamically -->
             </div>
         </div>
     </div>
 
-    <!-- ================= TAB 4: RESUME / JD SCORE MATCHER ================= -->
+    <!-- ================= TAB 4: RESUME MATCHER ================= -->
     <div id="panel-resume" class="hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left: Match inputs -->
             <div class="lg:col-span-1 glass-panel p-6 rounded-2xl shadow-xl space-y-4">
                 <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Match Credentials</h4>
                 
@@ -224,34 +248,20 @@
                     </select>
                 </div>
 
-                <!-- Individual Target Fields -->
                 <div id="scope-individual-fields" class="space-y-4">
                     <div class="space-y-1.5">
                         <label class="font-semibold text-slate-300 text-xs">Target Student Reg No</label>
-                        <input type="text" id="match-student-reg" placeholder="e.g. 23CS001" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 uppercase">
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300 text-xs">Or Upload Custom Resume (PDF)</label>
-                        <input type="file" id="match-resume-file" accept=".pdf" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-slate-400 focus:outline-none file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-750">
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300 text-xs">Or Paste Resume PDF Link</label>
-                        <input type="url" id="match-resume-url" placeholder="https://example.com/resume.pdf" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                        <input type="text" id="match-student-reg" placeholder="e.g. RCAS2024BCY046" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 uppercase">
                     </div>
                 </div>
 
-                <!-- Department Target Fields -->
                 <div id="scope-dept-fields" class="space-y-1.5 hidden">
                     <label class="font-semibold text-slate-300 text-xs">Select Department *</label>
                     <select id="match-dept" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500">
-                        <option value="CSE">Computer Science (CSE)</option>
-                        <option value="IT">Information Technology (IT)</option>
-                        <option value="AI&DS">Artificial Intelligence (AI&DS)</option>
-                        <option value="ECE">Electronics & Communication (ECE)</option>
-                        <option value="EEE">Electrical & Electronics (EEE)</option>
-                        <option value="MECH">Mechanical Eng (MECH)</option>
+                        <option value="Cyber Security">Cyber Security</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Business Administration">Business Administration</option>
                     </select>
                 </div>
 
@@ -260,198 +270,196 @@
                     <textarea id="match-jd-text" rows="5" placeholder="Paste full roles, responsibilities, and skill sets here..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"></textarea>
                 </div>
 
-                <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300 text-xs">Or Upload JD File (PDF/TXT)</label>
-                    <input type="file" id="match-jd-file" accept=".pdf,.txt" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-slate-400 focus:outline-none file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-750">
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300 text-xs">Or Paste JD Document Link</label>
-                    <input type="url" id="match-jd-url" placeholder="https://example.com/job_description.pdf" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
-                </div>
-
                 <button onclick="calculateMatch()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-600/10 active:scale-98">
                     Analyze & Check Score
                 </button>
             </div>
 
-            <!-- Right: Ranges dashboard -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Brackets counter dashboard -->
-                <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Matching Quality distribution Dashboard</h4>
-                    <p class="text-xs text-slate-500">Resume similarity score brackets distribution based on analysis history.</p>
-                    
-                    <div class="space-y-3.5 text-xs font-semibold" id="bracket-distribution-bars">
-                        <!-- Bars dynamically rendered -->
-                    </div>
-                </div>
-
-                <!-- Matches filtered table -->
-                <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-                    <div class="flex items-center justify-between flex-wrap gap-2">
-                        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Matching Candidates List</h4>
-                        <div class="flex items-center gap-2">
-                            <span id="match-filter-label" class="inline-block text-[10px] font-extrabold uppercase bg-indigo-500/15 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-full mr-2">All Scored</span>
-                            <button onclick="downloadMatchPDF()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-3 py-1.5 rounded-lg text-[10px] uppercase transition flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                Download PDF
-                            </button>
-                            <button onclick="openSendMailModal()" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] uppercase transition flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                Send Mail / Forward
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="overflow-x-auto max-h-[300px]">
-                        <table class="w-full text-left text-xs">
-                            <thead>
-                                <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
-                                    <th class="pb-3">Student Name</th>
-                                    <th class="pb-3">Reg Number</th>
-                                    <th class="pb-3">JD Analysed</th>
-                                    <th class="pb-3">Match Score</th>
-                                    <th class="pb-3 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="match-results-table" class="divide-y divide-slate-800/50">
-                                <tr><td colspan="5" class="text-center text-slate-500 py-8">No matching records calculated yet. Paste JD on the left and run analysis.</td></tr>
-                            </tbody>
-                        </table>
+                <div id="match-results-area" class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+                    <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Match Scores Output</h4>
+                    <div id="match-results-body">
+                        <p class="text-slate-500 text-xs text-center py-10">Configure job description parameters on the left to compute match scores.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
-<!-- Send Mail Modal -->
-<div id="send-mail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg p-6 relative shadow-2xl space-y-4">
-        <button onclick="closeSendMailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 z-10 bg-slate-950/45 p-1.5 rounded-lg border border-slate-800/80">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+<!-- Modal 1: Full Company & Placed Candidates Roster Modal -->
+<div id="modal-company-full-details" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden overflow-y-auto">
+    <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 space-y-6 relative my-auto">
+        <!-- Close Button -->
+        <button onclick="document.getElementById('modal-company-full-details').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-900/80 p-2 rounded-full border border-slate-800 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-200">Forward Placement Match Report</h3>
-        <p class="text-xs text-slate-400">Compose proposal mail. The list of matching students will be appended automatically.</p>
-        
-        <div class="space-y-3 pt-2">
-            <div class="space-y-1.5">
-                <label class="font-semibold text-slate-400 text-[10px] uppercase">Selected Job Description</label>
-                <input type="text" id="mail-jd-title" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 focus:outline-none" readonly>
+
+        <!-- Company Header -->
+        <div class="flex items-start gap-4 flex-wrap">
+            <div class="w-14 h-14 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl shadow-lg border border-indigo-400/30 shrink-0">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 4h4m-4 0v6m4-6h.01M5 7h.01M5 11h.01M12 7h.01M19 7h.01M19 11h.01"></path></svg>
             </div>
-            
-            <div class="space-y-1.5">
-                <label class="font-semibold text-slate-400 text-[10px] uppercase">Email Content / Remarks *</label>
-                <textarea id="mail-content" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="e.g. These students matched Zoho JD. Forwarding placement proposal for further verification..."></textarea>
+            <div>
+                <h3 id="modal-company-title" class="text-xl font-extrabold text-white">Company Name</h3>
+                <p id="modal-company-role" class="text-xs text-indigo-400 font-bold">Role • Package CTC</p>
+                <p id="modal-company-location" class="text-[11px] text-slate-400 mt-0.5">Location</p>
             </div>
-            
-            <button onclick="sendProposalMail()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-600/10 active:scale-98">
-                Send Proposal Mail
-            </button>
+            <div class="ml-auto flex gap-2">
+                <span id="modal-company-approval" class="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">APPROVED</span>
+                <span id="modal-company-status" class="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">DRIVE_COMPLETED</span>
+            </div>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/40 p-4 rounded-2xl border border-slate-800/60 text-xs">
+            <div>
+                <span class="text-slate-500 block text-[10px] font-bold uppercase">HR Contact Email</span>
+                <span id="modal-company-hr-email" class="text-slate-200 font-semibold">recruitment@company.com</span>
+            </div>
+            <div>
+                <span class="text-slate-500 block text-[10px] font-bold uppercase">HR Contact Phone</span>
+                <span id="modal-company-hr-phone" class="text-slate-200 font-semibold">+91 9876543210</span>
+            </div>
+            <div class="sm:col-span-2">
+                <span class="text-slate-500 block text-[10px] font-bold uppercase">Job Description Summary</span>
+                <p id="modal-company-jd" class="text-slate-300 mt-1 leading-relaxed text-xs">Design and build scalable microservices...</p>
+            </div>
+            <div id="modal-company-careers-container" class="sm:col-span-2 pt-1">
+                <a id="modal-company-careers" href="#" target="_blank" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                    <span>Visit Official Careers Page</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Placed Candidates Section -->
+        <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Selected Candidate Selections Roster</h4>
+            <div id="modal-company-students-roster" class="space-y-3 max-h-[250px] overflow-y-auto pr-1">
+                <!-- Placed student cards -->
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Generic Send Mail Modal -->
+<!-- Modal 2: Full Student Profile Modal -->
+<div id="modal-student-full-profile" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden overflow-y-auto">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 space-y-6 relative my-auto">
+        <!-- Close Button -->
+        <button onclick="document.getElementById('modal-student-full-profile').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-900/80 p-2 rounded-full border border-slate-800 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Student Header -->
+        <div class="flex items-center gap-4 flex-wrap">
+            <img id="modal-student-photo" src="/static/images/avatar-placeholder.png" class="w-16 h-16 rounded-full border-2 border-indigo-500/40 object-cover shadow-lg shrink-0">
+            <div>
+                <h3 id="modal-student-name" class="text-xl font-extrabold text-white">Student Name</h3>
+                <p class="text-xs font-mono text-indigo-400 font-bold"><span id="modal-student-reg">REG123</span> • <span id="modal-student-dept" class="text-slate-300 font-sans">Cyber Security</span></p>
+                <div class="flex gap-2 mt-1.5">
+                    <span id="modal-student-status" class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">PLACED</span>
+                    <span id="modal-student-company" class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Zoho Corporation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic & Contact Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center bg-slate-900/40 p-4 rounded-2xl border border-slate-800/60">
+            <div class="p-2 bg-slate-900/60 rounded-xl">
+                <span class="text-[9px] font-bold uppercase text-slate-500 block">SSLC %</span>
+                <span id="modal-student-sslc" class="text-sm font-extrabold text-slate-200">0%</span>
+            </div>
+            <div class="p-2 bg-slate-900/60 rounded-xl">
+                <span class="text-[9px] font-bold uppercase text-slate-500 block">HSC %</span>
+                <span id="modal-student-hsc" class="text-sm font-extrabold text-slate-200">0%</span>
+            </div>
+            <div class="p-2 bg-slate-900/60 rounded-xl">
+                <span class="text-[9px] font-bold uppercase text-slate-500 block">UG %</span>
+                <span id="modal-student-ug" class="text-sm font-extrabold text-indigo-400">0%</span>
+            </div>
+            <div class="p-2 bg-slate-900/60 rounded-xl">
+                <span class="text-[9px] font-bold uppercase text-slate-500 block">Package</span>
+                <span id="modal-student-ctc" class="text-sm font-extrabold text-emerald-400">N/A</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div>
+                <span class="text-slate-500 block text-[10px] font-bold uppercase">College Email</span>
+                <span id="modal-student-email" class="text-slate-200 font-semibold">student@rathinam.in</span>
+            </div>
+            <div>
+                <span class="text-slate-500 block text-[10px] font-bold uppercase">Mobile Number</span>
+                <span id="modal-student-phone" class="text-slate-200 font-semibold">9876543210</span>
+            </div>
+        </div>
+
+        <!-- Links -->
+        <div class="pt-2 border-t border-slate-800/80 flex flex-wrap gap-3">
+            <a id="modal-student-resume-btn" href="#" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/20 flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span>View Full Resume (PDF)</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 3: Generic Mail Proposal Modal -->
 <div id="generic-mail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg p-6 relative shadow-2xl space-y-4">
-        <button onclick="closeGenericMailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 z-10 bg-slate-950/45 p-1.5 rounded-lg border border-slate-800/80">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 space-y-6 relative">
+        <button onclick="closeGenericMailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-900/80 p-2 rounded-full border border-slate-800 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-200" id="generic-mail-title">Forward Report Details</h3>
-        <p class="text-xs text-slate-400">Compose proposal mail. The filtered data entries will be compiled and appended automatically.</p>
-        
-        <div class="space-y-3 pt-2">
-            <input type="hidden" id="generic-mail-type">
-            
-            <div class="space-y-1.5">
-                <label class="font-semibold text-slate-400 text-[10px] uppercase">Email Content / Remarks *</label>
-                <textarea id="generic-mail-content" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="Type comments/announcement here..."></textarea>
-            </div>
-            
-            <button onclick="sendGenericMailProposal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-600/10 active:scale-98">
-                Send Proposal Mail
-            </button>
+
+        <div>
+            <h3 id="generic-mail-title" class="text-lg font-extrabold text-white">Forward Placement Data Proposal</h3>
+            <p class="text-xs text-slate-400 mt-1">Send compiled analytical dataset summary to system stakeholders.</p>
+        </div>
+
+        <input type="hidden" id="generic-mail-type">
+
+        <div class="space-y-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Proposal Remarks / Cover Note *</label>
+            <textarea id="generic-mail-content" rows="4" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeGenericMailModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-700">Cancel</button>
+            <button onclick="sendGenericMailProposal()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/20">Send Proposal</button>
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block scripts %}
 <script>
-    // Tab switching controller
-    function switchTab(tab) {
-        document.querySelectorAll('[id^="tab-"]').forEach(t => {
-            t.classList.remove('border-indigo-600', 'text-slate-100');
-            t.classList.add('border-transparent', 'text-slate-400');
-        });
-        document.getElementById(`tab-${tab}`).classList.add('border-indigo-600', 'text-slate-100');
+    let globalCompaniesCache = [];
 
-        document.querySelectorAll('[id^="panel-"]').forEach(p => {
-            p.classList.add('hidden');
-        });
-        document.getElementById(`panel-${tab}`).classList.remove('hidden');
+    function switchTab(tabKey) {
+        document.querySelectorAll('[id^="panel-"]').forEach(p => p.classList.add('hidden'));
+        document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.remove('active-tab'));
         
-        // Initializer triggers
-        if (tab === 'student') loadStudentReportOptions();
-        if (tab === 'company') loadCompanyReportOptions();
-        if (tab === 'resume') loadMatchDashboard();
+        document.getElementById(`panel-${tabKey}`).classList.remove('hidden');
+        document.getElementById(`tab-${tabKey}`).classList.add('active-tab');
+
+        if (tabKey === 'company') {
+            loadCompanyReportOptions();
+        }
     }
 
-    // ================= STUDENT REPORTS =================
     async function loadStudentReportOptions() {
         try {
-            // Load companies into R1 select dropdown
             const res = await fetch('/api/companies');
             if (res.ok) {
                 const companies = await res.json();
-                const approved = companies.filter(c => c.approval_status === 'APPROVED');
-                const select = document.getElementById('r1-company-select');
-                
-                select.innerHTML = `<option value="">Select Corporate Partner</option>` + 
-                                   approved.map(c => `<option value="${c.company_name}">${c.company_name}</option>`).join('');
+                const sel = document.getElementById('r1-company-select');
+                sel.innerHTML = '<option value="">-- Select Drive Company --</option><option value="all">ALL PLACED COMPANIES</option>' +
+                    companies.map(c => `<option value="${c.company_name}">${c.company_name}</option>`).join('');
             }
-            
-            // Auto load R2 (Placed drives selections)
-            const placedRes = await fetch('/api/reports/students/placed');
-            if (placedRes.ok) {
-                const placed = await placedRes.json();
-                document.getElementById('r2-table').innerHTML = placed.map(s => `
-                    <tr class="hover:bg-slate-850/10">
-                        <td class="py-2.5 font-bold text-slate-200">${s.name}</td>
-                        <td class="py-2.5 font-mono text-slate-400">${s.reg_number}</td>
-                        <td class="py-2.5 text-slate-400">${s.placed_company}</td>
-                        <td class="py-2.5 font-semibold text-emerald-400">${s.ctc_lpa} LPA</td>
-                    </tr>
-                `).join('') || `<tr><td colspan="4" class="text-center text-slate-500 py-4">No selections locked.</td></tr>`;
-            }
-            
-            // Auto load R3 (Overall student ratios)
-            const overallRes = await fetch('/api/reports/students/overall');
-            if (overallRes.ok) {
-                const overall = await overallRes.json();
-                document.getElementById('r3-table').innerHTML = overall.map(s => {
-                    let badge = "bg-slate-800 text-slate-500 border-slate-700/60";
-                    if (s.placement_status === 'PLACED') badge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                    if (s.placement_status === 'YTPP') badge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
-                    
-                    return `
-                        <tr class="hover:bg-slate-850/10">
-                            <td class="py-2.5 font-bold text-slate-200">${s.name}</td>
-                            <td class="py-2.5 font-mono text-slate-400">${s.reg_number}</td>
-                            <td class="py-2.5 text-slate-400">${s.department}</td>
-                            <td class="py-2.5">
-                                <span class="px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${badge}">${s.placement_status}</span>
-                            </td>
-                        </tr>
-                    `;
-                }).join('') || `<tr><td colspan="4" class="text-center text-slate-500 py-4">No candidates.</td></tr>`;
-            }
-            
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) {}
+
+        loadReport2();
+        loadReport3();
     }
 
     async function generateReport1() {
@@ -468,7 +476,7 @@
                 const table = document.getElementById('r1-table');
                 
                 if (data.length === 0) {
-                    table.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No candidates registered or placed in ${comp}.</td></tr>`;
+                    table.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">No candidates registered or placed in ${comp}.</td></tr>`;
                 } else {
                     table.innerHTML = data.map(s => `
                         <tr class="hover:bg-slate-850/10">
@@ -476,6 +484,11 @@
                             <td class="py-3 font-semibold text-slate-200">${s.name}</td>
                             <td class="py-3 text-slate-400">${s.department}</td>
                             <td class="py-3 text-slate-500">${s.email}</td>
+                            <td class="py-3 text-right">
+                                <button onclick="openStudentFullModal('${s.reg_number}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2.5 py-1 rounded text-[10px] font-bold border border-indigo-500/30 transition">
+                                    View Full Data
+                                </button>
+                            </td>
                         </tr>
                     `).join('');
                 }
@@ -485,9 +498,62 @@
         }
     }
 
+    async function loadReport2() {
+        try {
+            const res = await fetch('/api/reports/students/placed');
+            if (res.ok) {
+                const data = await res.json();
+                const table = document.getElementById('r2-table');
+                if (data.length === 0) {
+                    table.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">No placed records found.</td></tr>`;
+                } else {
+                    table.innerHTML = data.map(s => `
+                        <tr class="hover:bg-slate-850/10">
+                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
+                            <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
+                            <td class="py-3 text-indigo-400 font-medium">${s.placed_company}</td>
+                            <td class="py-3 font-bold text-emerald-400">${s.ctc_lpa || 'N/A'} LPA</td>
+                            <td class="py-3 text-right">
+                                <button onclick="openStudentFullModal('${s.reg_number}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2 py-0.5 rounded text-[9px] font-bold border border-indigo-500/30 transition">
+                                    View Full Data
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            }
+        } catch (e) {}
+    }
+
+    async function loadReport3() {
+        try {
+            const res = await fetch('/api/reports/students/overall');
+            if (res.ok) {
+                const data = await res.json();
+                const table = document.getElementById('r3-table');
+                if (data.length === 0) {
+                    table.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">No student records found.</td></tr>`;
+                } else {
+                    table.innerHTML = data.map(s => `
+                        <tr class="hover:bg-slate-850/10">
+                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
+                            <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
+                            <td class="py-3 text-slate-400">${s.department}</td>
+                            <td class="py-3 font-bold ${s.placement_status === 'PLACED' ? 'text-emerald-400' : 'text-slate-500'}">${s.placement_status}</td>
+                            <td class="py-3 text-right">
+                                <button onclick="openStudentFullModal('${s.reg_number}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2 py-0.5 rounded text-[9px] font-bold border border-indigo-500/30 transition">
+                                    View Full Data
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            }
+        } catch (e) {}
+    }
+
     // ================= COMPANY REPORTS =================
     async function loadCompanyReportOptions() {
-        // Run initial empty search to fill list
         generateCompanyReport1();
         
         try {
@@ -500,12 +566,12 @@
                     list.innerHTML = `<p class="text-slate-500 text-center py-6 text-xs">No drive completed companies.</p>`;
                 } else {
                     list.innerHTML = data.map((c, i) => `
-                        <button onclick="selectCompletedDrive('${c.company_name}')" class="w-full text-left p-3 rounded-xl border border-slate-850/80 hover:bg-slate-850/30 transition-all flex items-center justify-between text-xs text-slate-400 hover:text-slate-200">
+                        <button onclick="selectCompletedDrive('${c.company_name.replace(/'/g, "\\'")}')" class="w-full text-left p-3 rounded-xl border border-slate-850/80 hover:bg-slate-850/30 transition-all flex items-center justify-between text-xs text-slate-400 hover:text-slate-200">
                             <div>
                                 <span class="font-bold block text-slate-200">${c.company_name}</span>
-                                <span class="text-[9px] text-slate-500">Scheduled: ${c.drive_date || 'N/A'}</span>
+                                <span class="text-[9px] text-slate-500">Placed Count: ${c.offers_count || c.selections.length}</span>
                             </div>
-                            <span class="bg-indigo-600/10 text-indigo-400 px-2 py-0.5 rounded font-extrabold text-[10px] border border-indigo-500/10">${c.offers_count} Offers</span>
+                            <span class="bg-indigo-600/10 text-indigo-400 px-2 py-0.5 rounded font-extrabold text-[10px] border border-indigo-500/10">${c.offers_count || c.selections.length} Offers</span>
                         </button>
                     `).join('');
                 }
@@ -521,7 +587,7 @@
                 const tbody = document.getElementById('cr2-students-table');
                 
                 if (data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No selections found.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">No selections found.</td></tr>`;
                 } else {
                     tbody.innerHTML = data.map(s => `
                         <tr class="hover:bg-slate-850/10">
@@ -529,6 +595,11 @@
                             <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
                             <td class="py-3 text-slate-400">${s.department}</td>
                             <td class="py-3 text-slate-500">${s.phone}</td>
+                            <td class="py-3 text-right">
+                                <button onclick="openStudentFullModal('${s.reg_number}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2 py-0.5 rounded text-[9px] font-bold border border-indigo-500/30 transition">
+                                    View Full Data
+                                </button>
+                            </td>
                         </tr>
                     `).join('');
                 }
@@ -541,13 +612,14 @@
         const status = document.getElementById('cr1-status').value;
         
         try {
-            const res = await fetch(`/api/reports/companies/status?search=${search}&status=${status}`);
+            const res = await fetch(`/api/reports/companies/status?search=${encodeURIComponent(search)}&status=${status}`);
             if (res.ok) {
                 const data = await res.json();
+                globalCompaniesCache = data;
                 const tbody = document.getElementById('cr1-table');
                 
                 if (data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">No corporate records matching criteria.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-6">No corporate records matching criteria.</td></tr>`;
                 } else {
                     tbody.innerHTML = data.map(c => {
                         let approvalBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
@@ -559,17 +631,48 @@
                         if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
                         if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
 
+                        let studentDisplay = `<span class="text-[10px] text-slate-500 italic">No placements yet</span>`;
+                        const selections = c.selections || [];
+                        if (selections.length > 0) {
+                            studentDisplay = `
+                                <div class="space-y-1">
+                                    <span class="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[9px] font-bold uppercase">
+                                        ${c.offers_count || selections.length} Selected Candidate(s)
+                                    </span>
+                                    <div class="text-[10px] font-medium text-slate-300 truncate max-w-[200px]" title="${c.placed_details || selections.map(s => s.name).join(', ')}">
+                                        ${c.placed_details || selections.map(s => `${s.name} (${s.reg_number})`).join(', ')}
+                                    </div>
+                                </div>
+                            `;
+                        } else if (c.placed_details) {
+                            studentDisplay = `
+                                <div class="space-y-1">
+                                    <span class="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[9px] font-bold uppercase">
+                                        ${c.offers_count || 1} Selected Candidate(s)
+                                    </span>
+                                    <div class="text-[10px] font-medium text-slate-300 truncate max-w-[200px]" title="${c.placed_details}">${c.placed_details}</div>
+                                </div>
+                            `;
+                        }
+
                         return `
-                            <tr class="hover:bg-slate-850/10">
-                                <td class="py-3 font-semibold text-slate-200">${c.company_name}</td>
-                                <td class="py-3 text-slate-400">${c.location}</td>
-                                <td class="py-3">
-                                    <span class="inline-block px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${approvalBadge}">${c.approval_status}</span>
+                            <tr class="hover:bg-slate-850/10 transition">
+                                <td class="py-3 font-semibold text-slate-200">
+                                    <div class="font-bold text-slate-100">${c.company_name}</div>
+                                    <div class="text-[10px] text-indigo-400 font-medium">${c.job_role || 'Campus Specialist'} • <span class="text-slate-400">${c.package_ctc || c.ctc_lpa + ' LPA'}</span></div>
                                 </td>
-                                <td class="py-3">
-                                    <span class="inline-block px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${pathBadge}">${c.placement_status}</span>
+                                <td class="py-3 text-slate-400">${c.location || 'India'}</td>
+                                <td class="py-3 space-y-1">
+                                    <div><span class="inline-block px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${approvalBadge}">${c.approval_status}</span></div>
+                                    <div><span class="inline-block px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${pathBadge}">${c.placement_status}</span></div>
                                 </td>
-                                <td class="py-3 text-slate-500">${c.hr_email}</td>
+                                <td class="py-3">${studentDisplay}</td>
+                                <td class="py-3 text-slate-400">${c.hr_email || 'N/A'}</td>
+                                <td class="py-3 text-right">
+                                    <button onclick="openCompanyFullModal('${c.company_name.replace(/'/g, "\\'")}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold border border-indigo-500/30 transition shadow-sm">
+                                        View Full Details
+                                    </button>
+                                </td>
                             </tr>
                         `;
                     }).join('');
@@ -578,9 +681,99 @@
         } catch (e) {}
     }
 
-    // ================= STAGES & LEVELS =================
+    // Modal Triggers
+    async function openCompanyFullModal(companyName) {
+        try {
+            const res = await fetch(`/api/reports/companies/status?search=${encodeURIComponent(companyName)}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            const company = data.find(c => c.company_name.toLowerCase() === companyName.toLowerCase()) || data[0];
+            if (!company) return;
+
+            document.getElementById('modal-company-title').innerText = company.company_name;
+            document.getElementById('modal-company-role').innerText = `${company.job_role || 'Campus Specialist'} • ${company.package_ctc || company.ctc_lpa + ' LPA'}`;
+            document.getElementById('modal-company-location').innerText = company.location || 'India';
+            document.getElementById('modal-company-status').innerText = company.placement_status || 'DRIVE_COMPLETED';
+            document.getElementById('modal-company-approval').innerText = company.approval_status || 'APPROVED';
+            document.getElementById('modal-company-hr-email').innerText = company.hr_email || 'N/A';
+            document.getElementById('modal-company-hr-phone').innerText = company.hr_phone || 'N/A';
+            document.getElementById('modal-company-jd').innerText = company.jd_summary || 'No summary available.';
+            
+            const careersBtn = document.getElementById('modal-company-careers');
+            if (company.careers_link) {
+                careersBtn.href = company.careers_link;
+                careersBtn.classList.remove('hidden');
+            } else {
+                careersBtn.classList.add('hidden');
+            }
+
+            const rosterContainer = document.getElementById('modal-company-students-roster');
+            const selections = company.selections || [];
+            
+            if (selections.length === 0) {
+                rosterContainer.innerHTML = `<div class="p-6 text-center text-slate-500 text-xs">No placed candidates registered yet for this drive.</div>`;
+            } else {
+                rosterContainer.innerHTML = selections.map(s => `
+                    <div class="glass-card p-4 rounded-xl border border-slate-800/80 flex items-center justify-between gap-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+                            <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" class="w-12 h-12 rounded-full border border-slate-700 object-cover shrink-0">
+                            <div>
+                                <h6 class="font-bold text-slate-100 text-sm">${s.name}</h6>
+                                <p class="text-xs font-mono text-indigo-400 font-bold">${s.reg_number} • <span class="text-slate-400 font-sans">${s.department}</span></p>
+                                <p class="text-[10px] text-slate-500">${s.email} • ${s.phone}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded text-[10px] font-extrabold uppercase">PLACED (${s.ctc_lpa || company.ctc_lpa} LPA)</span>
+                            <button onclick="openStudentFullModal('${s.reg_number}')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-sm">View Full Profile</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('modal-company-full-details').classList.remove('hidden');
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
+    async function openStudentFullModal(regNumber) {
+        try {
+            const res = await fetch(`/api/students/${regNumber}`);
+            if (!res.ok) return;
+            const s = await res.json();
+            
+            document.getElementById('modal-student-photo').src = s.photo_url || '/static/images/avatar-placeholder.png';
+            document.getElementById('modal-student-name').innerText = s.name;
+            document.getElementById('modal-student-reg').innerText = s.reg_number;
+            document.getElementById('modal-student-dept').innerText = s.department;
+            document.getElementById('modal-student-status').innerText = s.placement_status;
+            document.getElementById('modal-student-company').innerText = s.placed_company || 'N/A';
+            document.getElementById('modal-student-ctc').innerText = s.ctc_lpa ? `${s.ctc_lpa} LPA` : 'N/A';
+            document.getElementById('modal-student-email').innerText = s.email;
+            document.getElementById('modal-student-phone').innerText = s.phone;
+            
+            document.getElementById('modal-student-sslc').innerText = `${s.sslc_percentage || 0}%`;
+            document.getElementById('modal-student-hsc').innerText = `${s.hsc_percentage || 0}%`;
+            document.getElementById('modal-student-ug').innerText = `${s.ug_percentage || 0}%`;
+
+            const resumeBtn = document.getElementById('modal-student-resume-btn');
+            if (s.resume_url) {
+                resumeBtn.href = s.resume_url;
+                resumeBtn.classList.remove('hidden');
+            } else {
+                resumeBtn.classList.add('hidden');
+            }
+
+            document.getElementById('modal-student-full-profile').classList.remove('hidden');
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
+    // STAGES & LEVELS
     async function runDrilldownSearch() {
-        const reg = document.getElementById('drilldown-search').value.strip ? document.getElementById('drilldown-search').value.strip() : document.getElementById('drilldown-search').value.trim();
+        const reg = document.getElementById('drilldown-search').value.trim();
         if (!reg) {
             showToast("Please enter a registration number.", "warning");
             return;
@@ -598,253 +791,132 @@
                     <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden text-xs">
                         <div class="h-20 bg-indigo-950 relative"></div>
                         <div class="px-6 pb-6 -mt-10 space-y-4">
-                            <div class="flex items-end gap-3 justify-between">
-                                <div class="relative w-20 h-20 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-950 shadow-2xl shrink-0 -mt-10">
-                                    <img src="${s.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
+                            <div class="flex items-end justify-between flex-wrap gap-4">
+                                <div class="flex items-center gap-4">
+                                    <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" class="w-20 h-20 rounded-full border-4 border-slate-900 object-cover shadow-xl">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white">${s.name}</h3>
+                                        <p class="text-slate-400 font-mono">${s.reg_number} • ${s.department}</p>
+                                    </div>
                                 </div>
-                                <div class="flex-1 min-w-0">
-                                    <h5 class="font-bold text-sm text-slate-200 truncate">${s.name}</h5>
-                                    <span class="text-[9px] font-mono text-indigo-400 font-bold">${s.reg_number}</span>
+                                <div>
+                                    <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${s.placement_status}</span>
                                 </div>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-2.5 py-3 border-t border-b border-slate-800">
-                                <div><span class="text-slate-500 font-bold block uppercase tracking-wider text-[8px]">UG CGPA / %</span><strong class="text-slate-300 text-[11px]">${s.ug_percentage <= 10 ? s.ug_percentage + ' / 10' : s.ug_percentage + '%'}</strong></div>
-                                <div><span class="text-slate-500 font-bold block uppercase tracking-wider text-[8px]">Graduation</span><strong class="text-slate-300 text-[11px]">${s.year_of_graduation}</strong></div>
-                                <div><span class="text-slate-500 font-bold block uppercase tracking-wider text-[8px]">SSLC</span><strong class="text-slate-300 text-[11px]">${s.sslc_percentage}%</strong></div>
-                                <div><span class="text-slate-500 font-bold block uppercase tracking-wider text-[8px]">HSC</span><strong class="text-slate-300 text-[11px]">${s.hsc_percentage}%</strong></div>
                             </div>
 
-                            <div class="space-y-1.5">
-                                <span class="text-slate-500 font-bold block uppercase tracking-wider text-[8px]">Contact Channels</span>
-                                <p class="text-slate-300 truncate">Email: ${s.email}</p>
-                                <p class="text-slate-300">Phone: ${s.phone}</p>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-900/60 p-4 rounded-xl text-center">
+                                <div>
+                                    <span class="text-slate-500 text-[10px] uppercase font-bold block">SSLC %</span>
+                                    <span class="text-slate-200 font-extrabold text-sm">${s.sslc_percentage || 0}%</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 text-[10px] uppercase font-bold block">HSC %</span>
+                                    <span class="text-slate-200 font-extrabold text-sm">${s.hsc_percentage || 0}%</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 text-[10px] uppercase font-bold block">UG %</span>
+                                    <span class="text-indigo-400 font-extrabold text-sm">${s.ug_percentage || 0}%</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500 text-[10px] uppercase font-bold block">Placed Company</span>
+                                    <span class="text-emerald-400 font-extrabold text-xs">${s.placed_company || 'None'}</span>
+                                </div>
                             </div>
-                             <div class="flex flex-wrap gap-2 pt-2">
-                                 <a href="/student/${s.reg_number}" target="_blank" class="px-2.5 py-1.5 bg-indigo-650 hover:bg-indigo-600 border border-indigo-500/30 text-white rounded-lg font-bold transition shadow-lg shadow-indigo-600/10">View Profile</a>
-                                 ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 border border-slate-750 text-slate-300 rounded-lg font-bold transition">Resume</a>` : ''}
-                                 ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 border border-slate-750 text-slate-300 rounded-lg font-bold transition">GitHub</a>` : ''}
-                                 ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 border border-slate-750 text-slate-300 rounded-lg font-bold transition">LinkedIn</a>` : ''}
-                             </div>
                         </div>
                     </div>
                 `;
             } else {
-                area.classList.add('hidden');
-                showToast("Candidate not found.", "error");
+                showToast("Candidate registration number not found.", "error");
             }
         } catch (e) {
-            showToast("Server error.", "error");
+            showToast("Search failed.", "error");
         }
     }
 
-    // ================= RESUME / JD SCORE MATCHER =================
-    async function loadMatchDashboard() {
-        try {
-            const res = await fetch('/api/resume/scores');
-            if (res.ok) {
-                const data = await res.json();
-                renderMatchDashboard(data);
-            }
-        } catch (e) {}
-    }
-
-    function renderMatchDashboard(data) {
-        const dist = data.distribution;
-        const scores = data.scores;
-        
-        // Render Histogram distribution bars
-        const bars = document.getElementById('bracket-distribution-bars');
-        const maxVal = Math.max(...Object.values(dist), 1);
-        
-        bars.innerHTML = Object.entries(dist).reverse().map(([range, count]) => {
-            const percentage = (count / maxVal) * 100;
-            return `
-                <div class="space-y-1">
-                    <div class="flex justify-between text-[10px] text-slate-400">
-                        <span>Range: ${range}% Match</span>
-                        <span>${count} Candidates</span>
-                    </div>
-                    <div onclick="filterByRange('${range}')" class="h-2 w-full bg-slate-900 border border-slate-800/80 rounded-full overflow-hidden cursor-pointer hover:border-slate-700 transition">
-                        <div style="width: ${percentage}%" class="h-full bg-indigo-500 rounded-full transition-all duration-500"></div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        // Render Table Candidates
-        renderMatchTable(scores);
-    }
-
-    function renderMatchTable(scores) {
-        const tbody = document.getElementById('match-results-table');
-        if (scores.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-8">No analysed records matching this bracket.</td></tr>`;
-            return;
-        }
-
-        tbody.innerHTML = scores.map(s => `
-            <tr class="hover:bg-slate-850/15">
-                <td class="py-3 font-semibold text-slate-200">${s.student_name}</td>
-                <td class="py-3 font-mono text-slate-400 select-all">${s.reg_number}</td>
-                <td class="py-3 text-slate-400 truncate max-w-[150px]">${s.jd_title}</td>
-                <td class="py-3 font-extrabold text-indigo-400">${s.score}% Match</td>
-                <td class="py-3 text-right">
-                    <button onclick="switchTab('drilldown'); document.getElementById('drilldown-search').value = '${s.reg_number}'; runDrilldownSearch();" class="text-xs bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold px-2 py-1 rounded border border-slate-750 transition">Drilldown</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    async function filterByRange(range) {
-        document.getElementById('match-filter-label').innerText = `${range}% Matches`;
-        try {
-            const res = await fetch(`/api/resume/scores?range=${range}`);
-            if (res.ok) {
-                const data = await res.json();
-                renderMatchTable(data.scores);
-            }
-        } catch (e) {}
-    }
-
+    // RESUME MATCHER
     function toggleScopeInputs() {
-        const scope = document.getElementById('match-scope').value;
-        const indFields = document.getElementById('scope-individual-fields');
-        const deptFields = document.getElementById('scope-dept-fields');
-        
-        if (scope === 'individual') {
-            indFields.classList.remove('hidden');
-            deptFields.classList.add('hidden');
-        } else if (scope === 'dept') {
-            indFields.classList.add('hidden');
-            deptFields.classList.remove('hidden');
+        const val = document.getElementById('match-scope').value;
+        if (val === 'individual') {
+            document.getElementById('scope-individual-fields').classList.remove('hidden');
+            document.getElementById('scope-dept-fields').classList.add('hidden');
+        } else if (val === 'dept') {
+            document.getElementById('scope-individual-fields').classList.add('hidden');
+            document.getElementById('scope-dept-fields').classList.remove('hidden');
         } else {
-            indFields.classList.add('hidden');
-            deptFields.classList.add('hidden');
+            document.getElementById('scope-individual-fields').classList.add('hidden');
+            document.getElementById('scope-dept-fields').classList.add('hidden');
         }
     }
 
     async function calculateMatch() {
+        const jdTitle = document.getElementById('match-jd-title').value.trim();
         const scope = document.getElementById('match-scope').value;
-        const title = document.getElementById('match-jd-title').value;
-        const text = document.getElementById('match-jd-text').value;
-        const jdFile = document.getElementById('match-jd-file').files[0];
-        const jdUrl = document.getElementById('match-jd-url').value.trim();
+        const jdText = document.getElementById('match-jd-text').value.trim();
 
-        if (!title) {
-            showToast("Please enter a Job Description Title.", "warning");
-            return;
-        }
-        if (!text && !jdFile && !jdUrl) {
-            showToast("Please paste JD text, upload a JD file, or paste a JD link.", "warning");
+        if (!jdText) {
+            showToast("Please paste job description text.", "warning");
             return;
         }
 
-        const formData = new FormData();
-        formData.append("jd_title", title);
-        formData.append("jd_text", text);
-        formData.append("jd_url", jdUrl);
-        if (jdFile) formData.append("jd_file", jdFile);
-
-        let url = '/api/resume/score';
-
-        if (scope === 'individual') {
-            const reg = document.getElementById('match-student-reg').value.trim();
-            const resumeFile = document.getElementById('match-resume-file').files[0];
-            const resumeUrl = document.getElementById('match-resume-url').value.trim();
-            
-            if (!reg && !resumeFile && !resumeUrl) {
-                showToast("Please enter Student Reg No, upload a Resume, or paste a Resume link.", "warning");
-                return;
-            }
-            formData.append("reg_number", reg);
-            formData.append("resume_url", resumeUrl);
-            if (resumeFile) formData.append("resume_file", resumeFile);
-        } else {
-            url = '/api/resume/bulk-score';
-            const dept = scope === 'dept' ? document.getElementById('match-dept').value : 'ALL';
-            formData.append("department", dept);
-        }
+        let studentReg = "";
+        let deptName = "";
+        if (scope === 'individual') studentReg = document.getElementById('match-student-reg').value.trim();
+        if (scope === 'dept') deptName = document.getElementById('match-dept').value;
 
         try {
-            const res = await fetch(url, {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await res.json();
-            if (res.ok) {
-                if (scope !== 'individual') {
-                    showToast(`Bulk Match Success! Scanned ${data.total_scanned} candidates.`, "success");
-                    renderMatchDashboard(data);
-                } else {
-                    showToast(`Resume score generated: ${data.score}% Match!`, "success");
-                    loadMatchDashboard();
-                }
-            } else {
-                showToast(data.error || "Matcher calculation failed.", "error");
-            }
-        } catch (e) {
-            showToast("Server matcher error.", "error");
-        }
-    }
-
-    function downloadMatchPDF() {
-        const title = document.getElementById('match-jd-title').value.trim();
-        if (!title) {
-            showToast("Please calculate matches first before downloading a PDF.", "warning");
-            return;
-        }
-        window.open(`/api/resume/download-pdf?jd_title=${encodeURIComponent(title)}`, '_blank');
-    }
-
-    function openSendMailModal() {
-        const title = document.getElementById('match-jd-title').value.trim();
-        if (!title) {
-            showToast("Please calculate matches first before composing a mail.", "warning");
-            return;
-        }
-        
-        document.getElementById('mail-jd-title').value = title;
-        document.getElementById('mail-content').value = `Hi Team,\n\nThe following students have matched the requirements for the "${title}" position.\n\nPlease find the matching scores below and initiate background verification.`;
-        document.getElementById('send-mail-modal').classList.remove('hidden');
-    }
-
-    function closeSendMailModal() {
-        document.getElementById('send-mail-modal').classList.add('hidden');
-    }
-
-    async function sendProposalMail() {
-        const title = document.getElementById('mail-jd-title').value;
-        const msg = document.getElementById('mail-content').value.trim();
-        
-        if (!msg) {
-            showToast("Email content is required.", "warning");
-            return;
-        }
-        
-        try {
-            const res = await fetch('/api/resume/forward-proposal', {
+            const res = await fetch('/api/resume/match', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ jd_title: title, message: msg })
+                body: JSON.stringify({
+                    jd_title: jdTitle,
+                    scope: scope,
+                    student_reg: studentReg,
+                    department: deptName,
+                    jd_text: jdText
+                })
             });
+
             const data = await res.json();
-            if (res.ok) {
-                showToast(data.message || "Proposal forwarded successfully!", "success");
-                closeSendMailModal();
+            const body = document.getElementById('match-results-body');
+
+            if (res.ok && data.success) {
+                const results = data.results || [];
+                if (results.length === 0) {
+                    body.innerHTML = `<p class="text-slate-500 text-xs text-center py-6">No matching candidates found.</p>`;
+                } else {
+                    body.innerHTML = `
+                        <div class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                            ${results.map(r => `
+                                <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-4 flex-wrap">
+                                    <div>
+                                        <h5 class="font-bold text-slate-100 text-sm">${r.name || r.reg_number}</h5>
+                                        <p class="text-xs text-slate-400 font-mono">${r.reg_number} • ${r.department || 'N/A'}</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="text-right">
+                                            <span class="text-xs font-extrabold ${r.score >= 70 ? 'text-emerald-400' : r.score >= 50 ? 'text-amber-400' : 'text-red-400'}">${r.score}% Match Score</span>
+                                            <p class="text-[9px] text-slate-500">${r.verdict || 'Evaluation Complete'}</p>
+                                        </div>
+                                        <button onclick="openStudentFullModal('${r.reg_number}')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">View Full Data</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
             } else {
-                showToast(data.error || "Failed to forward proposal.", "error");
+                showToast(data.error || "Match calculation failed.", "error");
             }
         } catch (e) {
             showToast("Server connection error.", "error");
         }
     }
 
+    // PDF Export Parameters Helper
     function getReportParams(reportType) {
         let params = `type=${reportType}`;
         let bodyObj = { type: reportType };
-        
+
         if (reportType === 'student_company') {
             const comp = document.getElementById('r1-company-select').value;
             params += `&company_name=${encodeURIComponent(comp)}`;
