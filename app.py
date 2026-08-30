@@ -50,7 +50,10 @@ def create_app():
         import traceback
         original = getattr(e, "original_exception", None)
         err_msg = str(original) if original else str(e)
-        tb = traceback.format_exc()
+        if original:
+            tb = "".join(traceback.format_exception(type(original), original, original.__traceback__))
+        else:
+            tb = "".join(traceback.format_exception(type(e), e, e.__traceback__))
         if request.path.startswith("/api/"):
             return jsonify({
                 "error": "Internal server error occurred",
