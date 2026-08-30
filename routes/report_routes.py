@@ -116,19 +116,9 @@ def get_companies_by_status():
     status = request.args.get("status", "").strip()
     approval = request.args.get("approval", "").strip()
     
-    db = get_db()
     data, _ = fetch_report_data("company_pipeline", search=search, status=status, approval=approval)
     for c in data:
         c["_id"] = str(c["_id"])
-        # Embed full placed students list for modal & directory views
-        placed_students = list(db.students.find(
-            {"placed_company": c["company_name"], "placement_status": "PLACED"}
-        ))
-        for ps in placed_students:
-            ps["_id"] = str(ps["_id"])
-        c["selections"] = placed_students
-        if not c.get("offers_count") or c["offers_count"] == 0:
-            c["offers_count"] = len(placed_students)
     return jsonify(data)
 
 # 5. Company Report 2 - Drive completed companies & selections
