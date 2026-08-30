@@ -1,19 +1,22 @@
 reg_number,student_name,department,company_name,status,ctc_lpa,drive_date,offer_date
-23CS001,Karthikeyan T,CSE,Zoho Corporation,PLACED,8.4,2026-08-15,2026-08-16
-23IT002,Arun Kumar,IT,Amazon Development Centre,PLACED,24.0,2026-08-15,2026-08-16
-23AI003,Priya Dharshini,AI&DS,Freshworks,PLACED,12.5,2026-08-15,2026-08-16
-23EC004,Sanjay R,ECE,Cognizant,PLACED,6.5,2026-08-15,2026-08-16
-23EE005,Deepika S,EEE,TCS Digital & Ninja,PLACED,7.2,2026-08-15,2026-08-16
-23ME006,Vignesh M,MECH,Infosys Ltd,PLACED,9.0,2026-08-15,2026-08-16
-23CS007,Ananya V,CSE,Kaar Technologies,PLACED,8.0,2026-08-15,2026-08-16
-23IT008,Rahul Sundaram,IT,Accenture India,PLACED,6.5,2026-08-15,2026-08-16
-23AI009,Sneha Natarajan,AI&DS,Solartis Technology Services,PLACED,6.0,2026-08-15,2026-08-16
-23EC010,Gokul Selvam,ECE,Hexaware Technologies,PLACED,5.5,2026-08-15,2026-08-16
-23EE011,Divya Babu,EEE,Zoho Corporation,PLACED,8.4,2026-08-15,2026-08-16
-23ME012,Praveen Moorthy,MECH,Amazon Development Centre,PLACED,24.0,2026-08-15,2026-08-16
-23CS013,Meena Krishnan,CSE,Freshworks,PLACED,12.5,2026-08-15,2026-08-16
-23IT014,Harish Raj,IT,Cognizant,PLACED,6.5,2026-08-15,2026-08-16
-23AI015,Pavithra Pandian,AI&DS,TCS Digital & Ninja,PLACED,7.2,2026-08-15,2026-08-16
-23EC016,Manoj Ganesan,ECE,Infosys Ltd,PLACED,9.0,2026-08-15,2026-08-16
-23EE017,Keerthana Chandar,EEE,Kaar Technologies,PLACED,8.0,2026-08-15,2026-08-16
-23ME018,Surya Venkatesh,MECH,Accenture India,PLACED,6.5,2026-08-15,2026-08-16
+RCAS2024BCS011,Adithya Venkatesh,Computer Science,Google India,PLACED,24.0,2025-02-15,2025-02-20
+RTC2024BCS012,Sneha Muralidharan,Computer Science,Microsoft India,PLACED,21.5,2025-02-15,2025-02-20
+RCAS2024BIT011,Rohit Balaji,Computer Science,Amazon Development Centre,PLACED,19.5,2025-02-15,2025-02-20
+RTC2024BCY011,Harini Natarajan,Computer Science,Amazon Web Services (AWS),PLACED,17.0,2025-02-15,2025-02-20
+RCAS2024BCS013,Varshini Ramesh,Computer Science,Adobe Systems,PLACED,16.5,2025-02-15,2025-02-20
+RTC2024BEC011,Akash Subramanian,Computer Science,Cisco Systems,PLACED,15.0,2025-02-15,2025-02-20
+RCAS2024BCY002,Divya Lakshmi,Computer Science,Qualcomm India,PLACED,14.5,2025-02-15,2025-02-20
+RTC2024BIT012,Gautham Krishna,Computer Science,Salesforce India,PLACED,13.5,2025-02-15,2025-02-20
+RCAS2024BCY004,Abishek M,Computer Science,CrowdStrike India,PLACED,13.0,2025-02-15,2025-02-20
+RTC2024BCY012,Deepak Chandran,Computer Science,CrowdStrike India,PLACED,13.0,2025-02-15,2025-02-20
+RCAS2024BEC002,Ananya Rao,Computer Science,Texas Instruments,PLACED,11.0,2025-02-15,2025-02-20
+RTC2024BCS014,Pooja Sundaram,Computer Science,Flipkart,PLACED,11.0,2025-02-15,2025-02-20
+RCAS2024BCY001,Naveen Kumar,Computer Science,Palo Alto Networks,PLACED,10.0,2025-02-15,2025-02-20
+RTC2024BCS005,Dinesh Kumar T,Computer Science,Infosys,PLACED,9.5,2025-02-15,2025-02-20
+RCAS2024BCY046,INBAVARUNAN S,Computer Science,Zoho Corporation,PLACED,8.5,2025-02-15,2025-02-20
+RTC2024BCY013,Manoj Prabhakar,Computer Science,Zoho Corporation,PLACED,8.5,2025-02-15,2025-02-20
+RCAS2024BBA001,Sanjay Kumar,Computer Science,Deloitte USI,PLACED,7.5,2025-02-15,2025-02-20
+RTC2024BIT001,Meena Devi,Computer Science,Tata Consultancy Services,PLACED,7.0,2025-02-15,2025-02-20
+RCAS2024BCY003,Swetha Mohan,Computer Science,Wipro Digital,PLACED,6.8,2025-02-15,2025-02-20
+RTC2024BIT002,Vishal Anand,Computer Science,Cognizant Technology Solutions,PLACED,6.5,2025-02-15,2025-02-20
+RCAS2024BBA002,Keerthana R,Computer Science,HDFC Bank,PLACED,6.2,2025-02-15,2025-02-20
