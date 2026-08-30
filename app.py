@@ -68,6 +68,8 @@ def create_app():
     return app
 
 app = create_app()
+app.secret_key = "placement_mgmt_super_secret_key_2026"
+app.config["SECRET_KEY"] = "placement_mgmt_super_secret_key_2026"
 
 if __name__ == "__main__":
     # Host on all interfaces for network testing
