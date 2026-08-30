@@ -87,9 +87,33 @@ def wipe_and_seed_real_data():
                 placed_comp = ""
                 ctc = 0.0
                 if status == "PLACED":
-                    # default random mapping if placed
                     placed_comp = "Zoho Corporation"
                     ctc = 8.5
+
+                # Distinct high-res photo pools based on Gender
+                male_photos = [
+                    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80"
+                ]
+                female_photos = [
+                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=400&q=80",
+                    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+                ]
+                
+                if "female" in gender.lower():
+                    final_photo = female_photos[idx % len(female_photos)]
+                else:
+                    final_photo = male_photos[idx % len(male_photos)]
                 
                 doc = {
                     "reg_number": reg,
@@ -108,7 +132,7 @@ def wipe_and_seed_real_data():
                     "linkedin_url": linkedin,
                     "portfolio_url": portfolio,
                     "resume_url": resume_link,
-                    "photo_url": photo_link,
+                    "photo_url": final_photo,
                     "placement_status": status,
                     "placed_company": placed_comp if status == "PLACED" else "",
                     "ctc_lpa": ctc if status == "PLACED" else 0.0,
