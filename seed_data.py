@@ -1,10 +1,10 @@
 import os
 import csv
-from services.auth_service import hash_password
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def seed_database(db=None):
+    from services.auth_service import hash_password
     if db is None:
         from models.database import get_db
         db = get_db()
