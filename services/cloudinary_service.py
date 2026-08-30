@@ -39,10 +39,12 @@ def upload_file(file_storage, folder="placement_system"):
     # 1. Try Cloudinary Upload
     if get_cloudinary_configured():
         try:
+            import io
             file_storage.seek(0)
-            upload_target = getattr(file_storage, "stream", file_storage)
+            bio = io.BytesIO(file_storage.read())
+            bio.name = filename
             result = cloudinary.uploader.upload(
-                upload_target,
+                bio,
                 folder=folder,
                 resource_type="auto"
             )
