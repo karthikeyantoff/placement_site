@@ -427,24 +427,34 @@
         } catch (e) {}
     }
 
-    async function selectCompletedDrive(companyName) {
+    async function selectCompletedDrive(companyName, autoScroll = false) {
         try {
-            const res = await fetch(`/api/reports/students/company/${companyName}`);
+            const res = await fetch(`/api/reports/students/company/${encodeURIComponent(companyName)}`);
             if (res.ok) {
                 const data = await res.json();
                 const tbody = document.getElementById('cr2-students-table');
                 
+                const header = document.querySelector('#panel-company h5');
+                if (header) {
+                    header.innerHTML = `Selected Candidate Selections for <span class="text-white font-extrabold">${companyName}</span> (${data.length} Placed)`;
+                }
+
                 if (data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No selections found.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No selections found for ${companyName}.</td></tr>`;
                 } else {
                     tbody.innerHTML = data.map(s => `
                         <tr class="hover:bg-slate-850/10">
                             <td class="py-3 font-semibold text-slate-200">${s.name}</td>
                             <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
                             <td class="py-3 text-slate-400">${s.department}</td>
-                            <td class="py-3 text-slate-500">${s.phone}</td>
+                            <td class="py-3 text-slate-500">${s.phone || 'N/A'}</td>
                         </tr>
                     `).join('');
+                }
+
+                if (autoScroll) {
+                    const card = document.getElementById('cr2-students-table');
+                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
         } catch (e) {}
@@ -473,8 +483,10 @@
                         if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
                         if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
 
+                        const safeCompName = c.company_name.replace(/'/g, "\\'");
+
                         return `
-                            <tr class="hover:bg-slate-850/10 transition cursor-pointer" onclick="selectCompletedDrive('${c.company_name.replace(/'/g, "\\'")}')">
+                            <tr class="hover:bg-slate-850/10 transition cursor-pointer" onclick="selectCompletedDrive('${safeCompName}', true)">
                                 <td class="py-3 font-semibold text-slate-200">${c.company_name}</td>
                                 <td class="py-3 text-slate-400">${c.location}</td>
                                 <td class="py-3">
@@ -485,7 +497,7 @@
                                 </td>
                                 <td class="py-3 text-slate-500">${c.hr_email}</td>
                                 <td class="py-3 text-right">
-                                    <button onclick="event.stopPropagation(); selectCompletedDrive('${c.company_name.replace(/'/g, "\\'")}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2.5 py-1 rounded text-[10px] font-bold border border-indigo-500/30 transition shadow-sm">
+                                    <button onclick="event.stopPropagation(); selectCompletedDrive('${safeCompName}', true)" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2.5 py-1 rounded text-[10px] font-bold border border-indigo-500/30 transition shadow-sm">
                                         View Placed Students
                                     </button>
                                 </td>
@@ -495,7 +507,7 @@
 
                     // Automatically load the candidate selection roster for the searched company!
                     if (data.length > 0) {
-                        selectCompletedDrive(data[0].company_name);
+                        selectCompletedDrive(data[0].company_name, false);
                     }
                 }
             }

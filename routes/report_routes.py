@@ -29,9 +29,10 @@ def fetch_report_data(report_type, company_name=None, search=None, status=None, 
     meta = {}
     
     if report_type == "student_company":
-        query = {"placed_company": company_name}
         if not company_name or company_name.lower() == "all":
             query = {"placement_status": "PLACED"}
+        else:
+            query = {"placed_company": {"$regex": company_name, "$options": "i"}}
         students_cursor = db.students.find(query, {"reg_number": 1, "name": 1, "department": 1, "email": 1, "phone": 1, "ctc_lpa": 1})
         data = list(students_cursor)
         meta["company_name"] = company_name or "All Companies"
@@ -63,13 +64,11 @@ def fetch_report_data(report_type, company_name=None, search=None, status=None, 
         data = list(companies_cursor)
         
     elif report_type == "company_drive":
-        company = db.companies.find_one({"company_name": company_name})
-        if company:
-            placed_students = db.students.find(
-                {"placed_company": company_name, "placement_status": "PLACED"},
-                {"name": 1, "reg_number": 1, "department": 1, "phone": 1}
-            )
-            data = list(placed_students)
+        placed_students = db.students.find(
+            {"placed_company": {"$regex": company_name, "$options": "i"}},
+            {"name": 1, "reg_number": 1, "department": 1, "phone": 1}
+        )
+        data = list(placed_students)
         meta["company_name"] = company_name or "Completed Drive"
         
     return data, meta
