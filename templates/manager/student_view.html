@@ -4,8 +4,8 @@
 {% block header_title %}Candidate Dossier Details{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto glass-panel border border-slate-800 rounded-3xl overflow-hidden shadow-2xl relative" id="profile-container">
-    <div class="text-center py-20 text-slate-500">
+<div class="max-w-2xl mx-auto glass-panel border border-slate-200 rounded-3xl overflow-hidden shadow-sm relative" id="profile-container">
+    <div class="text-center py-20 text-slate-400">
         <p class="text-xs font-bold uppercase tracking-wider">Loading Candidate Profile...</p>
     </div>
 </div>
@@ -22,73 +22,73 @@
                 const container = document.getElementById('profile-container');
                 
                 container.innerHTML = `
-                    <div class="h-32 bg-gradient-to-r from-indigo-800 to-indigo-950 relative"></div>
+                    <div class="h-32 bg-gradient-to-r from-indigo-600 to-indigo-800 relative"></div>
                     <div class="px-8 pb-8 space-y-6">
                         <div class="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
-                            <div class="relative w-28 h-28 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-950 shadow-2xl shrink-0 -mt-14">
+                            <div class="relative w-28 h-28 rounded-2xl border-4 border-white overflow-hidden bg-slate-100 shadow-md shrink-0 -mt-14">
                                 <img src="${s.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'}" 
                                      class="w-full h-full object-cover"
                                      onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
                             </div>
                             <div class="text-center sm:text-left flex-1 min-w-0">
-                                <h3 class="text-xl font-black text-white truncate">${s.name}</h3>
-                                <p class="text-xs text-slate-400 mt-1">Registration Number: <span class="font-mono text-slate-300 font-bold">${s.reg_number}</span></p>
+                                <h3 class="text-xl font-extrabold text-slate-900 truncate">${s.name}</h3>
+                                <p class="text-xs text-slate-500 mt-1 font-medium">Registration Number: <span class="font-mono text-slate-700 font-bold">${s.reg_number}</span></p>
                             </div>
-                            <span class="inline-block px-3 py-1 text-xs font-bold uppercase rounded-full border ${s.placement_status === 'PLACED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}">
+                            <span class="inline-block px-3 py-1 text-xs font-extrabold uppercase rounded-full border ${s.placement_status === 'PLACED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">
                                 ${s.placement_status} ${s.placement_status === 'PLACED' ? `@ ${s.placed_company} (${s.ctc_lpa} LPA)` : ''}
                             </span>
                         </div>
 
                         <!-- Academics & Contact -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 text-xs">
-                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
-                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">Academic Info</h5>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Department</span><span class="font-semibold text-slate-200">${s.department}</span>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-2">Academic Info</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">Department</span><span class="font-bold text-slate-900">${s.department}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Graduation Year</span><span class="font-semibold text-slate-200">${s.year_of_graduation}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">Graduation Year</span><span class="font-bold text-slate-900">${s.year_of_graduation}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">SSLC (%)</span><span class="font-semibold text-slate-200">${s.sslc_percentage}%</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">SSLC (%)</span><span class="font-bold text-slate-900">${s.sslc_percentage}%</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">HSC (%)</span><span class="font-semibold text-slate-200">${s.hsc_percentage}%</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">HSC (%)</span><span class="font-bold text-slate-900">${s.hsc_percentage}%</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                     <span class="text-slate-400">UG Score</span><span class="font-semibold text-slate-200">${s.ug_percentage <= 10 ? s.ug_percentage + ' CGPA' : s.ug_percentage + '%'}</span>
-                                 </div>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">UG Score</span><span class="font-bold text-slate-900">${s.ug_percentage <= 10 ? s.ug_percentage + ' CGPA' : s.ug_percentage + '%'}</span>
+                                </div>
                                 <div class="flex justify-between py-1">
-                                    <span class="text-slate-400">PG Percentage</span><span class="font-semibold text-slate-200">${s.pg_percentage ? s.pg_percentage + '%' : 'N/A'}</span>
+                                    <span class="text-slate-500 font-medium">PG Percentage</span><span class="font-bold text-slate-900">${s.pg_percentage ? s.pg_percentage + '%' : 'N/A'}</span>
                                 </div>
                             </div>
 
-                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
-                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">Personal & Channels</h5>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Gender</span><span class="font-semibold text-slate-200">${s.gender}</span>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-2">Personal & Channels</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">Gender</span><span class="font-bold text-slate-900">${s.gender}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Residence</span><span class="font-semibold text-slate-200">${s.student_type}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">Residence</span><span class="font-bold text-slate-900">${s.student_type}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Mobile</span><span class="font-semibold text-slate-200">${s.phone}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200">
+                                    <span class="text-slate-500 font-medium">Mobile</span><span class="font-bold text-slate-900">${s.phone}</span>
                                 </div>
                                 <div class="flex justify-between py-1">
-                                    <span class="text-slate-400">Email</span><span class="font-semibold text-slate-200 truncate max-w-[150px]">${s.email}</span>
+                                    <span class="text-slate-500 font-medium">Email</span><span class="font-bold text-slate-900 truncate max-w-[150px]">${s.email}</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Credentials & Media Links -->
-                        <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 text-xs">
-                            <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-4">Credentials & Media Links</h5>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+                            <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-4">Credentials & Media Links</h5>
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="flex items-center gap-2 p-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 rounded-lg font-bold border border-indigo-500/10 transition">Resume PDF</a>` : ''}
-                                ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">GitHub</a>` : ''}
-                                ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">LinkedIn</a>` : ''}
-                                ${s.portfolio_link ? `<a href="${s.portfolio_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">Portfolio</a>` : ''}
-                                ${s.self_intro_link ? `<a href="${s.self_intro_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">Intro Video</a>` : ''}
+                                ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="flex items-center gap-2 p-2 bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white rounded-xl font-bold border border-indigo-200 transition shadow-xs">Resume PDF</a>` : ''}
+                                ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold border border-slate-300 transition shadow-xs">GitHub</a>` : ''}
+                                ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold border border-slate-300 transition shadow-xs">LinkedIn</a>` : ''}
+                                ${s.portfolio_link ? `<a href="${s.portfolio_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold border border-slate-300 transition shadow-xs">Portfolio</a>` : ''}
+                                ${s.self_intro_link ? `<a href="${s.self_intro_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold border border-slate-300 transition shadow-xs">Intro Video</a>` : ''}
                             </div>
                         </div>
                     </div>

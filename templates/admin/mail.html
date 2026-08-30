@@ -7,23 +7,23 @@
 <div class="space-y-6">
     <!-- Header -->
     <div>
-        <h3 class="text-sm font-bold text-slate-100 uppercase tracking-widest">Verification Mailbox</h3>
-        <p class="text-xs text-slate-500">Conduct corporate verification, download official dossiers, and approve placement drives.</p>
+        <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-widest">Verification Mailbox</h3>
+        <p class="text-xs text-slate-500 font-medium">Conduct corporate verification, download official dossiers, and approve placement drives.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Left: Mail list -->
-        <div class="lg:col-span-1 glass-panel rounded-2xl p-4 shadow-xl space-y-4 max-h-[70vh] overflow-y-auto">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-2">Submissions Box</h4>
+        <div class="lg:col-span-1 glass-panel rounded-2xl p-4 shadow-sm space-y-4 max-h-[70vh] overflow-y-auto">
+            <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-widest px-2">Submissions Box</h4>
             <div id="mail-list" class="space-y-2">
                 <!-- Loaded dynamically -->
             </div>
         </div>
 
         <!-- Right: Mail Detail View -->
-        <div class="lg:col-span-2 glass-panel rounded-2xl p-6 shadow-xl min-h-[50vh] flex flex-col justify-between" id="mail-detail-container">
-            <div class="text-center py-20 text-slate-500" id="mail-empty-state">
-                <svg class="w-12 h-12 mx-auto mb-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <div class="lg:col-span-2 glass-panel rounded-2xl p-6 shadow-sm min-h-[50vh] flex flex-col justify-between" id="mail-detail-container">
+            <div class="text-center py-20 text-slate-400" id="mail-empty-state">
+                <svg class="w-12 h-12 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                 <p class="text-xs font-bold uppercase tracking-wider">Select a lead verification mail to review.</p>
             </div>
             
@@ -63,10 +63,10 @@
         }
 
         list.innerHTML = submissions.map(n => `
-            <div onclick="selectMail('${n._id}', '${n.company_id}')" class="p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${n.status === 'UNREAD' ? 'bg-indigo-600/5 border-indigo-500/20 text-slate-100 hover:bg-indigo-600/10' : 'border-slate-800/60 hover:bg-slate-800/30 text-slate-400'}">
+            <div onclick="selectMail('${n._id}', '${n.company_id}')" class="p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${n.status === 'UNREAD' ? 'bg-indigo-50 border-indigo-200 text-slate-900 hover:bg-indigo-100/60 shadow-xs' : 'border-slate-200 hover:bg-slate-50 text-slate-600'}">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-bold text-xs truncate max-w-[120px]">${n.company_name}</span>
-                    <span class="text-[9px] text-slate-500 font-mono">${n.created_at.split(' ')[0] || ''}</span>
+                    <span class="font-bold text-xs truncate max-w-[120px] text-slate-900">${n.company_name}</span>
+                    <span class="text-[9px] text-slate-400 font-mono">${n.created_at.split(' ')[0] || ''}</span>
                 </div>
                 <p class="text-[10px] text-slate-500 truncate">From: ${n.sender}</p>
             </div>
@@ -103,13 +103,13 @@
         content.innerHTML = `
             <div class="space-y-6 text-xs">
                 <!-- Card Header -->
-                <div class="flex items-center justify-between border-b border-slate-850 pb-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
                     <div>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-indigo-400">Dossier for Verification</span>
-                        <h4 class="text-lg font-black text-white mt-0.5">${c.company_name}</h4>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-indigo-600">Dossier for Verification</span>
+                        <h4 class="text-lg font-extrabold text-slate-900 mt-0.5">${c.company_name}</h4>
                     </div>
-                    <a href="/api/companies/${c._id}/pdf" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-750 px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition active:scale-95">
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
+                    <a href="/api/companies/${c._id}/pdf" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition shadow-xs active:scale-95">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
                         Download PDF Dossier
                     </a>
                 </div>
@@ -118,44 +118,44 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
                         <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Headquarters Location</span>
-                        <p class="text-slate-200 font-semibold text-sm">${c.location}</p>
+                        <p class="text-slate-900 font-bold text-sm">${c.location}</p>
                     </div>
                     <div class="space-y-1">
                         <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Corporate Website</span>
-                        <a href="${c.website}" target="_blank" class="text-indigo-400 font-semibold hover:underline block text-sm">${c.website}</a>
+                        <a href="${c.website}" target="_blank" class="text-indigo-600 font-bold hover:underline block text-sm">${c.website}</a>
                     </div>
                     <div class="space-y-1">
                         <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">HR Email Channel</span>
-                        <p class="text-slate-200 font-semibold text-sm">${c.hr_email}</p>
+                        <p class="text-slate-900 font-bold text-sm">${c.hr_email}</p>
                     </div>
                     <div class="space-y-1">
                         <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">HR Phone Number</span>
-                        <p class="text-slate-200 font-semibold text-sm">${c.hr_phone}</p>
+                        <p class="text-slate-900 font-bold text-sm">${c.hr_phone}</p>
                     </div>
                 </div>
 
                 <div class="space-y-1">
                     <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Job Profiles & Overview</span>
-                    <p class="text-slate-300 bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/80 leading-relaxed font-semibold">${c.content}</p>
+                    <p class="text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200 leading-relaxed font-medium">${c.content}</p>
                 </div>
 
                 <div class="space-y-1">
                     <span class="text-slate-500 font-bold uppercase tracking-wider text-[10px]">Corporate Address</span>
-                    <p class="text-slate-300 leading-relaxed font-semibold">${c.company_address}</p>
+                    <p class="text-slate-700 leading-relaxed font-medium">${c.company_address}</p>
                 </div>
 
-                <div class="space-y-1 border-t border-slate-850 pt-4 flex justify-between text-[11px] text-slate-500">
-                    <span>Sourcing Agent: <strong class="text-slate-400">${c.submitted_by}</strong></span>
-                    <span>Submission Status: <strong class="text-amber-500 uppercase">${c.approval_status}</strong></span>
+                <div class="space-y-1 border-t border-slate-200 pt-4 flex justify-between text-[11px] text-slate-500">
+                    <span>Sourcing Agent: <strong class="text-slate-700 font-bold">${c.submitted_by}</strong></span>
+                    <span>Submission Status: <strong class="text-amber-700 uppercase font-extrabold">${c.approval_status}</strong></span>
                 </div>
             </div>
 
             <!-- Actions block -->
-            <div class="flex justify-end gap-3 pt-6 border-t border-slate-850 mt-6">
-                <button onclick="verifyReject()" class="bg-red-500/10 hover:bg-red-650 text-red-400 hover:text-white px-5 py-2.5 rounded-xl font-bold border border-red-500/20 transition active:scale-95">
+            <div class="flex justify-end gap-3 pt-6 border-t border-slate-200 mt-6">
+                <button onclick="verifyReject()" class="bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white px-5 py-2.5 rounded-xl font-bold border border-rose-200 transition shadow-xs active:scale-95">
                     Reject Sourcing
                 </button>
-                <button onclick="verifyApprove()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-emerald-500/15 active:scale-95">
+                <button onclick="verifyApprove()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-md shadow-emerald-600/20 active:scale-95">
                     Approve Corporate Partner
                 </button>
             </div>

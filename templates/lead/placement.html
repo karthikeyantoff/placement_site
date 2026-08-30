@@ -8,12 +8,12 @@
     <!-- Action Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h3 class="text-sm font-bold text-slate-100 uppercase tracking-widest">Sourced Lead Inventory</h3>
-            <p class="text-xs text-slate-500">Record cold/warm calls, save details, and forward dossiers for Admin verification.</p>
+            <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-widest">Sourced Lead Inventory</h3>
+            <p class="text-xs text-slate-500 font-medium">Record cold/warm calls, save details, and forward dossiers for Admin verification.</p>
         </div>
         
         <div class="flex items-center gap-3">
-            <button onclick="openAddCompanyModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/10 transition active:scale-95">
+            <button onclick="openAddCompanyModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md shadow-indigo-600/20 transition active:scale-95">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Source Company
             </button>
@@ -21,11 +21,11 @@
     </div>
 
     <!-- Company Pipeline Grid/Table -->
-    <div class="glass-panel rounded-2xl shadow-xl overflow-hidden">
+    <div class="glass-panel rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="bg-slate-900/50 border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                         <th class="p-4">Company Name</th>
                         <th class="p-4">Location</th>
                         <th class="p-4">HR Contact Info</th>
@@ -34,7 +34,7 @@
                         <th class="p-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="company-table-body" class="divide-y divide-slate-800/50">
+                <tbody id="company-table-body" class="divide-y divide-slate-100">
                     <!-- Loaded dynamically -->
                 </tbody>
             </table>
@@ -43,12 +43,12 @@
 </div>
 
 <!-- ================= ADD / EDIT COMPANY MODAL ================= -->
-<div id="company-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+<div id="company-modal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
         <!-- Modal Header -->
-        <div class="p-6 border-b border-slate-800 flex items-center justify-between">
-            <h4 id="modal-title" class="text-sm font-bold uppercase tracking-wider text-slate-200">Source New Corporate Lead</h4>
-            <button onclick="closeCompanyModal()" class="text-slate-500 hover:text-slate-200">
+        <div class="p-6 border-b border-slate-200 flex items-center justify-between">
+            <h4 id="modal-title" class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Source New Corporate Lead</h4>
+            <button onclick="closeCompanyModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
@@ -59,39 +59,39 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1.5 sm:col-span-2">
-                    <label class="font-semibold text-slate-300">Company Name *</label>
-                    <input type="text" id="form-name" required placeholder="e.g. Zoho Corporation" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700">Company Name *</label>
+                    <input type="text" id="form-name" required placeholder="e.g. Zoho Corporation" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300">Office Location / City *</label>
-                    <input type="text" id="form-location" required placeholder="e.g. Chennai" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700">Office Location / City *</label>
+                    <input type="text" id="form-location" required placeholder="e.g. Chennai" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300">Company Website URL *</label>
-                    <input type="url" id="form-website" required placeholder="e.g. https://zoho.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700">Company Website URL *</label>
+                    <input type="url" id="form-website" required placeholder="e.g. https://zoho.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300">HR Contact Phone *</label>
-                    <input type="text" id="form-hr-phone" required placeholder="Enter phone" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700">HR Contact Phone *</label>
+                    <input type="text" id="form-hr-phone" required placeholder="Enter phone" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300">HR Contact Email *</label>
-                    <input type="email" id="form-hr-email" required placeholder="Enter corporate email" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700">HR Contact Email *</label>
+                    <input type="email" id="form-hr-email" required placeholder="Enter corporate email" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
                 <div class="space-y-1.5 sm:col-span-2">
-                    <label class="font-semibold text-slate-300">Overview / Job Profiles offered *</label>
-                    <textarea id="form-content" required rows="3" placeholder="Describe profiles offered or drive details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500"></textarea>
+                    <label class="font-bold text-slate-700">Overview / Job Profiles offered *</label>
+                    <textarea id="form-content" required rows="3" placeholder="Describe profiles offered or drive details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white"></textarea>
                 </div>
                 <div class="space-y-1.5 sm:col-span-2">
-                    <label class="font-semibold text-slate-300">Full Office Address *</label>
-                    <textarea id="form-address" required rows="2" placeholder="Enter physical location details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-650 focus:outline-none focus:border-indigo-500"></textarea>
+                    <label class="font-bold text-slate-700">Full Office Address *</label>
+                    <textarea id="form-address" required rows="2" placeholder="Enter physical location details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white"></textarea>
                 </div>
             </div>
             
             <!-- Actions -->
-            <div class="flex justify-end gap-3 border-t border-slate-800 pt-6">
-                <button type="button" onclick="closeCompanyModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-semibold px-4 py-2.5 rounded-xl transition">Cancel</button>
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/10">Save Sourced Lead</button>
+            <div class="flex justify-end gap-3 border-t border-slate-200 pt-6">
+                <button type="button" onclick="closeCompanyModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2.5 rounded-xl transition border border-slate-300">Cancel</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-xl transition shadow-md shadow-indigo-600/20">Save Sourced Lead</button>
             </div>
         </form>
     </div>
@@ -126,25 +126,25 @@
             const isPending = c.approval_status === 'PENDING';
             const isForwarded = c.is_forwarded;
 
-            let approvalBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
-            if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-            if (c.approval_status === 'REJECTED') approvalBadge = "bg-red-500/10 text-red-400 border-red-500/20";
+            let approvalBadge = "bg-amber-50 text-amber-700 border-amber-200";
+            if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-50 text-emerald-700 border-emerald-200";
+            if (c.approval_status === 'REJECTED') approvalBadge = "bg-rose-50 text-rose-700 border-rose-200";
 
-            let pathBadge = "bg-slate-850 text-slate-400 border-slate-700/60";
-            if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-            if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
-            if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+            let pathBadge = "bg-slate-100 text-slate-700 border-slate-200";
+            if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-indigo-50 text-indigo-700 border-indigo-200";
+            if (c.placement_status === 'HOT') pathBadge = "bg-rose-50 text-rose-700 border-rose-200";
+            if (c.placement_status === 'WARM') pathBadge = "bg-amber-50 text-amber-700 border-amber-200";
 
             return `
-                <tr class="hover:bg-slate-850/20 transition">
-                    <td class="p-4 font-bold text-slate-200">
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-4 font-bold text-slate-900">
                         <div>
-                            <span class="text-sm">${c.company_name}</span>
-                            <a href="${c.website}" target="_blank" class="block text-[10px] text-slate-500 hover:text-indigo-400 hover:underline mt-0.5">${c.website}</a>
+                            <span class="text-sm font-bold text-slate-900">${c.company_name}</span>
+                            <a href="${c.website}" target="_blank" class="block text-[10px] text-indigo-600 hover:underline mt-0.5">${c.website}</a>
                         </div>
                     </td>
-                    <td class="p-4 text-slate-400">${c.location}</td>
-                    <td class="p-4 text-slate-400">
+                    <td class="p-4 text-slate-600 font-medium">${c.location}</td>
+                    <td class="p-4 text-slate-600 font-medium">
                         <div>${c.hr_email}</div>
                         <div class="text-[10px] text-slate-500">${c.hr_phone}</div>
                     </td>
@@ -160,12 +160,12 @@
                     </td>
                     <td class="p-4 text-right space-x-1.5 whitespace-nowrap">
                         ${!isApproved && !isForwarded ? `
-                            <button onclick="editCompany('${c._id}')" class="bg-slate-850 hover:bg-slate-800 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-750 font-bold transition">Edit</button>
-                            <button onclick="forwardCompany('${c._id}', '${c.company_name}')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-bold transition">Forward</button>
+                            <button onclick="editCompany('${c._id}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg border border-slate-300 font-bold transition shadow-xs">Edit</button>
+                            <button onclick="forwardCompany('${c._id}', '${c.company_name}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg font-bold transition shadow-md shadow-indigo-600/20">Forward</button>
                         ` : isForwarded && !isApproved ? `
-                            <span class="inline-block text-[10px] text-amber-500 font-bold bg-amber-500/5 border border-amber-500/10 px-2.5 py-1.5 rounded-lg">Verification Pending</span>
+                            <span class="inline-block text-[10px] text-amber-700 font-bold bg-amber-50 border border-amber-200 px-2.5 py-1.5 rounded-lg">Verification Pending</span>
                         ` : `
-                            <span class="inline-block text-[10px] text-emerald-400 font-bold bg-emerald-500/5 border border-emerald-500/10 px-2.5 py-1.5 rounded-lg">Verified Partner</span>
+                            <span class="inline-block text-[10px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-1.5 rounded-lg">Verified Partner</span>
                         `}
                     </td>
                 </tr>

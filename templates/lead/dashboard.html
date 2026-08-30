@@ -6,15 +6,14 @@
 {% block content %}
 <div class="space-y-8">
     <!-- Welcome Header Card -->
-    <div class="glass-panel p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
-        <div class="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="glass-panel p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div>
-            <span class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Corporate Lead Generation Sourcing Suite</span>
-            <h3 class="text-2xl font-black text-white mt-1">Welcome back, {{ session.get('username') }}</h3>
-            <p class="text-sm text-slate-400 mt-2 font-medium">Source new companies, save drafts, edit info, and forward to Admin placement head for background checks.</p>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-indigo-600">Corporate Lead Generation Sourcing Suite</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">Welcome back, {{ session.get('username') }}</h3>
+            <p class="text-sm text-slate-600 mt-2 font-medium">Source new companies, save drafts, edit info, and forward to Admin placement head for background checks.</p>
         </div>
         <div class="flex gap-3">
-            <a href="/lead/placement" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-3 rounded-2xl transition-all shadow-md active:scale-95">
+            <a href="/lead/placement" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3 rounded-2xl transition-all shadow-md shadow-indigo-600/20 active:scale-95 text-xs uppercase tracking-wider">
                 Go to Sourcing Panel
             </a>
         </div>
@@ -22,41 +21,41 @@
 
     <!-- Quick Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-slate-800">
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-slate-200">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Total Sourced</span>
-                <span class="p-2 bg-indigo-600/10 text-indigo-400 rounded-lg">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Total Sourced</span>
+                <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </span>
             </div>
             <div>
-                <h4 id="stat-sourced-count" class="text-3xl font-extrabold text-white">0</h4>
+                <h4 id="stat-sourced-count" class="text-3xl font-extrabold text-slate-900">0</h4>
                 <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Total Companies Saved</p>
             </div>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-emerald-500/10">
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-emerald-200">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Approved Sourced</span>
-                <span class="p-2 bg-emerald-600/10 text-emerald-400 rounded-lg">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Approved Sourced</span>
+                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </span>
             </div>
             <div>
-                <h4 id="stat-approved-count" class="text-3xl font-extrabold text-white">0</h4>
+                <h4 id="stat-approved-count" class="text-3xl font-extrabold text-slate-900">0</h4>
                 <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Approved & Verified</p>
             </div>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-amber-500/10">
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between h-36 border border-amber-200">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Pending Review</span>
-                <span class="p-2 bg-amber-600/10 text-amber-400 rounded-lg">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Pending Review</span>
+                <span class="p-2 bg-amber-50 text-amber-600 rounded-xl border border-amber-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </span>
             </div>
             <div>
-                <h4 id="stat-pending-count" class="text-3xl font-extrabold text-white">0</h4>
+                <h4 id="stat-pending-count" class="text-3xl font-extrabold text-slate-900">0</h4>
                 <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Forwarded & Under Checks</p>
             </div>
         </div>
@@ -65,19 +64,19 @@
     <!-- Sourced List and Recent Alerts -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Sourced Directory -->
-        <div class="lg:col-span-2 glass-panel p-6 rounded-2xl shadow-xl flex flex-col">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">My Sourced Companies</h4>
+        <div class="lg:col-span-2 glass-panel p-6 rounded-2xl shadow-sm flex flex-col">
+            <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-4">My Sourced Companies</h4>
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                        <tr class="border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                             <th class="pb-3">Company</th>
                             <th class="pb-3">Location</th>
                             <th class="pb-3">Verification</th>
                             <th class="pb-3">Placement Path</th>
                         </tr>
                     </thead>
-                    <tbody id="sourced-companies-table" class="divide-y divide-slate-800/60">
+                    <tbody id="sourced-companies-table" class="divide-y divide-slate-100">
                         <tr><td colspan="4" class="text-center text-slate-500 py-6">No sourced companies.</td></tr>
                     </tbody>
                 </table>
@@ -85,8 +84,8 @@
         </div>
 
         <!-- Verification Feedback Panel -->
-        <div class="glass-panel p-6 rounded-2xl shadow-xl flex flex-col">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">Sourcing Alerts & Feeback</h4>
+        <div class="glass-panel p-6 rounded-2xl shadow-sm flex flex-col">
+            <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-4">Sourcing Alerts & Feedback</h4>
             <div id="alerts-feedback-list" class="space-y-3 overflow-y-auto max-h-[300px] text-xs">
                 <!-- Filled dynamically -->
             </div>
@@ -116,21 +115,21 @@
                     table.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No companies sourced. Click Sourcing Panel to start.</td></tr>`;
                 } else {
                     table.innerHTML = companies.slice(0, 5).map(c => `
-                        <tr class="hover:bg-slate-800/10">
-                            <td class="py-3 font-semibold text-slate-200">
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 font-semibold text-slate-900">
                                 <div>
-                                    <p class="font-semibold">${c.company_name}</p>
+                                    <p class="font-bold text-slate-900">${c.company_name}</p>
                                     <span class="text-[10px] text-slate-500">${c.hr_email}</span>
                                 </div>
                             </td>
-                            <td class="py-3 text-slate-400">${c.location}</td>
+                            <td class="py-3 text-slate-600 font-medium">${c.location}</td>
                             <td class="py-3">
-                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full border ${c.approval_status === 'APPROVED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : c.approval_status === 'REJECTED' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}">
+                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full border ${c.approval_status === 'APPROVED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : c.approval_status === 'REJECTED' ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">
                                     ${c.approval_status}
                                 </span>
                             </td>
                             <td class="py-3">
-                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full border ${c.placement_status === 'DRIVE_COMPLETED' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : c.placement_status === 'HOT' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' : 'bg-slate-800 text-slate-400 border-slate-700/60'}">
+                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full border ${c.placement_status === 'DRIVE_COMPLETED' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : c.placement_status === 'HOT' ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200'}">
                                     ${c.placement_status}
                                 </span>
                             </td>
@@ -149,11 +148,11 @@
                     list.innerHTML = `<p class="text-slate-500 text-center py-6">No recent verification feedback.</p>`;
                 } else {
                     list.innerHTML = notifications.map(n => `
-                        <div class="p-3 bg-slate-900/40 border border-slate-800 rounded-xl">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl">
                             <div class="flex justify-between font-bold mb-1">
-                                <span class="${n.type === 'COMPANY_APPROVED' ? 'text-emerald-400' : 'text-red-400'}">${n.title}</span>
+                                <span class="${n.type === 'COMPANY_APPROVED' ? 'text-emerald-700' : 'text-rose-700'}">${n.title}</span>
                             </div>
-                            <p class="text-[10px] leading-relaxed text-slate-400">${n.message.replace(/\n/g, '<br>')}</p>
+                            <p class="text-[10px] leading-relaxed text-slate-600 font-medium">${n.message.replace(/\n/g, '<br>')}</p>
                         </div>
                     `).join('');
                 }

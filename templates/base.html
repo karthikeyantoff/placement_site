@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-50 text-slate-800">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,11 +24,16 @@
                             800: '#1e293b',
                             700: '#334155',
                             600: '#475569',
+                            100: '#f1f5f9',
+                            50: '#f8fafc',
                         },
                         indigo: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
                             500: '#6366f1',
                             600: '#4f46e5',
                             700: '#4338ca',
+                            900: '#312e81',
                         }
                     }
                 }
@@ -36,27 +41,33 @@
         }
     </script>
     
-    <!-- Glassmorphism Styles -->
+    <!-- Clean Light Theme Styles -->
     <style>
         body {
             font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
         .glass-panel {
-            background: rgba(30, 41, 59, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.02);
         }
         .glass-card {
-            background: rgba(30, 41, 59, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.03);
         }
         .sidebar-item-active {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(79, 70, 229, 0.1) 100%);
-            border-left: 4px solid #6366f1;
-            color: #ffffff;
+            background: #eef2ff;
+            border-left: 4px solid #4f46e5;
+            color: #4338ca;
+            font-weight: 700;
+        }
+        .active-tab {
+            background: #4f46e5 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
         }
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
@@ -64,42 +75,42 @@
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #020617;
+            background: #f1f5f9;
         }
         ::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: #cbd5e1;
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: #94a3b8;
         }
     </style>
     {% block head %}{% endblock %}
 </head>
-<body class="h-full flex overflow-hidden">
+<body class="h-full flex overflow-hidden bg-slate-50 text-slate-800">
 
     <!-- Sidebar Container -->
-    <aside class="w-64 glass-panel border-r border-slate-800 flex flex-col z-20">
+    <aside class="w-64 bg-white border-r border-slate-200/90 shadow-sm flex flex-col z-20">
         <!-- Logo & Header -->
-        <div class="p-6 border-b border-slate-800/80 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 text-white font-extrabold text-lg tracking-wider shrink-0 border border-indigo-400/30">
+        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white font-extrabold text-lg tracking-wider shrink-0">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
             </div>
             <div>
-                <h1 class="text-xs font-extrabold uppercase tracking-wider text-slate-100 leading-tight">Rathinam Global</h1>
-                <p class="text-[9px] text-indigo-400 font-semibold tracking-tight uppercase">Deemed to be University</p>
-                <p class="text-[8px] text-slate-400 uppercase tracking-widest">Placement Site</p>
+                <h1 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 leading-tight">Rathinam Global</h1>
+                <p class="text-[9px] text-indigo-600 font-bold tracking-tight uppercase">Deemed to be University</p>
+                <p class="text-[8px] text-slate-500 uppercase tracking-widest">Placement Site</p>
             </div>
         </div>
 
         <!-- Role Badge Info -->
-        <div class="px-6 py-4 border-b border-slate-800/55 bg-slate-900/30 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700/60 overflow-hidden flex items-center justify-center text-xs font-bold text-indigo-400 uppercase">
+        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/70 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 overflow-hidden flex items-center justify-center text-xs font-extrabold text-indigo-700 uppercase shadow-xs">
                 {{ session.get('username')[:2] if session.get('username') else 'US' }}
             </div>
             <div class="overflow-hidden">
-                <p class="text-xs font-semibold text-slate-200 truncate">{{ session.get('name', 'User') }}</p>
-                <span class="inline-block text-[9px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <p class="text-xs font-bold text-slate-900 truncate">{{ session.get('name', 'User') }}</p>
+                <span class="inline-block text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider bg-indigo-100 text-indigo-700 border border-indigo-200">
                     {{ session.get('role', 'User') }}
                 </span>
             </div>
@@ -111,66 +122,66 @@
             
             {% if role == 'admin' %}
                 <!-- Admin Navigation -->
-                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
+                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
                     Overview Dashboard
                 </a>
-                <a href="/admin/students" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/admin/students' %}sidebar-item-active{% endif %}">
+                <a href="/admin/students" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/students' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     Student Directory
                 </a>
-                <a href="/admin/companies" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/admin/companies' %}sidebar-item-active{% endif %}">
+                <a href="/admin/companies" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/companies' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     Placement Path
                 </a>
-                <a href="/admin/mail" class="flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/admin/mail' %}sidebar-item-active{% endif %}">
+                <a href="/admin/mail" class="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/mail' %}sidebar-item-active{% endif %}">
                     <span class="flex items-center gap-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         Mail Verification
                     </span>
-                    <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full">0</span>
+                    <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full shadow-xs">0</span>
                 </a>
-                <a href="/admin/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/admin/reports' %}sidebar-item-active{% endif %}">
+                <a href="/admin/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/reports' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Reports & Analytics
                 </a>
             {% elif role == 'manager' %}
                 <!-- Manager Navigation -->
-                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
+                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
                     Overview Dashboard
                 </a>
-                <a href="/manager/students" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/manager/students' %}sidebar-item-active{% endif %}">
+                <a href="/manager/students" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/manager/students' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     Student Info
                 </a>
-                <a href="/manager/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/manager/reports' %}sidebar-item-active{% endif %}">
+                <a href="/manager/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/manager/reports' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Reports & Analytics
                 </a>
             {% elif role == 'lead' %}
                 <!-- Lead Navigation -->
-                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
+                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
                     My Sourcing Panel
                 </a>
-                <a href="/lead/placement" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/lead/placement' %}sidebar-item-active{% endif %}">
+                <a href="/lead/placement" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/lead/placement' %}sidebar-item-active{% endif %}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     Placement Path
                 </a>
-                <a href="/lead/mail" class="flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition {% if request.path == '/lead/mail' %}sidebar-item-active{% endif %}">
+                <a href="/lead/mail" class="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/lead/mail' %}sidebar-item-active{% endif %}">
                     <span class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         Mail Inbox
                     </span>
-                    <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full">0</span>
+                    <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full shadow-xs">0</span>
                 </a>
             {% endif %}
         </nav>
 
         <!-- Sidebar Footer & Logout -->
-        <div class="p-4 border-t border-slate-800/80 bg-slate-900/10">
-            <button onclick="triggerLogout()" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider text-red-400 hover:text-white bg-red-500/10 hover:bg-red-600 rounded-xl transition shadow-sm border border-red-500/20">
+        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+            <button onclick="triggerLogout()" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold uppercase tracking-wider text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 rounded-xl transition shadow-xs border border-rose-200">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Sign Out
             </button>
@@ -178,26 +189,26 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-950">
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
         
         <!-- Header / Navbar -->
-        <header class="h-16 glass-panel border-b border-slate-800/80 px-8 flex items-center justify-between z-10">
+        <header class="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 px-8 flex items-center justify-between z-10 shadow-xs">
             <div>
-                <h2 class="text-lg font-bold text-slate-100">{% block header_title %}Placement Hub{% endblock %}</h2>
+                <h2 class="text-lg font-extrabold text-slate-900 tracking-tight">{% block header_title %}Placement Hub{% endblock %}</h2>
             </div>
             
             <!-- Quick Notification Icon for Roles -->
             <div class="flex items-center gap-4">
                 <div class="relative">
-                    <button onclick="toggleAlertMenu()" class="p-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-slate-800/50 transition">
+                    <button onclick="toggleAlertMenu()" class="p-2 text-slate-500 hover:text-indigo-600 rounded-xl hover:bg-slate-100 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                        <span id="nav-alert-badge" class="hidden absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full"></span>
+                        <span id="nav-alert-badge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-indigo-600 rounded-full border-2 border-white"></span>
                     </button>
                     <!-- Alerts Dropdown -->
-                    <div id="alerts-dropdown" class="hidden absolute right-0 mt-3 w-80 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-4 z-30 space-y-3">
+                    <div id="alerts-dropdown" class="hidden absolute right-0 mt-3 w-80 bg-white border border-slate-200 rounded-2xl shadow-xl p-4 z-30 space-y-3">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Recent Alerts</h4>
                         <div id="alerts-list" class="max-h-60 overflow-y-auto space-y-2 text-xs">
-                            <p class="text-slate-500 text-center py-4">No new alerts.</p>
+                            <p class="text-slate-400 text-center py-4">No new alerts.</p>
                         </div>
                     </div>
                 </div>
