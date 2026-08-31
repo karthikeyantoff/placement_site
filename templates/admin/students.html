@@ -52,24 +52,24 @@
 </div>
 
 <!-- ================= ADD / EDIT STUDENT MODAL ================= -->
-<div id="student-modal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
-    <div class="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+<div id="student-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 overflow-y-auto">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
         <!-- Modal Header -->
-        <div class="p-6 border-b border-slate-200 flex items-center justify-between">
-            <h4 id="modal-title" class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Register New Student</h4>
-            <button onclick="closeStudentModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition">
+        <div class="p-5 sm:p-6 border-b border-slate-200 flex items-center justify-between">
+            <h4 id="modal-title" class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-slate-900">Register New Student</h4>
+            <button onclick="closeStudentModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition" aria-label="Close modal">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         
         <!-- Modal Body (Scrollable form) -->
-        <form id="student-form" onsubmit="handleFormSubmit(event)" class="overflow-y-auto p-6 space-y-6 text-xs flex-1">
+        <form id="student-form" onsubmit="handleFormSubmit(event)" class="overflow-y-auto p-5 sm:p-6 space-y-6 text-xs flex-1">
             <input type="hidden" id="form-student-id">
             
             <!-- Section 1: Personal Info -->
             <div>
                 <h5 class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 mb-4 border-b border-slate-200 pb-1">Personal Details</h5>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="space-y-1.5">
                         <label class="font-bold text-slate-700">Full Name *</label>
                         <input type="text" id="form-name" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
@@ -97,127 +97,127 @@
                         </select>
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Student Type *</label>
-                        <select id="form-student-type" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Student Type *</label>
+                        <select id="form-student-type" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                             <option value="Day Scholar">Day Scholar</option>
                             <option value="Hosteller">Hosteller</option>
                         </select>
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Year of Graduation *</label>
-                        <input type="number" id="form-year" required value="2025" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Year of Graduation *</label>
+                        <input type="number" id="form-year" required value="2025" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                 </div>
             </div>
 
             <!-- Section 2: Contact Details -->
             <div>
-                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Contact Info</h5>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h5 class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 mb-4 border-b border-slate-200 pb-1">Contact Info</h5>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Phone Number *</label>
-                        <input type="text" id="form-phone" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Phone Number *</label>
+                        <input type="text" id="form-phone" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Email Address *</label>
-                        <input type="email" id="form-email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Email Address *</label>
+                        <input type="email" id="form-email" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                 </div>
             </div>
 
             <!-- Section 3: Academics -->
             <div>
-                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Academic Percentages (%)</h5>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <h5 class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 mb-4 border-b border-slate-200 pb-1">Academic Percentages (%)</h5>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">SSLC % *</label>
-                        <input type="number" step="0.01" id="form-sslc" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">SSLC % *</label>
+                        <input type="number" step="0.01" id="form-sslc" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">HSC % *</label>
-                        <input type="number" step="0.01" id="form-hsc" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">HSC % *</label>
+                        <input type="number" step="0.01" id="form-hsc" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">UG CGPA/ % *</label>
-                        <input type="number" step="0.01" id="form-ug" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">UG CGPA/ % *</label>
+                        <input type="number" step="0.01" id="form-ug" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">PG % (Optional)</label>
-                        <input type="number" step="0.01" id="form-pg" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">PG % (Optional)</label>
+                        <input type="number" step="0.01" id="form-pg" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                 </div>
             </div>
 
             <!-- Section 4: Portfolios & Professional Uploads (Cloudinary integration) -->
             <div>
-                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Professional Portfolio & Media Links</h5>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h5 class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 mb-4 border-b border-slate-200 pb-1">Professional Portfolio & Media Links</h5>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">GitHub Link</label>
-                        <input type="url" id="form-github" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">GitHub Link</label>
+                        <input type="url" id="form-github" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">LinkedIn Profile Link</label>
-                        <input type="url" id="form-linkedin" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">LinkedIn Profile Link</label>
+                        <input type="url" id="form-linkedin" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Portfolio Website Link</label>
-                        <input type="url" id="form-portfolio" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Portfolio Website Link</label>
+                        <input type="url" id="form-portfolio" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Self Introduction Link / Video</label>
-                        <input type="url" id="form-self-intro-link" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Self Introduction Link / Video</label>
+                        <input type="url" id="form-self-intro-link" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     
                     <!-- File Uploads (Photo, Resume) -->
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Upload Profile Photo *</label>
-                        <input type="file" id="form-photo-file" accept="image/*" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-400 focus:outline-none focus:border-indigo-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-700">
+                        <label class="font-bold text-slate-700">Upload Profile Photo</label>
+                        <input type="file" id="form-photo-file" accept="image/*" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-600 focus:outline-none focus:border-indigo-600 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Upload Resume (PDF) *</label>
-                        <input type="file" id="form-resume-file" accept=".pdf" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-400 focus:outline-none focus:border-indigo-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-400 hover:file:bg-slate-700">
+                        <label class="font-bold text-slate-700">Upload Resume (PDF)</label>
+                        <input type="file" id="form-resume-file" accept=".pdf" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-600 focus:outline-none focus:border-indigo-600 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100">
                     </div>
                 </div>
             </div>
 
             <!-- Section 5: Placement status details -->
             <div>
-                <h5 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 border-b border-slate-800 pb-1">Placement Status</h5>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h5 class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 mb-4 border-b border-slate-200 pb-1">Placement Status</h5>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300">Status *</label>
-                        <select id="form-placement-status" onchange="togglePlacementFields()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Status *</label>
+                        <select id="form-placement-status" onchange="togglePlacementFields()" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                             <option value="YTPP">YTPP (Yet To Be Placed)</option>
                             <option value="PLACED">Placed</option>
                             <option value="UNENROLLED">Unenrolled</option>
                         </select>
                     </div>
                     <div id="placement-company-field" class="hidden space-y-1.5">
-                        <label class="font-semibold text-slate-300">Placed Company Name *</label>
-                        <input type="text" id="form-placed-company" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Placed Company Name *</label>
+                        <input type="text" id="form-placed-company" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                     <div id="placement-ctc-field" class="hidden space-y-1.5">
-                        <label class="font-semibold text-slate-300">Package (CTC in LPA) *</label>
-                        <input type="number" step="0.1" id="form-ctc-lpa" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500">
+                        <label class="font-bold text-slate-700">Package (CTC in LPA) *</label>
+                        <input type="number" step="0.1" id="form-ctc-lpa" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     </div>
                 </div>
             </div>
 
             <!-- Modal Actions -->
-            <div class="flex justify-end gap-3 border-t border-slate-800 pt-6">
-                <button type="button" onclick="closeStudentModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-semibold px-4 py-2.5 rounded-xl transition">Cancel</button>
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/10">Save Student Details</button>
+            <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 border-t border-slate-200 pt-5">
+                <button type="button" onclick="closeStudentModal()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2.5 rounded-xl transition">Cancel</button>
+                <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-xl transition shadow-md shadow-indigo-600/20 active:scale-95">Save Student Details</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- ================= VIEW PROFILE MODAL ================= -->
-<div id="view-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-40 overflow-y-auto">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto flex flex-col shadow-2xl relative">
+<div id="view-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 overflow-y-auto">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl relative">
         <!-- Close Button -->
-        <button onclick="closeViewModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 z-10 bg-slate-950/45 p-1.5 rounded-lg border border-slate-800/80">
+        <button onclick="closeViewModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 z-10 bg-white/90 p-2 rounded-full border border-slate-200 shadow-sm transition" aria-label="Close modal">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
@@ -407,86 +407,86 @@
                 const profileCard = document.getElementById('view-profile-card');
                 profileCard.innerHTML = `
                     <!-- Cover Header -->
-                    <div class="h-28 bg-gradient-to-r from-indigo-800 to-indigo-950 relative"></div>
+                    <div class="h-28 bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 relative"></div>
                     
                     <!-- Profile Header Details -->
-                    <div class="px-8 pb-8 space-y-6">
-                        <div class="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
-                            <div class="relative w-28 h-28 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-950 shadow-2xl shrink-0 -mt-14">
-                                <img src="${s.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'}" 
+                    <div class="p-6 sm:p-8 space-y-6">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-4 -mt-16 sm:-mt-18">
+                            <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-white overflow-hidden bg-indigo-50 shadow-xl shrink-0">
+                                <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" 
                                      class="w-full h-full object-cover"
-                                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
+                                     onerror="this.src='/static/images/avatar-placeholder.png'">
                             </div>
                             <div class="text-center sm:text-left flex-1 min-w-0">
-                                <h3 class="text-xl font-black text-white truncate">${s.name}</h3>
-                                <p class="text-xs text-slate-400 mt-1">Registration Number: <span class="font-mono text-slate-300 font-bold">${s.reg_number}</span></p>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 truncate">${s.name}</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Registration Number: <span class="font-mono text-indigo-600 font-bold">${s.reg_number}</span></p>
                             </div>
-                            <span class="inline-block px-3.5 py-1.5 text-xs font-extrabold uppercase rounded-full border ${s.placement_status === 'PLACED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}">
+                            <span class="inline-block px-3.5 py-1.5 text-xs font-extrabold uppercase rounded-full border shadow-xs ${s.placement_status === 'PLACED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">
                                 ${s.placement_status} ${s.placement_status === 'PLACED' ? `@ ${s.placed_company} (${s.ctc_lpa} LPA)` : ''}
                             </span>
                         </div>
                         
                         <!-- Info Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 text-xs">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs">
                             <!-- Section: Academic Details -->
-                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
-                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">Academics</h5>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Department</span><span class="font-semibold text-slate-200">${s.department}</span>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-2">Academics</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">Department</span><span class="font-bold text-slate-800">${s.department}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Graduation Year</span><span class="font-semibold text-slate-200">${s.year_of_graduation}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">Graduation Year</span><span class="font-bold text-slate-800">${s.year_of_graduation}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">SSLC (%)</span><span class="font-semibold text-slate-200">${s.sslc_percentage}%</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">SSLC (%)</span><span class="font-bold text-slate-800">${s.sslc_percentage}%</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">HSC (%)</span><span class="font-semibold text-slate-200">${s.hsc_percentage}%</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">HSC (%)</span><span class="font-bold text-slate-800">${s.hsc_percentage}%</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">UG Score</span><span class="font-semibold text-slate-200">${s.ug_percentage <= 10 ? s.ug_percentage + ' CGPA' : s.ug_percentage + '%'}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">UG Score</span><span class="font-bold text-slate-800">${s.ug_percentage <= 10 ? s.ug_percentage + ' CGPA' : s.ug_percentage + '%'}</span>
                                 </div>
                                 <div class="flex justify-between py-1">
-                                    <span class="text-slate-400">PG Percentage</span><span class="font-semibold text-slate-200">${s.pg_percentage ? s.pg_percentage + '%' : 'N/A'}</span>
+                                    <span class="text-slate-500 font-medium">PG Percentage</span><span class="font-bold text-slate-800">${s.pg_percentage ? s.pg_percentage + '%' : 'N/A'}</span>
                                 </div>
                             </div>
 
                             <!-- Section: General Details -->
-                            <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 space-y-2">
-                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-2">General & Contact</h5>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Gender</span><span class="font-semibold text-slate-200">${s.gender}</span>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                                <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-2">General & Contact</h5>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">Gender</span><span class="font-bold text-slate-800">${s.gender}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Residence</span><span class="font-semibold text-slate-200">${s.student_type}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">Residence</span><span class="font-bold text-slate-800">${s.student_type}</span>
                                 </div>
-                                <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                    <span class="text-slate-400">Mobile</span><span class="font-semibold text-slate-200">${s.phone}</span>
+                                <div class="flex justify-between py-1 border-b border-slate-200/60">
+                                    <span class="text-slate-500 font-medium">Mobile</span><span class="font-bold text-slate-800">${s.phone}</span>
                                 </div>
                                 <div class="flex justify-between py-1">
-                                    <span class="text-slate-400">Email</span><span class="font-semibold text-slate-200 truncate max-w-[150px]">${s.email}</span>
+                                    <span class="text-slate-500 font-medium">Email</span><span class="font-bold text-slate-800 truncate max-w-[150px]">${s.email}</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Section: Professional Assets Links -->
-                        <div class="bg-slate-950/45 p-4 rounded-xl border border-slate-800/80 text-xs">
-                            <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-400 mb-4">Credentials & Media Links</h5>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="flex items-center gap-2 p-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 rounded-lg font-bold border border-indigo-500/10 transition">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+                            <h5 class="font-extrabold uppercase tracking-widest text-[9px] text-indigo-600 mb-3">Credentials & Media Links</h5>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                ${s.resume_url ? `<a href="${s.resume_url}" target="_blank" class="flex items-center justify-center gap-2 p-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-bold border border-indigo-200 transition text-center">
                                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
                                     <span>Resume PDF</span>
                                 </a>` : ''}
-                                ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                ${s.github_link ? `<a href="${s.github_link}" target="_blank" class="flex items-center justify-center gap-2 p-2.5 bg-white hover:bg-slate-100 text-slate-700 rounded-xl font-bold border border-slate-200 transition text-center shadow-xs">
                                     <span>GitHub</span>
                                 </a>` : ''}
-                                ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                ${s.linkedin_link ? `<a href="${s.linkedin_link}" target="_blank" class="flex items-center justify-center gap-2 p-2.5 bg-white hover:bg-slate-100 text-slate-700 rounded-xl font-bold border border-slate-200 transition text-center shadow-xs">
                                     <span>LinkedIn</span>
                                 </a>` : ''}
-                                ${s.portfolio_link ? `<a href="${s.portfolio_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                ${s.portfolio_link ? `<a href="${s.portfolio_link}" target="_blank" class="flex items-center justify-center gap-2 p-2.5 bg-white hover:bg-slate-100 text-slate-700 rounded-xl font-bold border border-slate-200 transition text-center shadow-xs">
                                     <span>Portfolio</span>
                                 </a>` : ''}
-                                ${s.self_intro_link ? `<a href="${s.self_intro_link}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-750 transition">
+                                ${s.self_intro_link ? `<a href="${s.self_intro_link}" target="_blank" class="flex items-center justify-center gap-2 p-2.5 bg-white hover:bg-slate-100 text-slate-700 rounded-xl font-bold border border-slate-200 transition text-center shadow-xs">
                                     <span>Intro Video</span>
                                 </a>` : ''}
                             </div>

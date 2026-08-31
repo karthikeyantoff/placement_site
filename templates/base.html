@@ -87,28 +87,37 @@
     </style>
     {% block head %}{% endblock %}
 </head>
-<body class="h-full flex overflow-hidden bg-slate-50 text-slate-800">
+<body class="h-full flex overflow-hidden bg-slate-50 text-slate-800 relative">
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-30 hidden lg:hidden transition-opacity"></div>
 
     <!-- Sidebar Container -->
-    <aside class="w-64 bg-white border-r border-slate-200/90 shadow-sm flex flex-col z-20">
+    <aside id="main-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200/90 shadow-xl lg:shadow-sm flex flex-col transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out">
         <!-- Logo & Header -->
-        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white font-extrabold text-lg tracking-wider shrink-0">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+        <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white font-extrabold text-lg tracking-wider shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 leading-tight">Rathinam Global</h1>
+                    <p class="text-[9px] text-indigo-600 font-bold tracking-tight uppercase">Deemed to be University</p>
+                    <p class="text-[8px] text-slate-500 uppercase tracking-widest">Placement Site</p>
+                </div>
             </div>
-            <div>
-                <h1 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 leading-tight">Rathinam Global</h1>
-                <p class="text-[9px] text-indigo-600 font-bold tracking-tight uppercase">Deemed to be University</p>
-                <p class="text-[8px] text-slate-500 uppercase tracking-widest">Placement Site</p>
-            </div>
+            <!-- Mobile Close Button -->
+            <button onclick="toggleMobileSidebar()" class="lg:hidden p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" aria-label="Close sidebar">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
 
         <!-- Role Badge Info -->
-        <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/70 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 overflow-hidden flex items-center justify-center text-xs font-extrabold text-indigo-700 uppercase shadow-xs">
+        <div class="px-5 sm:px-6 py-3.5 border-b border-slate-100 bg-slate-50/70 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 overflow-hidden flex items-center justify-center text-xs font-extrabold text-indigo-700 uppercase shadow-xs shrink-0">
                 {{ session.get('username')[:2] if session.get('username') else 'US' }}
             </div>
-            <div class="overflow-hidden">
+            <div class="overflow-hidden min-w-0">
                 <p class="text-xs font-bold text-slate-900 truncate">{{ session.get('name', 'User') }}</p>
                 <span class="inline-block text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider bg-indigo-100 text-indigo-700 border border-indigo-200">
                     {{ session.get('role', 'User') }}
@@ -117,62 +126,62 @@
         </div>
 
         <!-- Navigation Links -->
-        <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <nav class="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto">
             {% set role = session.get('role', '').lower() %}
             
             {% if role == 'admin' %}
                 <!-- Admin Navigation -->
                 <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
-                    Overview Dashboard
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
+                    <span>Overview Dashboard</span>
                 </a>
                 <a href="/admin/students" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/students' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    Student Directory
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <span>Student Directory</span>
                 </a>
                 <a href="/admin/companies" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/companies' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    Placement Path
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <span>Placement Path</span>
                 </a>
                 <a href="/admin/mail" class="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/mail' %}sidebar-item-active{% endif %}">
                     <span class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        Mail Verification
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span>Mail Verification</span>
                     </span>
                     <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full shadow-xs">0</span>
                 </a>
                 <a href="/admin/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/admin/reports' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Reports & Analytics
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>Reports & Analytics</span>
                 </a>
             {% elif role == 'manager' %}
                 <!-- Manager Navigation -->
                 <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
-                    Overview Dashboard
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
+                    <span>Overview Dashboard</span>
                 </a>
                 <a href="/manager/students" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/manager/students' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    Student Info
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <span>Student Info</span>
                 </a>
                 <a href="/manager/reports" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/manager/reports' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Reports & Analytics
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>Reports & Analytics</span>
                 </a>
             {% elif role == 'lead' %}
                 <!-- Lead Navigation -->
                 <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/dashboard' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
-                    My Sourcing Panel
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
+                    <span>My Sourcing Panel</span>
                 </a>
                 <a href="/lead/placement" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/lead/placement' %}sidebar-item-active{% endif %}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    Placement Path
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <span>Placement Path</span>
                 </a>
                 <a href="/lead/mail" class="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 rounded-xl transition {% if request.path == '/lead/mail' %}sidebar-item-active{% endif %}">
                     <span class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        Mail Inbox
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span>Mail Inbox</span>
                     </span>
                     <span id="mail-badge" class="hidden px-2 py-0.5 text-[10px] font-bold bg-indigo-600 text-white rounded-full shadow-xs">0</span>
                 </a>
@@ -181,9 +190,9 @@
 
         <!-- Sidebar Footer & Logout -->
         <div class="p-4 border-t border-slate-100 bg-slate-50/50">
-            <button onclick="triggerLogout()" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold uppercase tracking-wider text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 rounded-xl transition shadow-xs border border-rose-200">
+            <button onclick="triggerLogout()" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wider text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 rounded-xl transition shadow-xs border border-rose-200">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                Sign Out
+                <span>Sign Out</span>
             </button>
         </div>
     </aside>
@@ -192,20 +201,24 @@
     <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
         
         <!-- Header / Navbar -->
-        <header class="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 px-8 flex items-center justify-between z-10 shadow-xs">
-            <div>
-                <h2 class="text-lg font-extrabold text-slate-900 tracking-tight">{% block header_title %}Placement Hub{% endblock %}</h2>
+        <header class="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between z-10 shadow-xs">
+            <div class="flex items-center gap-3 min-w-0">
+                <!-- Mobile Hamburger Button -->
+                <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 -ml-2 text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-xl transition focus:outline-none shrink-0" aria-label="Toggle navigation menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <h2 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight truncate">{% block header_title %}Placement Hub{% endblock %}</h2>
             </div>
             
             <!-- Quick Notification Icon for Roles -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 sm:gap-4 shrink-0">
                 <div class="relative">
-                    <button onclick="toggleAlertMenu()" class="p-2 text-slate-500 hover:text-indigo-600 rounded-xl hover:bg-slate-100 transition">
+                    <button onclick="toggleAlertMenu()" class="p-2 text-slate-500 hover:text-indigo-600 rounded-xl hover:bg-slate-100 transition focus:outline-none" aria-label="View notifications">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span id="nav-alert-badge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-indigo-600 rounded-full border-2 border-white"></span>
                     </button>
                     <!-- Alerts Dropdown -->
-                    <div id="alerts-dropdown" class="hidden absolute right-0 mt-3 w-80 bg-white border border-slate-200 rounded-2xl shadow-xl p-4 z-30 space-y-3">
+                    <div id="alerts-dropdown" class="hidden absolute right-0 mt-3 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-xl p-4 z-30 space-y-3">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Recent Alerts</h4>
                         <div id="alerts-list" class="max-h-60 overflow-y-auto space-y-2 text-xs">
                             <p class="text-slate-400 text-center py-4">No new alerts.</p>
@@ -216,13 +229,13 @@
         </header>
 
         <!-- Template Content Dynamic Area -->
-        <div class="flex-1 overflow-y-auto p-8">
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
             {% block content %}{% endblock %}
         </div>
     </main>
 
     <!-- Global Toast Notifications Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
+    <div id="toast-container" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-5 sm:max-w-md space-y-2 z-50 pointer-events-none"></div>
 
     <!-- Master Scripts -->
     <script>
@@ -347,6 +360,22 @@
         fetchAlerts();
         setInterval(fetchAlerts, 15000); // Poll notifications every 15s
         
+        // Mobile Drawer Controller
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('main-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            if (sidebar && backdrop) {
+                const isClosed = sidebar.classList.contains('-translate-x-full');
+                if (isClosed) {
+                    sidebar.classList.remove('-translate-x-full');
+                    backdrop.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    backdrop.classList.add('hidden');
+                }
+            }
+        }
+
         // Hide dropdowns when clicked outside
         window.addEventListener('click', function(e) {
             const dropdown = document.getElementById('alerts-dropdown');

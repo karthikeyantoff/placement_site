@@ -201,9 +201,9 @@
     <div id="panel-drilldown" class="hidden space-y-6">
         <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
             <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Candidate Stage Lookup</h4>
-            <div class="flex items-center gap-3">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <input type="text" id="drilldown-search" placeholder="Enter Registration Number (e.g. RCAS2024BCY046)..." class="flex-1 bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 uppercase focus:outline-none focus:border-indigo-600 focus:bg-white">
-                <button onclick="runDrilldownSearch()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-95">Inspect Stage</button>
+                <button onclick="runDrilldownSearch()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-95">Inspect Stage</button>
             </div>
             <div id="drilldown-result-area" class="border-t border-slate-200 pt-4 hidden">
                 <!-- Renders profile card -->
@@ -272,14 +272,14 @@
 </div>
 
 <!-- Modal: Generic Mail Proposal Modal -->
-<div id="generic-mail-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative">
-        <button onclick="closeGenericMailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition">
+<div id="generic-mail-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 hidden">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative">
+        <button onclick="closeGenericMailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition" aria-label="Close modal">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
         <div>
-            <h3 id="generic-mail-title" class="text-lg font-extrabold text-slate-900">Forward Placement Data Proposal</h3>
+            <h3 id="generic-mail-title" class="text-base sm:text-lg font-extrabold text-slate-900">Forward Placement Data Proposal</h3>
             <p class="text-xs text-slate-500 mt-1">Send compiled analytical dataset summary to system stakeholders.</p>
         </div>
 
@@ -290,9 +290,9 @@
             <textarea id="generic-mail-content" rows="4" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white"></textarea>
         </div>
 
-        <div class="flex justify-end gap-3">
-            <button onclick="closeGenericMailModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 border border-slate-300">Cancel</button>
-            <button onclick="sendGenericMailProposal()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20">Send Proposal</button>
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+            <button onclick="closeGenericMailModal()" class="w-full sm:w-auto px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 border border-slate-300 transition">Cancel</button>
+            <button onclick="sendGenericMailProposal()" class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 active:scale-95 transition">Send Proposal</button>
         </div>
     </div>
 </div>

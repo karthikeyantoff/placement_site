@@ -6,25 +6,25 @@
 <div class="space-y-6">
 
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-            <h1 class="text-2xl font-extrabold tracking-tight text-white uppercase">Reports & Analytical Insights</h1>
-            <p class="text-xs text-slate-400 mt-1">Multi-view data compilation, corporate directory rosters, and resume matching engine.</p>
+            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 uppercase">Reports & Analytical Insights</h1>
+            <p class="text-xs text-slate-500 mt-1 font-medium">Multi-view data compilation, corporate directory rosters, and resume matching engine.</p>
         </div>
     </div>
 
     <!-- Sub-Navigation Tabs -->
-    <div class="flex items-center gap-2 border-b border-slate-800/60 pb-3 overflow-x-auto">
-        <button onclick="switchTab('student')" id="tab-student" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition active-tab">
+    <div class="flex items-center gap-2 border-b border-slate-200 pb-3 overflow-x-auto">
+        <button onclick="switchTab('student')" id="tab-student" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition active-tab">
             Student Reports
         </button>
-        <button onclick="switchTab('company')" id="tab-company" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
+        <button onclick="switchTab('company')" id="tab-company" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition">
             Company Reports
         </button>
-        <button onclick="switchTab('drilldown')" id="tab-drilldown" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
+        <button onclick="switchTab('drilldown')" id="tab-drilldown" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition">
             Stages & Levels
         </button>
-        <button onclick="switchTab('resume')" id="tab-resume" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition">
+        <button onclick="switchTab('resume')" id="tab-resume" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition">
             Resume Matcher
         </button>
     </div>
@@ -32,31 +32,31 @@
     <!-- ================= TAB 1: STUDENT REPORTS ================= -->
     <div id="panel-student" class="space-y-6">
         <!-- R1: Company-wise Registered -->
-        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+        <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company-wise Registered / Placed Candidate Roster</h4>
+                <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Company-wise Registered / Placed Candidate Roster</h4>
                 <div class="flex gap-2">
-                    <button onclick="downloadGenericPDF('student_company')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                    <button onclick="openGenericMailModal('student_company')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                    <button onclick="downloadGenericPDF('student_company')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">PDF</button>
+                    <button onclick="openGenericMailModal('student_company')" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">Mail</button>
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <select id="r1-company-select" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500 sm:col-span-2">
+                <select id="r1-company-select" class="bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white sm:col-span-2">
                     <option value="">-- Select Drive Company --</option>
                 </select>
-                <button onclick="generateReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl text-xs transition active:scale-95">Generate Report</button>
+                <button onclick="generateReport1()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2.5 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-95">Generate Report</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                        <tr class="border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider">
                             <th class="pb-3">Reg Number</th>
                             <th class="pb-3">Student Name</th>
                             <th class="pb-3">Department</th>
                             <th class="pb-3">Email Address</th>
                         </tr>
                     </thead>
-                    <tbody id="r1-table" class="divide-y divide-slate-800/50">
+                    <tbody id="r1-table" class="divide-y divide-slate-100">
                         <tr><td colspan="4" class="text-center text-slate-500 py-6">Select a company and click Generate.</td></tr>
                     </tbody>
                 </table>
@@ -66,25 +66,25 @@
         <!-- R2 & R3 Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- R2: Drive selections -->
-            <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
                 <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Drive Selections & Package Roster</h4>
+                    <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Drive Selections & Package Roster</h4>
                     <div class="flex gap-2">
-                        <button onclick="downloadGenericPDF('student_placed')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                        <button onclick="openGenericMailModal('student_placed')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                        <button onclick="downloadGenericPDF('student_placed')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">PDF</button>
+                        <button onclick="openGenericMailModal('student_placed')" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">Mail</button>
                     </div>
                 </div>
                 <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
                     <table class="w-full text-left text-xs">
                         <thead>
-                            <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                            <tr class="border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider">
                                 <th class="pb-3">Student</th>
                                 <th class="pb-3">Reg Number</th>
                                 <th class="pb-3">Company</th>
                                 <th class="pb-3">CTC (LPA)</th>
                             </tr>
                         </thead>
-                        <tbody id="r2-table" class="divide-y divide-slate-800/50">
+                        <tbody id="r2-table" class="divide-y divide-slate-100">
                             <!-- Filled dynamically -->
                         </tbody>
                     </table>
@@ -92,25 +92,25 @@
             </div>
 
             <!-- R3: Overall placement ratios -->
-            <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
                 <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Overall Placement Tracker</h4>
+                    <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Overall Placement Tracker</h4>
                     <div class="flex gap-2">
-                        <button onclick="downloadGenericPDF('student_overall')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                        <button onclick="openGenericMailModal('student_overall')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                        <button onclick="downloadGenericPDF('student_overall')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">PDF</button>
+                        <button onclick="openGenericMailModal('student_overall')" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">Mail</button>
                     </div>
                 </div>
                 <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
                     <table class="w-full text-left text-xs">
                         <thead>
-                            <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                            <tr class="border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider">
                                 <th class="pb-3">Student</th>
                                 <th class="pb-3">Reg Number</th>
                                 <th class="pb-3">Dept</th>
                                 <th class="pb-3">Placement Status</th>
                             </tr>
                         </thead>
-                        <tbody id="r3-table" class="divide-y divide-slate-800/50">
+                        <tbody id="r3-table" class="divide-y divide-slate-100">
                             <!-- Filled dynamically -->
                         </tbody>
                     </table>
@@ -122,29 +122,29 @@
     <!-- ================= TAB 2: COMPANY REPORTS ================= -->
     <div id="panel-company" class="hidden space-y-6">
         <!-- CR1: Sourced details search -->
-        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+        <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Company Pipeline Directory Search</h4>
+                <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Company Pipeline Directory Search</h4>
                 <div class="flex gap-2">
-                    <button onclick="downloadGenericPDF('company_pipeline')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                    <button onclick="openGenericMailModal('company_pipeline')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                    <button onclick="downloadGenericPDF('company_pipeline')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">PDF</button>
+                    <button onclick="openGenericMailModal('company_pipeline')" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">Mail</button>
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <input type="text" id="cr1-search" placeholder="Search company by name..." class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
-                <select id="cr1-status" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500">
+                <input type="text" id="cr1-search" placeholder="Search company by name..." class="bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
+                <select id="cr1-status" class="bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                     <option value="">All Pipeline Stages</option>
                     <option value="COLD">COLD</option>
                     <option value="WARM">WARM</option>
                     <option value="HOT">HOT</option>
                     <option value="DRIVE_COMPLETED">DRIVE COMPLETED</option>
                 </select>
-                <button onclick="generateCompanyReport1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl text-xs transition active:scale-95">Generate Report</button>
+                <button onclick="generateCompanyReport1()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2.5 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-95">Generate Report</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                        <tr class="border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider">
                             <th class="pb-3">Company</th>
                             <th class="pb-3">Location</th>
                             <th class="pb-3">Verification</th>
@@ -153,7 +153,7 @@
                             <th class="pb-3 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="cr1-table" class="divide-y divide-slate-800/50">
+                    <tbody id="cr1-table" class="divide-y divide-slate-100">
                         <tr><td colspan="6" class="text-center text-slate-500 py-6">Enter search parameters and click Generate.</td></tr>
                     </tbody>
                 </table>
@@ -161,33 +161,33 @@
         </div>
 
         <!-- CR2: Drive completed list with selections -->
-        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+        <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Campus Drives Selection Summary</h4>
+                <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Campus Drives Selection Summary</h4>
                 <div class="flex gap-2">
-                    <button onclick="downloadGenericPDF('company_drive')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-2 py-1 rounded text-[9px] uppercase transition">PDF</button>
-                    <button onclick="openGenericMailModal('company_drive')" class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded text-[9px] uppercase transition">Mail</button>
+                    <button onclick="downloadGenericPDF('company_drive')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">PDF</button>
+                    <button onclick="openGenericMailModal('company_drive')" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 font-bold px-2.5 py-1 rounded-lg text-[9px] uppercase transition shadow-xs">Mail</button>
                 </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Companies list -->
-                <div class="lg:col-span-1 border-r border-slate-800 pr-4 space-y-2 max-h-[350px] overflow-y-auto" id="cr2-companies-list">
+                <div class="lg:col-span-1 border-r border-slate-200 pr-4 space-y-2 max-h-[350px] overflow-y-auto" id="cr2-companies-list">
                     <!-- Dynamic -->
                 </div>
                 <!-- Student list in selected company -->
                 <div class="lg:col-span-2 space-y-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Selected Candidate Selections</h5>
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-indigo-600">Selected Candidate Selections</h5>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead>
-                                <tr class="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                                <tr class="border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider">
                                     <th class="pb-3">Student Name</th>
                                     <th class="pb-3">Reg Number</th>
                                     <th class="pb-3">Department</th>
                                     <th class="pb-3">Contact Phone</th>
                                 </tr>
                             </thead>
-                            <tbody id="cr2-students-table" class="divide-y divide-slate-800/50">
+                            <tbody id="cr2-students-table" class="divide-y divide-slate-100">
                                 <tr><td colspan="4" class="text-center text-slate-500 py-6">Select a completed drive on the left to review selections.</td></tr>
                             </tbody>
                         </table>
@@ -199,13 +199,13 @@
 
     <!-- ================= TAB 3: STAGES & CANDIDATE LOOKUP ================= -->
     <div id="panel-drilldown" class="hidden space-y-6">
-        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-200">Candidate Stage Lookup</h4>
-            <div class="flex items-center gap-3">
-                <input type="text" id="drilldown-search" placeholder="Enter Registration Number (e.g. RCAS2024BCY046)..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 uppercase focus:outline-none focus:border-indigo-500">
-                <button onclick="runDrilldownSearch()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs transition active:scale-95">Inspect Stage</button>
+        <div class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
+            <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Candidate Stage Lookup</h4>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <input type="text" id="drilldown-search" placeholder="Enter Registration Number (e.g. RCAS2024BCY046)..." class="flex-1 bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 uppercase focus:outline-none focus:border-indigo-600 focus:bg-white">
+                <button onclick="runDrilldownSearch()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-95">Inspect Stage</button>
             </div>
-            <div id="drilldown-result-area" class="border-t border-slate-800/50 pt-4 hidden">
+            <div id="drilldown-result-area" class="border-t border-slate-200 pt-4 hidden">
                 <!-- Renders profile card -->
             </div>
         </div>
@@ -214,17 +214,17 @@
     <!-- ================= TAB 4: RESUME MATCHER ================= -->
     <div id="panel-resume" class="hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-1 glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-                <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Match Credentials</h4>
+            <div class="lg:col-span-1 glass-panel p-6 rounded-2xl shadow-sm space-y-4">
+                <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-600">Match Credentials</h4>
                 
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300 text-xs">Job Description Title</label>
-                    <input type="text" id="match-jd-title" placeholder="e.g. Python Backend Developer" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700 text-xs">Job Description Title</label>
+                    <input type="text" id="match-jd-title" placeholder="e.g. Python Backend Developer" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300 text-xs">Matching Scope Target *</label>
-                    <select id="match-scope" onchange="toggleScopeInputs()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700 text-xs">Matching Scope Target *</label>
+                    <select id="match-scope" onchange="toggleScopeInputs()" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                         <option value="individual">Individual Student</option>
                         <option value="dept">Specific Department</option>
                         <option value="overall">Overall (All Students)</option>
@@ -233,14 +233,14 @@
 
                 <div id="scope-individual-fields" class="space-y-4">
                     <div class="space-y-1.5">
-                        <label class="font-semibold text-slate-300 text-xs">Target Student Reg No</label>
-                        <input type="text" id="match-student-reg" placeholder="e.g. RCAS2024BCY046" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 uppercase">
+                        <label class="font-bold text-slate-700 text-xs">Target Student Reg No</label>
+                        <input type="text" id="match-student-reg" placeholder="e.g. RCAS2024BCY046" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white uppercase">
                     </div>
                 </div>
 
                 <div id="scope-dept-fields" class="space-y-1.5 hidden">
-                    <label class="font-semibold text-slate-300 text-xs">Select Department *</label>
-                    <select id="match-dept" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 focus:outline-none focus:border-indigo-500">
+                    <label class="font-bold text-slate-700 text-xs">Select Department *</label>
+                    <select id="match-dept" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white">
                         <option value="Cyber Security">Cyber Security</option>
                         <option value="Computer Science">Computer Science</option>
                         <option value="Information Technology">Information Technology</option>
@@ -249,18 +249,18 @@
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="font-semibold text-slate-300 text-xs">Paste Job Description (JD)</label>
-                    <textarea id="match-jd-text" rows="5" placeholder="Paste full roles, responsibilities, and skill sets here..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"></textarea>
+                    <label class="font-bold text-slate-700 text-xs">Paste Job Description (JD)</label>
+                    <textarea id="match-jd-text" rows="5" placeholder="Paste full roles, responsibilities, and skill sets here..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white"></textarea>
                 </div>
 
-                <button onclick="calculateMatch()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-600/10 active:scale-98">
+                <button onclick="calculateMatch()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md shadow-indigo-600/20 active:scale-98">
                     Analyze & Check Score
                 </button>
             </div>
 
             <div class="lg:col-span-2 space-y-6">
-                <div id="match-results-area" class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-                    <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Match Scores Output</h4>
+                <div id="match-results-area" class="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
+                    <h4 class="text-xs font-extrabold uppercase tracking-widest text-indigo-600">Match Scores Output</h4>
                     <div id="match-results-body">
                         <p class="text-slate-500 text-xs text-center py-10">Configure job description parameters on the left to compute match scores.</p>
                     </div>
@@ -272,27 +272,27 @@
 </div>
 
 <!-- Modal: Generic Mail Proposal Modal -->
-<div id="generic-mail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden">
-    <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 space-y-6 relative">
-        <button onclick="closeGenericMailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-900/80 p-2 rounded-full border border-slate-800 transition">
+<div id="generic-mail-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 hidden">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative">
+        <button onclick="closeGenericMailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 p-2 rounded-full border border-slate-200 transition" aria-label="Close modal">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
         <div>
-            <h3 id="generic-mail-title" class="text-lg font-extrabold text-white">Forward Placement Data Proposal</h3>
-            <p class="text-xs text-slate-400 mt-1">Send compiled analytical dataset summary to system stakeholders.</p>
+            <h3 id="generic-mail-title" class="text-base sm:text-lg font-extrabold text-slate-900">Forward Placement Data Proposal</h3>
+            <p class="text-xs text-slate-500 mt-1">Send compiled analytical dataset summary to system stakeholders.</p>
         </div>
 
         <input type="hidden" id="generic-mail-type">
 
         <div class="space-y-1.5">
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Proposal Remarks / Cover Note *</label>
-            <textarea id="generic-mail-content" rows="4" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"></textarea>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Proposal Remarks / Cover Note *</label>
+            <textarea id="generic-mail-content" rows="4" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white"></textarea>
         </div>
 
-        <div class="flex justify-end gap-3">
-            <button onclick="closeGenericMailModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-700">Cancel</button>
-            <button onclick="sendGenericMailProposal()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/20">Send Proposal</button>
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+            <button onclick="closeGenericMailModal()" class="w-full sm:w-auto px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 border border-slate-300 transition">Cancel</button>
+            <button onclick="sendGenericMailProposal()" class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 active:scale-95 transition">Send Proposal</button>
         </div>
     </div>
 </div>
@@ -342,10 +342,10 @@
                     table.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No candidates registered or placed in ${comp}.</td></tr>`;
                 } else {
                     table.innerHTML = data.map(s => `
-                        <tr class="hover:bg-slate-850/10">
-                            <td class="py-3 font-mono font-bold text-slate-300">${s.reg_number}</td>
-                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
-                            <td class="py-3 text-slate-400">${s.department}</td>
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 font-mono font-bold text-slate-700">${s.reg_number}</td>
+                            <td class="py-3 font-semibold text-slate-900">${s.name}</td>
+                            <td class="py-3 text-slate-600 font-medium">${s.department}</td>
                             <td class="py-3 text-slate-500">${s.email}</td>
                         </tr>
                     `).join('');
@@ -366,11 +366,11 @@
                     table.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No placed records found.</td></tr>`;
                 } else {
                     table.innerHTML = data.map(s => `
-                        <tr class="hover:bg-slate-850/10">
-                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
-                            <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
-                            <td class="py-3 text-indigo-400 font-medium">${s.placed_company}</td>
-                            <td class="py-3 font-bold text-emerald-400">${s.ctc_lpa || 'N/A'} LPA</td>
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 font-semibold text-slate-900">${s.name}</td>
+                            <td class="py-3 font-mono text-slate-600 font-medium">${s.reg_number}</td>
+                            <td class="py-3 text-indigo-600 font-bold">${s.placed_company}</td>
+                            <td class="py-3 font-extrabold text-emerald-700">${s.ctc_lpa || 'N/A'} LPA</td>
                         </tr>
                     `).join('');
                 }
@@ -388,11 +388,11 @@
                     table.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No student records found.</td></tr>`;
                 } else {
                     table.innerHTML = data.map(s => `
-                        <tr class="hover:bg-slate-850/10">
-                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
-                            <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
-                            <td class="py-3 text-slate-400">${s.department}</td>
-                            <td class="py-3 font-bold ${s.placement_status === 'PLACED' ? 'text-emerald-400' : 'text-slate-500'}">${s.placement_status}</td>
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 font-semibold text-slate-900">${s.name}</td>
+                            <td class="py-3 font-mono text-slate-600 font-medium">${s.reg_number}</td>
+                            <td class="py-3 text-slate-600 font-medium">${s.department}</td>
+                            <td class="py-3 font-extrabold ${s.placement_status === 'PLACED' ? 'text-emerald-700' : 'text-slate-500'}">${s.placement_status}</td>
                         </tr>
                     `).join('');
                 }
@@ -414,12 +414,12 @@
                     list.innerHTML = `<p class="text-slate-500 text-center py-6 text-xs">No drive completed companies.</p>`;
                 } else {
                     list.innerHTML = data.map((c, i) => `
-                        <button onclick="selectCompletedDrive('${c.company_name.replace(/'/g, "\\'")}')" class="w-full text-left p-3 rounded-xl border border-slate-850/80 hover:bg-slate-850/30 transition-all flex items-center justify-between text-xs text-slate-400 hover:text-slate-200">
+                        <button onclick="selectCompletedDrive('${c.company_name.replace(/'/g, "\\'")}')" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center justify-between text-xs text-slate-600 hover:text-slate-900 shadow-xs">
                             <div>
-                                <span class="font-bold block text-slate-200">${c.company_name}</span>
+                                <span class="font-bold block text-slate-900">${c.company_name}</span>
                                 <span class="text-[9px] text-slate-500">Scheduled: ${c.drive_date || 'N/A'}</span>
                             </div>
-                            <span class="bg-indigo-600/10 text-indigo-400 px-2 py-0.5 rounded font-extrabold text-[10px] border border-indigo-500/10">${c.offers_count || 1} Offers</span>
+                            <span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-lg font-extrabold text-[10px] border border-indigo-200">${c.offers_count || 1} Offers</span>
                         </button>
                     `).join('');
                 }
@@ -436,17 +436,17 @@
                 
                 const header = document.querySelector('#panel-company h5');
                 if (header) {
-                    header.innerHTML = `Selected Candidate Selections for <span class="text-white font-extrabold">${companyName}</span> (${data.length} Placed)`;
+                    header.innerHTML = `Selected Candidate Selections for <span class="text-slate-900 font-extrabold">${companyName}</span> (${data.length} Placed)`;
                 }
 
                 if (data.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-6">No selections found for ${companyName}.</td></tr>`;
                 } else {
                     tbody.innerHTML = data.map(s => `
-                        <tr class="hover:bg-slate-850/10">
-                            <td class="py-3 font-semibold text-slate-200">${s.name}</td>
-                            <td class="py-3 font-mono text-slate-400">${s.reg_number}</td>
-                            <td class="py-3 text-slate-400">${s.department}</td>
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 font-semibold text-slate-900">${s.name}</td>
+                            <td class="py-3 font-mono text-slate-600 font-medium">${s.reg_number}</td>
+                            <td class="py-3 text-slate-600 font-medium">${s.department}</td>
                             <td class="py-3 text-slate-500">${s.phone || 'N/A'}</td>
                         </tr>
                     `).join('');
@@ -474,21 +474,21 @@
                     tbody.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-6">No corporate records matching criteria.</td></tr>`;
                 } else {
                     tbody.innerHTML = data.map(c => {
-                        let approvalBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
-                        if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                        if (c.approval_status === 'REJECTED') approvalBadge = "bg-red-500/10 text-red-400 border-red-500/20";
+                        let approvalBadge = "bg-amber-50 text-amber-700 border-amber-200";
+                        if (c.approval_status === 'APPROVED') approvalBadge = "bg-emerald-50 text-emerald-700 border-emerald-200";
+                        if (c.approval_status === 'REJECTED') approvalBadge = "bg-rose-50 text-rose-700 border-rose-200";
 
-                        let pathBadge = "bg-slate-850 text-slate-400 border-slate-700/60";
-                        if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                        if (c.placement_status === 'HOT') pathBadge = "bg-rose-500/10 text-rose-400 border-rose-500/20";
-                        if (c.placement_status === 'WARM') pathBadge = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+                        let pathBadge = "bg-slate-100 text-slate-700 border-slate-200";
+                        if (c.placement_status === 'DRIVE_COMPLETED') pathBadge = "bg-indigo-50 text-indigo-700 border-indigo-200";
+                        if (c.placement_status === 'HOT') pathBadge = "bg-rose-50 text-rose-700 border-rose-200";
+                        if (c.placement_status === 'WARM') pathBadge = "bg-amber-50 text-amber-700 border-amber-200";
 
                         const safeCompName = c.company_name.replace(/'/g, "\\'");
 
                         return `
-                            <tr class="hover:bg-slate-850/10 transition cursor-pointer" onclick="selectCompletedDrive('${safeCompName}', true)">
-                                <td class="py-3 font-semibold text-slate-200">${c.company_name}</td>
-                                <td class="py-3 text-slate-400">${c.location}</td>
+                            <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="selectCompletedDrive('${safeCompName}', true)">
+                                <td class="py-3 font-semibold text-slate-900">${c.company_name}</td>
+                                <td class="py-3 text-slate-600 font-medium">${c.location}</td>
                                 <td class="py-3">
                                     <span class="inline-block px-2 py-0.5 rounded text-[8px] font-extrabold uppercase border ${approvalBadge}">${c.approval_status}</span>
                                 </td>
@@ -497,7 +497,7 @@
                                 </td>
                                 <td class="py-3 text-slate-500">${c.hr_email}</td>
                                 <td class="py-3 text-right">
-                                    <button onclick="event.stopPropagation(); selectCompletedDrive('${safeCompName}', true)" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-2.5 py-1 rounded text-[10px] font-bold border border-indigo-500/30 transition shadow-sm">
+                                    <button onclick="event.stopPropagation(); selectCompletedDrive('${safeCompName}', true)" class="bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-indigo-200 transition shadow-xs">
                                         View Placed Students
                                     </button>
                                 </td>
@@ -531,38 +531,38 @@
                 area.classList.remove('hidden');
                 
                 area.innerHTML = `
-                    <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden text-xs">
-                        <div class="h-20 bg-indigo-950 relative"></div>
+                    <div class="glass-card rounded-2xl border border-slate-200 overflow-hidden text-xs shadow-xs">
+                        <div class="h-20 bg-indigo-600 relative"></div>
                         <div class="px-6 pb-6 -mt-10 space-y-4">
                             <div class="flex items-end justify-between flex-wrap gap-4">
                                 <div class="flex items-center gap-4">
-                                    <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" class="w-20 h-20 rounded-full border-4 border-slate-900 object-cover shadow-xl">
+                                    <img src="${s.photo_url || '/static/images/avatar-placeholder.png'}" class="w-20 h-20 rounded-full border-4 border-white object-cover shadow-md">
                                     <div>
-                                        <h3 class="text-lg font-bold text-white">${s.name}</h3>
-                                        <p class="text-slate-400 font-mono">${s.reg_number} • ${s.department}</p>
+                                        <h3 class="text-lg font-bold text-slate-900">${s.name}</h3>
+                                        <p class="text-slate-500 font-mono font-medium">${s.reg_number} • ${s.department}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${s.placement_status}</span>
+                                    <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-emerald-100 text-emerald-800 border border-emerald-200">${s.placement_status}</span>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-900/60 p-4 rounded-xl text-center">
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
                                 <div>
                                     <span class="text-slate-500 text-[10px] uppercase font-bold block">SSLC %</span>
-                                    <span class="text-slate-200 font-extrabold text-sm">${s.sslc_percentage || 0}%</span>
+                                    <span class="text-slate-900 font-extrabold text-sm">${s.sslc_percentage || 0}%</span>
                                 </div>
                                 <div>
                                     <span class="text-slate-500 text-[10px] uppercase font-bold block">HSC %</span>
-                                    <span class="text-slate-200 font-extrabold text-sm">${s.hsc_percentage || 0}%</span>
+                                    <span class="text-slate-900 font-extrabold text-sm">${s.hsc_percentage || 0}%</span>
                                 </div>
                                 <div>
                                     <span class="text-slate-500 text-[10px] uppercase font-bold block">UG %</span>
-                                    <span class="text-indigo-400 font-extrabold text-sm">${s.ug_percentage || 0}%</span>
+                                    <span class="text-indigo-600 font-extrabold text-sm">${s.ug_percentage || 0}%</span>
                                 </div>
                                 <div>
                                     <span class="text-slate-500 text-[10px] uppercase font-bold block">Placed Company</span>
-                                    <span class="text-emerald-400 font-extrabold text-xs">${s.placed_company || 'None'}</span>
+                                    <span class="text-emerald-700 font-extrabold text-xs">${s.placed_company || 'None'}</span>
                                 </div>
                             </div>
                         </div>
@@ -630,15 +630,15 @@
                     body.innerHTML = `
                         <div class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
                             ${results.map(r => `
-                                <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-4 flex-wrap">
+                                <div class="glass-card p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4 flex-wrap shadow-xs">
                                     <div>
-                                        <h5 class="font-bold text-slate-100 text-sm">${r.name || r.reg_number}</h5>
-                                        <p class="text-xs text-slate-400 font-mono">${r.reg_number} • ${r.department || 'N/A'}</p>
+                                        <h5 class="font-bold text-slate-900 text-sm">${r.name || r.reg_number}</h5>
+                                        <p class="text-xs text-slate-500 font-mono font-medium">${r.reg_number} • ${r.department || 'N/A'}</p>
                                     </div>
                                     <div class="flex items-center gap-3">
                                         <div class="text-right">
-                                            <span class="text-xs font-extrabold ${r.score >= 70 ? 'text-emerald-400' : r.score >= 50 ? 'text-amber-400' : 'text-red-400'}">${r.score}% Match Score</span>
-                                            <p class="text-[9px] text-slate-500">${r.verdict || 'Evaluation Complete'}</p>
+                                            <span class="text-xs font-extrabold ${r.score >= 70 ? 'text-emerald-700' : r.score >= 50 ? 'text-amber-700' : 'text-rose-700'}">${r.score}% Match Score</span>
+                                            <p class="text-[9px] text-slate-500 font-medium">${r.verdict || 'Evaluation Complete'}</p>
                                         </div>
                                     </div>
                                 </div>
